@@ -11,8 +11,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/youquiz
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=3ea14367A4
-    networks:
-      - youquiz
     depends_on:
       - psql-db
   psql-db:
@@ -27,9 +25,6 @@ services:
       POSTGRES_PASSWORD: "3ea14367A4"
     volumes:
       - postgres-db:/var/lib/postgresql/data
-    networks:
-      - youquiz
-
   jenkins:
     container_name: jenkins
     build:
@@ -39,8 +34,6 @@ services:
     ports:
       - "8080:8080"
       - "50000:50000"
-    networks:
-      - youquiz
     volumes:
       - jenkins-data:/var/jenkins_home
       - jenkins-docker-certs:/certs/client:ro
@@ -53,16 +46,11 @@ services:
     image: docker:dind
     container_name: jenkins-dind
     privileged: true
-    network_mode: "host"
     environment:
       - DOCKER_TLS_CERTDIR=/certs
     volumes:
       - jenkins-docker-certs:/certs/client
     command: --storage-driver overlay2
-
-networks:
-  youquiz:
-    driver: bridge
 
 volumes:
   postgres-db:
