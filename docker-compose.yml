@@ -1,0 +1,71 @@
+version: "3.9"
+services:
+  spring-app:
+    container_name: spring-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/youquiz
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=3ea14367A4
+    networks:
+      - youquiz
+    depends_on:
+      - psql-db
+  psql-db:
+    container_name: psql-db
+    image: "postgres:15"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "youquiz"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "3ea14367A4"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - youquiz
+
+  jenkins:
+    container_name: jenkins
+    build:
+      context: .
+      dockerfile: jenkins.Dockerfile
+    restart: on-failure
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - youquiz
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
+
+  socat:
+    image: alpine/socat
+    container_name: socat
+    command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+    networks:
+      - youquiz
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  youquiz:
+    driver: bridge
+
+volumes:
+  postgres-db:
+    driver: local
+  jenkins-data:
+    driver: local
+  jenkins-docker-certs:
+    driver: local
