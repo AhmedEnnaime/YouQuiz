@@ -53,7 +53,7 @@ services:
     image: docker:dind
     container_name: jenkins-dind
     privileged: true
-    network_mode: service:jenkins
+    network_mode: "host"
     environment:
       - DOCKER_TLS_CERTDIR=/certs
     volumes:
