@@ -30,6 +30,15 @@ services:
     networks:
       - youquiz
 
+  sonarqube:
+    image: sonarqube:lts
+    ports:
+      - "9000:9000"
+    networks:
+      - youquiz
+    environment:
+      - SONAR_FORCEAUTHENTICATION=false
+
 networks:
   youquiz:
     name: youquiz
