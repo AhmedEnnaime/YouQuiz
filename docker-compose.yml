@@ -30,37 +30,6 @@ services:
     networks:
       - youquiz
 
-#  jenkins:
-#    container_name: jenkins
-#    build:
-#      context: .
-#      dockerfile: jenkins.Dockerfile
-#    restart: on-failure
-#    ports:
-#      - "8080:8080"
-#      - "50000:50000"
-#    networks:
-#      - youquiz
-#    volumes:
-#      - jenkins-data:/var/jenkins_home
-#      - jenkins-docker-certs:/certs/client:ro
-#    environment:
-#      - DOCKER_HOST=tcp://jenkins-dind:2375
-#      - DOCKER_CERT_PATH=/certs/client
-#      - DOCKER_TLS_VERIFY=1
-#
-#  jenkins-dind:
-#    image: docker:dind
-#    container_name: jenkins-dind
-#    privileged: true
-#    networks:
-#      - youquiz
-#    environment:
-#      - DOCKER_TLS_CERTDIR=/certs
-#    volumes:
-#      - jenkins-docker-certs:/certs/client
-#    command: --storage-driver overlay2
-
 networks:
   youquiz:
     name: youquiz
@@ -69,7 +38,3 @@ networks:
 volumes:
   postgres-db:
     driver: local
-#  jenkins-data:
-#    driver: local
-#  jenkins-docker-certs:
-#    driver: local

@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3.9.5-eclipse-temurin-17-alpine'
-            args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
+            image 'maven:3.9.5-amazoncorretto-17-al2023'
+            args '-v /root/.m2:/root/.m2'
         }
     }
     stages {
