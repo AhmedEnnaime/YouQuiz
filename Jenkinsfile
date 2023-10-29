@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo "Building.."
                 sh '''
-                echo "doing build stuff.."
+                mvn -B -DskipTests clean package
                 '''
             }
         }
@@ -18,8 +18,13 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                echo "doing test stuff.."
+                mvn test
                 '''
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
         }
         stage('Deliver') {
