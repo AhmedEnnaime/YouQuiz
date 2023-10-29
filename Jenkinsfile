@@ -9,17 +9,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building.."
-                sh '''
-                mvn -B -DskipTests clean package
-                '''
+                script {
+                    sh '''
+                    mvn -B -DskipTests clean package
+                    '''
+                }
             }
         }
         stage('Test') {
             steps {
                 echo "Testing.."
-                sh '''
-                mvn test
-                '''
+                script {
+                    sh '''
+                    mvn test
+                    '''
+                }
             }
             post {
                 always {
@@ -30,9 +34,11 @@ pipeline {
         stage('Deliver') {
             steps {
                 echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+                script {
+                    sh '''
+                    echo "doing delivery stuff.."
+                    '''
+                }
             }
         }
     }
