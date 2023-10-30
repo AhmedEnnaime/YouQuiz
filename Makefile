@@ -1,5 +1,7 @@
 run:
 	@docker compose up -d
+jenkins-build:
+	@docker build -t myjenkins-blueocean:2.414.3-1 .
 dind-run:
 	@docker run \
        --name jenkins-docker \
