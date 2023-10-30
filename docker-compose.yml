@@ -41,12 +41,14 @@ services:
       - SONAR_FORCEAUTHENTICATION=false
 
   jenkins-blueocean:
-    image: myjenkins-blueocean:2.414.3-1
+    build:
+      context: .
+      dockerfile: jenkins.Dockerfile
     container_name: jenkins-blueocean
     networks:
       - youquiz
     environment:
-      - DOCKER_HOST=tcp://jenkins-docker:2376
+      - DOCKER_HOST=tcp://docker:2376
       - DOCKER_CERT_PATH=/certs/client
       - DOCKER_TLS_VERIFY=1
       - JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
