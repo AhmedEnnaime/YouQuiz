@@ -1,0 +1,109 @@
+@startuml
+enum QuestionType{
+  SINGLE
+  MULTIPLE
+  DIRECT
+}
+enum MediaType{
+  VIDEO
+  IMAGE
+  SOUND
+}
+class Quiz{
+
+id: int
+score: double
+showAnswears: boolean
+showFinalResult: boolean
+chanceNbr: int
+remark: String
+}
+class Subject{
+
+id: int
+title: String
+}
+class Trainer extends User{
+
+id: int
+role: String
+}
+class Question{
+
+id: int
+responseNbr: int
+correctResponseNbr: int
+questionText: String
+type: QuestionType
+totalScore: double
+}
+class Answear{
+
+id: int
+}
+abstract class User{
+
+firstName: String
+lastName: String
+birthDay: Date
+address: String
+}
+class Student extends User{
+
+id: int
+dateOfInscription: Date
+}
+class Validation{
+
+state: boolean
+}
+class Response{
+
+id: int
+response: String
+point: double
+}
+class Level{
+
+id: int
+description: String
+maxScore: double
+minScore: double
+}
+class Media{
+
+id: int
+link: String
+type: MediaType
+}
+class TempoQuiz{
+
+time: int
+disable: boolean
+}
+class AssignQuiz{
+
+id: int
+score: double
+played: int
+result: double
+}
+
+Quiz -- Question
+Subject -- Subject
+AssignQuiz -- Student
+Quiz -- Answear
+Answear -- Question
+Question -- Validation
+Validation -- Response
+Question -- Media
+Question -- Level
+Quiz -- TempoQuiz
+TempoQuiz -- Question
+Trainer -- Quiz
+Trainer -- AssignQuiz
+Subject -- Question
+MediaType +-- Media
+QuestionType +-- Question
+
+@enduml
