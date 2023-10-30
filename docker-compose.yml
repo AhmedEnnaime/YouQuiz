@@ -15,7 +15,6 @@ services:
       - youquiz
     depends_on:
       - psql-db
-
   psql-db:
     container_name: psql-db
     image: "postgres:15"
@@ -40,43 +39,6 @@ services:
     environment:
       - SONAR_FORCEAUTHENTICATION=false
 
-  jenkins-blueocean:
-    build:
-      context: .
-      dockerfile: jenkins.Dockerfile
-    container_name: jenkins-blueocean
-    networks:
-      - youquiz
-    environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
-      - JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client:ro
-#      - $$HOME:/home
-    restart: on-failure
-
-
-  jenkins-docker:
-    image: docker:dind
-    container_name: jenkins-docker
-    networks:
-      - youquiz
-    environment:
-      - DOCKER_TLS_CERTDIR=/certs
-    volumes:
-      - jenkins-docker-certs:/certs/client
-    privileged: true
-    ports:
-      - "2376:2376"
-      - "3000:3000"
-      - "4000:4000"
-
 networks:
   youquiz:
     name: youquiz
@@ -85,5 +47,3 @@ networks:
 volumes:
   postgres-db:
     driver: local
-  jenkins-data:
-  jenkins-docker-certs:
