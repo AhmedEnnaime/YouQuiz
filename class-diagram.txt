@@ -13,7 +13,7 @@ class Quiz{
 
 id: int
 score: double
-showAnswears: boolean
+showAnswers: boolean
 showFinalResult: boolean
 chanceNbr: int
 remark: String
@@ -37,7 +37,7 @@ questionText: String
 type: QuestionType
 totalScore: double
 }
-class Answear{
+class Answer{
 
 id: int
 }
@@ -92,8 +92,8 @@ result: double
 Quiz -- Question
 Subject -- Subject
 AssignQuiz -- Student
-Quiz -- Answear
-Answear -- Question
+Quiz -- Answer
+Answer -- Question
 Question -- Validation
 Validation -- Response
 Question -- Media

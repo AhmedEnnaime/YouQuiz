@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "9090:9090"
+      - "8082:8082"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/youquiz
       - SPRING_DATASOURCE_USERNAME=postgres
