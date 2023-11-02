@@ -28,14 +28,13 @@ class Trainer extends User{
 }
 class Question{
   - id: int
-  - responseNbr: int
-  - correctResponseNbr: int
   - questionText: String
   - type: QuestionType
   - totalScore: double
 }
 class Answer{
   - id: int
+  - played: int
 }
 abstract class User{
   - firstName: String
