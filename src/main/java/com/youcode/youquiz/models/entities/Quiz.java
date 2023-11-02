@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,4 +36,10 @@ public class Quiz {
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
+
+    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY)
+    private AssignQuiz assignQuiz;
+
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
+    private List<TempoQuiz> tempoQuizzes;
 }

@@ -11,23 +11,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "responses")
+public class Response {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String response;
 
-    @ManyToOne
-    @JoinColumn(name = "parent")
-    private Subject parent;
-
-    @OneToMany(mappedBy = "parent")
-    private List<Subject> childs;
-
-    @OneToMany(mappedBy = "question")
-    private List<Question> questions;
+    @OneToMany(mappedBy = "response", fetch = FetchType.LAZY)
+    private List<Validation> validations;
 }

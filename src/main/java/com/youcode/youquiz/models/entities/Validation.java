@@ -11,23 +11,24 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "validation")
+public class Validation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private Double points;
 
     @ManyToOne
-    @JoinColumn(name = "parent")
-    private Subject parent;
+    @JoinColumn(name = "question_id")
+    private Question question;
 
-    @OneToMany(mappedBy = "parent")
-    private List<Subject> childs;
+    @ManyToOne
+    @JoinColumn(name = "response_id")
+    private Response response;
 
-    @OneToMany(mappedBy = "question")
-    private List<Question> questions;
+    @OneToMany(mappedBy = "validation")
+    private List<Answer> answers;
 }

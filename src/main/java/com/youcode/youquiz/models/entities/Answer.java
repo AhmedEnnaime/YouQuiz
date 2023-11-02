@@ -5,25 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "students")
-public class Student extends User{
+@Table(name = "answers")
+public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    @Temporal(TemporalType.DATE)
-    private LocalDate dateOfInscription;
+    private Integer played;
 
-    @OneToMany(mappedBy = "student")
-    private List<AssignQuiz> assignQuizzes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assign_id")
+    private AssignQuiz assignQuiz;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "validation_id")
+    private Validation validation;
 }

@@ -11,23 +11,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "levels")
+public class Level {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    @Column
+    private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "parent")
-    private Subject parent;
+    @Column
+    private Double maxScore;
 
-    @OneToMany(mappedBy = "parent")
-    private List<Subject> childs;
+    @Column
+    private Double minScore;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "level")
     private List<Question> questions;
 }

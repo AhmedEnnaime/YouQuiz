@@ -22,7 +22,7 @@ public class AssignQuiz {
     private Double score;
 
     @Column
-    private Integer numOfPass;
+    private Integer played;
 
     @Column
     private Double result;
@@ -31,5 +31,10 @@ public class AssignQuiz {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    private List<Quiz> quizzes;
+    @OneToOne(mappedBy = "assignQuiz", fetch = FetchType.LAZY)
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
+
+    @OneToMany(mappedBy = "assignQuiz")
+    private List<Answer> answers;
 }

@@ -1,5 +1,6 @@
 package com.youcode.youquiz.models.entities;
 
+import com.youcode.youquiz.models.enums.MediaType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,23 +12,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "medias")
+public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String link;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MediaType type;
 
     @ManyToOne
-    @JoinColumn(name = "parent")
-    private Subject parent;
-
-    @OneToMany(mappedBy = "parent")
-    private List<Subject> childs;
-
-    @OneToMany(mappedBy = "question")
-    private List<Question> questions;
+    @JoinColumn(name = "question_id")
+    private Question question;
 }
