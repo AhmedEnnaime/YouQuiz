@@ -5,6 +5,6 @@ RUN mvn install
 
 FROM openjdk:17
 WORKDIR /app
-COPY --from=build /app/target/YouQuiz-0.0.1-SNAPSHOT.jar  /app/YouQuiz.jar
+COPY --from=build /app/target/YouQuiz-0.0.1-SNAPSHOT.jar YouQuiz.jar
 EXPOSE 8082
-ENTRYPOINT [ "java", "-jar",  "YouQuiz.jar" ]
+ENTRYPOINT [ "java", "-jar",  "/app/YouQuiz.jar" ]
