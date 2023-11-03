@@ -34,7 +34,6 @@ class Question{
 }
 class Answer{
   - id: int
-  - played: int
 }
 abstract class User{
   - firstName: String
@@ -73,6 +72,9 @@ class AssignQuiz{
   - score: double
   - played: int
   - result: double
+  - debutDate: time
+  - endDate: time
+  - reason: String
 }
 Subject "*" -- "0..1" Subject
 AssignQuiz "*" -- "1" Student

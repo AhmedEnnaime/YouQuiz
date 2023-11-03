@@ -28,6 +28,6 @@ public class Subject {
     @OneToMany(mappedBy = "parent")
     private List<Subject> childs;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "subject")
     private List<Question> questions;
 }

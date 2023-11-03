@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -27,11 +28,20 @@ public class AssignQuiz {
     @Column
     private Double result;
 
+    @Column
+    private String reason;
+
+    @Column
+    private LocalDateTime debutDate;
+
+    @Column
+    private LocalDateTime endDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @OneToOne(mappedBy = "assignQuiz", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
