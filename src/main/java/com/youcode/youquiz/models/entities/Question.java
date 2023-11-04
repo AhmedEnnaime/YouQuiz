@@ -38,11 +38,11 @@ public class Question implements Serializable {
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<TempoQuiz> tempoQuizzes;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "level_id")
     private Level level;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<Media> medias;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)

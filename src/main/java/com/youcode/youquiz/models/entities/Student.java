@@ -23,7 +23,7 @@ public class Student extends User{
     @Temporal(TemporalType.DATE)
     private LocalDate dateOfInscription;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private List<AssignQuiz> assignQuizzes;
 
 }

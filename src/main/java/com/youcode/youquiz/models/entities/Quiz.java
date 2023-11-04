@@ -36,7 +36,7 @@ public class Quiz implements Serializable {
     @Column
     private String remark;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 

@@ -45,6 +45,6 @@ public class AssignQuiz {
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
-    @OneToMany(mappedBy = "assignQuiz")
+    @OneToMany(mappedBy = "assignQuiz", fetch = FetchType.LAZY)
     private List<Answer> answers;
 }

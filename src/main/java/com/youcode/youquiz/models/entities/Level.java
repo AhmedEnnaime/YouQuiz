@@ -27,6 +27,6 @@ public class Level {
     @Column
     private Double minScore;
 
-    @OneToMany(mappedBy = "level")
+    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY)
     private List<Question> questions;
 }

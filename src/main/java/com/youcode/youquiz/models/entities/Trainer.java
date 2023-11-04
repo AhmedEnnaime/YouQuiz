@@ -21,6 +21,6 @@ public class Trainer extends User{
     @Column
     private String speciality;
 
-    @OneToMany(mappedBy = "trainer")
+    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
     private List<Quiz> quizzes;
 }

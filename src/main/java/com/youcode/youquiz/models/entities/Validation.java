@@ -21,14 +21,14 @@ public class Validation {
     @Column(nullable = false)
     private Double points;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "response_id")
     private Response response;
 
-    @OneToMany(mappedBy = "validation")
+    @OneToMany(mappedBy = "validation", fetch = FetchType.LAZY)
     private List<Answer> answers;
 }

@@ -26,7 +26,7 @@ public class Media {
     @Enumerated(EnumType.STRING)
     private MediaType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 }
