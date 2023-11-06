@@ -1,17 +1,17 @@
 package com.youcode.youquiz.services;
 
-import com.youcode.youquiz.models.entities.Level;
+import com.youcode.youquiz.models.dto.LevelDto;
 
 import java.util.List;
 
 public interface LevelService {
-    Level createLevel(Level level);
+    LevelDto save(LevelDto levelDto);
 
-    void deleteLevel(Long id);
+    void delete(Long id);
 
-    List<Level> getAllLevels();
+    List<LevelDto> getAll();
 
-    Level getLevelByID(Long id);
+    LevelDto findByID(Long id);
 
-    Level updateLevel(Long id, Level level);
+    LevelDto update(Long id, LevelDto levelDto);
 }
