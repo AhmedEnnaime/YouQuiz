@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -102,6 +103,21 @@ public class LevelServiceImplTest {
         given(levelRepository.findAll()).willReturn(Collections.emptyList());
         List<LevelDto> allLevels = levelService.getAll();
         assertThat(allLevels).isEmpty();
+    }
+
+    @DisplayName("Test findByID level method when the id is valid")
+    @Test
+    public void testSuccessFindByID() {
+        Long levelID = 1L;
+
+        given(levelRepository.findById(levelID)).willReturn(Optional.of(level));
+        given(modelMapper.map(level, LevelDto.class)).willReturn(levelDto);
+
+        LevelDto foundLevel = levelService.findByID(levelID);
+
+        verify(levelRepository).findById(levelID);
+
+        assertThat(foundLevel).isNotNull();
     }
 
 }
