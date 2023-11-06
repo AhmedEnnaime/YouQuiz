@@ -14,6 +14,9 @@ import org.modelmapper.ModelMapper;
 
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class LevelServiceImplTest {
@@ -55,6 +58,21 @@ public class LevelServiceImplTest {
         given(levelRepository.save(level)).willReturn(level);
         LevelDto savedLevel = levelService.save(levelDto);
         assertThat(savedLevel).isNotNull();
+    }
+
+    @DisplayName("Test delete level method in a success scenario")
+    @Test
+    public void testSuccessDelete() {
+        Long levelID = 1L;
+        willDoNothing().given(levelRepository).deleteById(levelID);
+        levelService.delete(levelID);
+        verify(levelRepository, times(1)).deleteById(levelID);
+    }
+
+    @DisplayName("Test getAll levels method when the list is not empty")
+    @Test
+    public void testFilledGetAll() {
+
     }
 
 }
