@@ -120,4 +120,22 @@ public class LevelServiceImplTest {
         assertThat(foundLevel).isNotNull();
     }
 
+    @DisplayName("Test update level method in a success scenario")
+    @Test
+    public void testUpdate() {
+
+        levelDto.setDescription("updated description");
+        levelDto.setMaxScore(80.00);
+        levelDto.setMinScore(30.00);
+        given(levelRepository.findById(levelDto.getId())).willReturn(Optional.of(level));
+        given(modelMapper.map(levelDto, Level.class)).willReturn(level);
+        given(levelRepository.save(level)).willReturn(level);
+
+        LevelDto updatedLevel = levelService.update(levelDto.getId(), levelDto);
+        verify(levelRepository).findById(levelDto.getId());
+        verify(levelRepository).save(level);
+        assertThat(updatedLevel).isNotNull();
+
+    }
+
 }
