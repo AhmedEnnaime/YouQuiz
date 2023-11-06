@@ -3,6 +3,7 @@ package com.youcode.youquiz.models.entities;
 import com.youcode.youquiz.models.enums.QuestionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "questions")
+@Builder
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
