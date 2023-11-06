@@ -1,7 +1,6 @@
 package com.youcode.youquiz.utils;
 
-import com.youcode.youquiz.models.entities.Question;
-import com.youcode.youquiz.models.entities.Quiz;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +12,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class TempoID implements Serializable {
     private static final Long serialVersionUID = 1L;
-    private Quiz quiz;
-    private Question question;
+    @Column(name = "quiz_id")
+    private Long quiz;
+    @Column(name = "question_id")
+    private Long question;
 }

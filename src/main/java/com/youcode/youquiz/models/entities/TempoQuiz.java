@@ -20,14 +20,14 @@ public class TempoQuiz implements Serializable {
     @EmbeddedId
     private TempoID id;
 
-    @Column(nullable = false)
+    @Column
     private Integer time;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
-    private Question question;
+    @MapsId("quiz_id")
+    private Quiz quiz;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    @MapsId("question_id")
+    private Question question;
 }
