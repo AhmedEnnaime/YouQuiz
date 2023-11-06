@@ -12,6 +12,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.willDoNothing;
@@ -72,7 +76,32 @@ public class LevelServiceImplTest {
     @DisplayName("Test getAll levels method when the list is not empty")
     @Test
     public void testFilledGetAll() {
+        Level level1 = Level.builder()
+                .id(2L)
+                .description("level1 description")
+                .maxScore(30.00)
+                .minScore(5.00)
+                .build();
 
+        given(levelRepository.findAll()).willReturn(List.of(level, level1));
+
+        given(modelMapper.map(level, LevelDto.class)).willReturn(levelDto);
+
+        List<LevelDto> allLevels = levelService.getAll();
+
+        verify(levelRepository).findAll();
+
+        assertThat(allLevels)
+                .isNotNull()
+                .hasSize(2);
+    }
+
+    @DisplayName("Test getAll levels method when the list is empty")
+    @Test
+    public void testEmptyGetAll() {
+        given(levelRepository.findAll()).willReturn(Collections.emptyList());
+        List<LevelDto> allLevels = levelService.getAll();
+        assertThat(allLevels).isEmpty();
     }
 
 }
