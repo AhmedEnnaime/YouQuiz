@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LevelServiceImpl implements LevelService {
@@ -36,7 +37,10 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public List<LevelDto> getAll() {
-        return null;
+        List<Level> levels = levelRepository.findAll();
+        return levels.stream()
+                .map(level -> modelMapper.map(level, LevelDto.class))
+                .toList();
     }
 
     @Override

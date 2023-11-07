@@ -90,7 +90,7 @@ public class LevelServiceImplTest {
     }
 
     @DisplayName("Test getAll levels method when the list is not empty")
-    //@Test
+    @Test
     public void testFilledGetAll() {
         Level level1 = Level.builder()
                 .id(2L)
@@ -113,7 +113,7 @@ public class LevelServiceImplTest {
     }
 
     @DisplayName("Test getAll levels method when the list is empty")
-    //@Test
+    @Test
     public void testEmptyGetAll() {
         given(levelRepository.findAll()).willReturn(Collections.emptyList());
         List<LevelDto> allLevels = levelService.getAll();
