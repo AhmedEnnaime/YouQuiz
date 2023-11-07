@@ -1,17 +1,17 @@
 package com.youcode.youquiz.services;
 
-import com.youcode.youquiz.models.entities.Subject;
+import com.youcode.youquiz.models.dto.SubjectDto;
 
 import java.util.List;
 
 public interface SubjectService {
-    Subject createSubject(Subject subject);
+    SubjectDto save(SubjectDto subjectDto);
 
-    void deleteSubject(Long id);
+    void delete(Long id);
 
-    List<Subject> getAllSubjects();
+    List<SubjectDto> getAll();
 
-    Subject getSubjectByID(Long id);
+    SubjectDto findByID(Long id);
 
-    Subject updateSubject(Long id, Subject subject);
+    SubjectDto update(Long id, SubjectDto subjectDto);
 }
