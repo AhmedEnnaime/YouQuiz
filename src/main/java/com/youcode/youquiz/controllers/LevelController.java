@@ -44,4 +44,15 @@ public class LevelController {
         return ResponseEntity.ok(levels);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findLevelByID(@PathVariable Long id) {
+        try {
+            LevelDto level = levelService.findByID(id);
+            return ResponseEntity.ok(level);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The level with ID " + id + " does not exist");
+        }
+    }
+
 }

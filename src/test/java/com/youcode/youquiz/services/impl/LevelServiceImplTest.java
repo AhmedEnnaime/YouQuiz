@@ -121,7 +121,7 @@ public class LevelServiceImplTest {
     }
 
     @DisplayName("Test findByID level method when the id is valid")
-    //@Test
+    @Test
     public void testSuccessFindByID() {
         Long levelID = 1L;
 
@@ -133,6 +133,18 @@ public class LevelServiceImplTest {
         verify(levelRepository).findById(levelID);
 
         assertThat(foundLevel).isNotNull();
+    }
+
+    @DisplayName("Test findByID level method when the id is not valid")
+    @Test
+    public void testFindByIDNotFound() {
+        Long invalidLevelID = 999L;
+
+        given(levelRepository.findById(invalidLevelID)).willReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> levelService.findByID(invalidLevelID));
+
+        verify(levelRepository).findById(invalidLevelID);
     }
 
     @DisplayName("Test update level method in a success scenario")

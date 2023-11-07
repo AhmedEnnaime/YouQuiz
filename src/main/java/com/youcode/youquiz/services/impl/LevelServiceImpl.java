@@ -45,7 +45,10 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto findByID(Long id) {
-        return null;
+        Level level = levelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + id + " does not exist"));
+
+        return modelMapper.map(level, LevelDto.class);
     }
 
     @Override
