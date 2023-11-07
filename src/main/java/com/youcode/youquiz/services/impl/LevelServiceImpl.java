@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
+import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.entities.Level;
 import com.youcode.youquiz.repositories.LevelRepository;
@@ -28,7 +29,9 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public void delete(Long id) {
-        // TODO document why this method is empty
+        Level level = levelRepository.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("The level with id " + id + " does not exist"));
+        levelRepository.delete(level);
     }
 
     @Override

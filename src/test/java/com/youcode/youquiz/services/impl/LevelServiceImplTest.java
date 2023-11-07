@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
+import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.entities.Level;
 import com.youcode.youquiz.repositories.LevelRepository;
@@ -11,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,13 +67,26 @@ public class LevelServiceImplTest {
         assertThat(savedLevel).isNotNull();
     }
 
-    @DisplayName("Test delete level method in a success scenario")
+    @DisplayName("Test delete level method when the ID is valid and found")
     @Test
     public void testSuccessDelete() {
         Long levelID = 1L;
-        willDoNothing().given(levelRepository).deleteById(levelID);
+        given(levelRepository.findById(levelID)).willReturn(Optional.of(level));
+        willDoNothing().given(levelRepository).delete(level);
         levelService.delete(levelID);
-        verify(levelRepository, times(1)).deleteById(levelID);
+        verify(levelRepository, times(1)).delete(level);
+    }
+
+    @DisplayName("Test delete level method when the ID is not found")
+    @Test
+    public void testDeleteNotFound() {
+        Long levelID = 999L;
+
+        given(levelRepository.findById(levelID)).willReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> levelService.delete(levelID));
+
+        verify(levelRepository, times(0)).deleteById(levelID);
     }
 
     @DisplayName("Test getAll levels method when the list is not empty")
