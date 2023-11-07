@@ -55,4 +55,16 @@ public class LevelController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDto levelDto) {
+        try {
+            LevelDto updatedLevel = levelService.update(id, levelDto);
+            return ResponseEntity.ok(updatedLevel);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The level with ID " + id + " does not exist");
+        }
+    }
+
+
 }

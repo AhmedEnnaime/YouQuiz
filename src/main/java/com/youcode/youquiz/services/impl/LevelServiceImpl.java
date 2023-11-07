@@ -53,6 +53,16 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto update(Long id, LevelDto levelDto) {
-        return null;
+        Level existingLevel = levelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + id + " does not exist"));
+
+        existingLevel.setDescription(levelDto.getDescription());
+        existingLevel.setMaxScore(levelDto.getMaxScore());
+        existingLevel.setMinScore(levelDto.getMinScore());
+
+        Level updatedLevel = levelRepository.save(existingLevel);
+
+        return modelMapper.map(updatedLevel, LevelDto.class);
     }
+
 }

@@ -149,20 +149,31 @@ public class LevelServiceImplTest {
 
     @DisplayName("Test update level method in a success scenario")
     //@Test
-    public void testUpdate() {
+    public void testUpdateSuccess() {
+        Long validLevelID = 1L;
 
-        levelDto.setDescription("updated description");
-        levelDto.setMaxScore(80.00);
-        levelDto.setMinScore(30.00);
-        given(levelRepository.findById(levelDto.getId())).willReturn(Optional.of(level));
+        given(levelRepository.findById(validLevelID)).willReturn(Optional.of(level));
+
         given(modelMapper.map(levelDto, Level.class)).willReturn(level);
         given(levelRepository.save(level)).willReturn(level);
 
-        LevelDto updatedLevel = levelService.update(levelDto.getId(), levelDto);
-        verify(levelRepository).findById(levelDto.getId());
+        LevelDto updatedLevel = levelService.update(validLevelID, levelDto);
+
+        verify(levelRepository).findById(validLevelID);
+
         verify(levelRepository).save(level);
         assertThat(updatedLevel).isNotNull();
 
     }
+
+    @DisplayName("Test update level method when the ID is not valid")
+    @Test
+    public void testUpdateNotFound() {
+        Long invalidLevelID = 999L;
+        given(levelRepository.findById(invalidLevelID)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> levelService.update(invalidLevelID, levelDto));
+        verify(levelRepository).findById(invalidLevelID);
+    }
+
 
 }
