@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Validated
 @RequestMapping(path = "api/subjects", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,6 +52,12 @@ public class SubjectController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("The subject with this id " + id + " does not exist");
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getSubjects() {
+        List<SubjectDtoResponse> subjects = subjectService.getAll();
+        return ResponseEntity.ok(subjects);
     }
 
 }

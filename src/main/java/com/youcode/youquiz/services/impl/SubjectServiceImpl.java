@@ -46,7 +46,10 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public List<SubjectDtoResponse> getAll() {
-        return null;
+        List<Subject> subjects = subjectRepository.findAll();
+        return subjects.stream()
+                .map(subject -> modelMapper.map(subject, SubjectDtoResponse.class))
+                .toList();
     }
 
     @Override
