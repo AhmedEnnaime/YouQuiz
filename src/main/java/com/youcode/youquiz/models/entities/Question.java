@@ -2,6 +2,9 @@ package com.youcode.youquiz.models.entities;
 
 import com.youcode.youquiz.models.enums.QuestionType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,12 +28,16 @@ public class Question implements Serializable {
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "question content should not be empty")
     private String questionText;
 
     @Column
+    @NotNull(message = "question type is required")
+    @Enumerated(EnumType.STRING)
     private QuestionType type;
 
     @Column(nullable = false)
+    @Min(value = 0, message = "total score can't be less than 0")
     private Double totalScore;
 
     @ManyToOne

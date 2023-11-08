@@ -1,17 +1,17 @@
 package com.youcode.youquiz.services;
 
-import com.youcode.youquiz.models.entities.Question;
+import com.youcode.youquiz.models.dto.QuestionDto;
 
 import java.util.List;
 
 public interface QuestionService {
-    Question createQuestion(Question question);
+    QuestionDto save(QuestionDto question);
 
-    void deleteQuestion(Long id);
+    void delete(Long id);
 
-    List<Question> getAllQuestions();
+    List<QuestionDto> getAll();
 
-    Question getQuestionByID(Long id);
+    QuestionDto findByID(Long id);
 
-    Question updateQuestion(Long id, Question question);
+    QuestionDto update(Long id, QuestionDto question);
 }
