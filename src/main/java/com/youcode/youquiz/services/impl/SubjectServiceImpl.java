@@ -78,6 +78,23 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public SubjectDto update(Long id, SubjectDto subjectDto) {
-        return null;
+
+        Subject existingSubject = subjectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Subject with this id " + id + " not found"));
+
+        existingSubject.setTitle(subjectDto.getTitle());
+
+        if (subjectDto.getParent_id() != null) {
+            Subject parentSubject = subjectRepository.findById(subjectDto.getParent_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("Parent Subject not found"));
+            existingSubject.setParent(parentSubject);
+        } else {
+            existingSubject.setParent(null);
+        }
+
+        existingSubject = subjectRepository.save(existingSubject);
+
+        return modelMapper.map(existingSubject, SubjectDto.class);
     }
+
 }

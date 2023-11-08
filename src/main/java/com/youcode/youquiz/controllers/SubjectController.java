@@ -60,4 +60,15 @@ public class SubjectController {
         return ResponseEntity.ok(subjects);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateSubject(@PathVariable Long id, @Valid @RequestBody SubjectDto subjectDto) {
+        try {
+            SubjectDto updatedSubject = subjectService.update(id, subjectDto);
+            return ResponseEntity.ok(updatedSubject);
+        }catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The Subject with ID " + id + " does not exist or the parent id does not exist");
+        }
+    }
+
 }
