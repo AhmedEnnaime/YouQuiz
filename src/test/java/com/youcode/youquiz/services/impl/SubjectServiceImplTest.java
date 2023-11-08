@@ -3,6 +3,7 @@ package com.youcode.youquiz.services.impl;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.SubjectDto;
 import com.youcode.youquiz.models.entities.Subject;
+import com.youcode.youquiz.payload.SubjectDtoResponse;
 import com.youcode.youquiz.repositories.SubjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
@@ -87,5 +89,55 @@ public class SubjectServiceImplTest {
         given(subjectRepository.findById(subjectID)).willReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> subjectService.delete(subjectID));
         verify(subjectRepository, times(0)).deleteById(subjectID);
+    }
+
+    @DisplayName("Test find subject by ID with invalid ID")
+    @Test
+    public void testFindSubjectByIDInvalidID() {
+        Long subjectID = 999L;
+        given(subjectRepository.findById(subjectID)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> subjectService.findByID(subjectID));
+    }
+
+    @DisplayName("Test find subject by ID with valid ID")
+    @Test
+    public void testFindSubjectByIDValidID() {
+        Long subjectID = 1L;
+        given(subjectRepository.findById(subjectID)).willReturn(Optional.of(subject));
+
+        Subject parentSubject = Subject.builder()
+                .id(2L)
+                .title("parent subject")
+                .build();
+        subject.setParent(parentSubject);
+
+        Subject childSubject = Subject.builder()
+                .id(3L)
+                .title("child subject")
+                .build();
+        subject.setChilds(Collections.singletonList(childSubject));
+
+        SubjectDtoResponse subjectDtoResponse = new SubjectDtoResponse();
+        subjectDtoResponse.setId(subject.getId());
+        subjectDtoResponse.setTitle(subject.getTitle());
+
+        SubjectDtoResponse parentDto = new SubjectDtoResponse();
+        parentDto.setId(parentSubject.getId());
+        parentDto.setTitle(parentSubject.getTitle());
+        subjectDtoResponse.setParent(parentDto);
+
+        SubjectDto childDto = new SubjectDto();
+        childDto.setId(childSubject.getId());
+        childDto.setTitle(childSubject.getTitle());
+        subjectDtoResponse.setChilds(Collections.singletonList(childDto));
+
+        given(modelMapper.map(subject, SubjectDtoResponse.class)).willReturn(subjectDtoResponse);
+        given(modelMapper.map(parentSubject, SubjectDtoResponse.class)).willReturn(parentDto);
+        given(modelMapper.map(childSubject, SubjectDto.class)).willReturn(childDto);
+
+        SubjectDtoResponse result = subjectService.findByID(subjectID);
+
+        assertThat(result).isNotNull();
+
     }
 }
