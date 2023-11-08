@@ -34,7 +34,7 @@ public class Question implements Serializable {
     @Column
     @NotNull(message = "question type is required")
     @Enumerated(EnumType.STRING)
-    private QuestionType type;
+    private QuestionType questionType;
 
     @Column(nullable = false)
     @Min(value = 0, message = "total score can't be less than 0")

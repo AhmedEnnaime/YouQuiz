@@ -5,21 +5,32 @@ import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.entities.Question;
 import com.youcode.youquiz.models.enums.QuestionType;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
+import com.youcode.youquiz.repositories.LevelRepository;
 import com.youcode.youquiz.repositories.QuestionRepository;
+import com.youcode.youquiz.repositories.SubjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 public class QuestionServiceImplTest {
 
     @Mock
     private QuestionRepository questionRepository;
+
+    @Mock
+    private SubjectRepository subjectRepository;
+
+    @Mock
+    private LevelRepository levelRepository;
 
     @Mock
     private ModelMapper modelMapper;
@@ -38,19 +49,19 @@ public class QuestionServiceImplTest {
         question = Question.builder()
                 .id(1L)
                 .questionText("question text")
-                .type(QuestionType.SINGLE)
+                .questionType(QuestionType.SINGLE)
                 .totalScore(100.00)
                 .build();
         questionDto = new QuestionDto();
         questionDto.setId(1L);
         questionDto.setQuestionText("question dto text");
-        questionDto.setType(QuestionType.SINGLE);
+        questionDto.setQuestionType(QuestionType.SINGLE);
         questionDto.setTotalScore(100.00);
 
         questionDtoResponse = new QuestionDtoResponse();
         questionDtoResponse.setId(1L);
         questionDtoResponse.setQuestionText("question dto response text");
-        questionDtoResponse.setType(QuestionType.SINGLE);
+        questionDtoResponse.setQuestionType(QuestionType.SINGLE);
         questionDtoResponse.setTotalScore(100.00);
     }
 

@@ -15,7 +15,7 @@ public class QuestionDto {
     @NotBlank(message = "question content should not be empty")
     private String questionText;
     @NotNull(message = "question type is required")
-    private QuestionType type;
+    private QuestionType questionType;
     @Min(value = 0, message = "total score can't be less than 0")
     private Double totalScore;
     private Long subject_id;
