@@ -6,7 +6,11 @@ import com.youcode.youquiz.models.enums.QuestionType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class QuestionDtoResponse {
     private Long id;
     @NotBlank(message = "question content should not be empty")
