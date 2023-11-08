@@ -14,7 +14,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
@@ -40,6 +42,8 @@ public class SubjectServiceImplTest {
 
     private SubjectDto subjectDto;
 
+    private SubjectDtoResponse subjectDtoResponse;
+
     @BeforeEach
     public void setUp() {
         subject = Subject.builder()
@@ -50,6 +54,14 @@ public class SubjectServiceImplTest {
         subjectDto = new SubjectDto();
         subjectDto.setId(1L);
         subjectDto.setTitle("subject dto title");
+
+        List<SubjectDto> subjectDtoList = new ArrayList<>();
+        subjectDtoList.add(subjectDto);
+
+        subjectDtoResponse = new SubjectDtoResponse();
+        subjectDtoResponse.setId(1L);
+        subjectDtoResponse.setTitle("subject dto response title");
+        subjectDtoResponse.setChilds(subjectDtoList);
     }
 
     @DisplayName("Test create subject method in a success scenario")
@@ -139,5 +151,29 @@ public class SubjectServiceImplTest {
 
         assertThat(result).isNotNull();
 
+    }
+
+    @DisplayName("Test getAll subjects method when the list is not empty")
+    @Test
+    public void testFilledGetAll() {
+        Subject subject1 = Subject.builder()
+                .id(1L)
+                .title("subject title")
+                .build();
+        given(subjectRepository.findAll()).willReturn(List.of(subject, subject1));
+        given(modelMapper.map(subject, SubjectDtoResponse.class)).willReturn(subjectDtoResponse);
+        List<SubjectDtoResponse> allSubjects = subjectService.getAll();
+        verify(subjectRepository).findAll();
+        assertThat(allSubjects)
+                .isNotNull()
+                .hasSize(2);
+    }
+
+    @DisplayName("Test getAll subjects method when the list is empty")
+    @Test
+    public void testEmptyGetAll() {
+        given(subjectRepository.findAll()).willReturn(Collections.emptyList());
+        List<SubjectDtoResponse> allSubjects = subjectService.getAll();
+        assertThat(allSubjects).isEmpty();
     }
 }
