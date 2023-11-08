@@ -176,4 +176,45 @@ public class SubjectServiceImplTest {
         List<SubjectDtoResponse> allSubjects = subjectService.getAll();
         assertThat(allSubjects).isEmpty();
     }
+
+    @DisplayName("Test update subject method when the ID is valid")
+    //@Test
+    public void testUpdateValidSubject() {
+        Long subjectId = 1L;
+        given(subjectRepository.findById(subjectId)).willReturn(Optional.of(subject));
+        given(subjectRepository.save(subject)).willReturn(subject);
+
+        SubjectDto updatedSubject = subjectService.update(subjectId, subjectDto);
+
+        assertThat(updatedSubject).isNotNull();
+        verify(subjectRepository).save(subject);
+    }
+
+    @DisplayName("Test update subject method with invalid parent ID")
+    @Test
+    public void testUpdateWithInvalidParentId() {
+        Long subjectId = 1L;
+        Long invalidParentId = 999L;
+        subjectDto.setParent_id(invalidParentId);
+        given(subjectRepository.findById(subjectId)).willReturn(Optional.of(subject));
+        given(subjectRepository.findById(invalidParentId)).willReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            subjectService.update(subjectId, subjectDto);
+        });
+
+        verify(subjectRepository).findById(subjectId);
+        verify(subjectRepository).findById(invalidParentId);
+    }
+
+
+
+    @DisplayName("Test update subject method when the ID is not valid")
+    @Test
+    public void testUpdateNotFound() {
+        Long invalidIDSubject = 999L;
+        given(subjectRepository.findById(invalidIDSubject)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> subjectService.update(invalidIDSubject, subjectDto));
+        verify(subjectRepository).findById(invalidIDSubject);
+    }
 }
