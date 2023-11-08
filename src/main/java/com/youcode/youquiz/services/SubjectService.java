@@ -1,6 +1,7 @@
 package com.youcode.youquiz.services;
 
 import com.youcode.youquiz.models.dto.SubjectDto;
+import com.youcode.youquiz.payload.SubjectDtoResponse;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ public interface SubjectService {
 
     void delete(Long id);
 
-    List<SubjectDto> getAll();
+    List<SubjectDtoResponse> getAll();
 
-    SubjectDto findByID(Long id);
+    SubjectDtoResponse findByID(Long id);
 
     SubjectDto update(Long id, SubjectDto subjectDto);
 }

@@ -2,6 +2,7 @@ package com.youcode.youquiz.controllers;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.SubjectDto;
+import com.youcode.youquiz.payload.SubjectDtoResponse;
 import com.youcode.youquiz.services.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,17 @@ public class SubjectController {
             subjectService.delete(id);
             return new ResponseEntity<>("Subject deleted successfully", HttpStatus.OK);
         }catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The subject with this id " + id + " does not exist");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findSubjectByID(@PathVariable Long id) {
+        try {
+            SubjectDtoResponse subjectDtoResponse = subjectService.findByID(id);
+            return ResponseEntity.status(HttpStatus.OK).body(subjectDtoResponse);
+        } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("The subject with this id " + id + " does not exist");
         }
