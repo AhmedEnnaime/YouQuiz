@@ -2,6 +2,7 @@ package com.youcode.youquiz.controllers;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.QuestionDto;
+import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.services.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Validated
@@ -38,6 +41,12 @@ public class QuestionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("The question with this id " + id + " does not exist");
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getQuestions() {
+        List<QuestionDtoResponse> questions = questionService.getAll();
+        return ResponseEntity.ok(questions);
     }
 
 }

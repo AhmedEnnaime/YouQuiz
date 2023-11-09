@@ -1,6 +1,7 @@
 package com.youcode.youquiz.services;
 
 import com.youcode.youquiz.models.dto.QuestionDto;
+import com.youcode.youquiz.payload.QuestionDtoResponse;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ public interface QuestionService {
 
     void delete(Long id);
 
-    List<QuestionDto> getAll();
+    List<QuestionDtoResponse> getAll();
 
-    QuestionDto findByID(Long id);
+    QuestionDtoResponse findByID(Long id);
 
     QuestionDto update(Long id, QuestionDto question);
 }

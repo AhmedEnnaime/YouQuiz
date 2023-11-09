@@ -5,6 +5,7 @@ import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.entities.Level;
 import com.youcode.youquiz.models.entities.Question;
 import com.youcode.youquiz.models.entities.Subject;
+import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.repositories.LevelRepository;
 import com.youcode.youquiz.repositories.QuestionRepository;
 import com.youcode.youquiz.repositories.SubjectRepository;
@@ -59,12 +60,15 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionDto> getAll() {
-        return null;
+    public List<QuestionDtoResponse> getAll() {
+        List<Question> questions = questionRepository.findAll();
+        return questions.stream()
+                .map(question -> modelMapper.map(question, QuestionDtoResponse.class))
+                .toList();
     }
 
     @Override
-    public QuestionDto findByID(Long id) {
+    public QuestionDtoResponse findByID(Long id) {
         return null;
     }
 
