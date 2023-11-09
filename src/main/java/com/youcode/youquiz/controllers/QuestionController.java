@@ -60,4 +60,14 @@ public class QuestionController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateQuestion(@PathVariable Long id, @Valid @RequestBody QuestionDto questionDto) {
+        try {
+            QuestionDto updatedQuestion = questionService.update(id, questionDto);
+            return ResponseEntity.status(HttpStatus.OK).body(updatedQuestion);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 }

@@ -76,7 +76,28 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public QuestionDto update(Long id, QuestionDto question) {
-        return null;
+    public QuestionDto update(Long id, QuestionDto questionDto) {
+        Question existingQuestion = questionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("The question with ID " + id + " does not exist"));
+
+        existingQuestion.setQuestionText(questionDto.getQuestionText());
+        existingQuestion.setQuestionType(questionDto.getQuestionType());
+        existingQuestion.setTotalScore(questionDto.getTotalScore());
+
+        if (questionDto.getLevel_id() != null) {
+            Level level = levelRepository.findById(questionDto.getLevel_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("Level not found"));
+            existingQuestion.setLevel(level);
+        }
+
+        if (questionDto.getSubject_id() != null) {
+            Subject subject = subjectRepository.findById(questionDto.getSubject_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("Subject not found"));
+            existingQuestion.setSubject(subject);
+        }
+
+        existingQuestion = questionRepository.save(existingQuestion);
+        return modelMapper.map(existingQuestion, QuestionDto.class);
     }
+
 }
