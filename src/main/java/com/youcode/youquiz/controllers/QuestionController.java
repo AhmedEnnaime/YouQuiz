@@ -75,15 +75,15 @@ public class QuestionController {
         }
     }
 
-    @GetMapping("/level/{id}")
-    public ResponseEntity<?> getQuestionsByLevel(@PathVariable Long id) {
-        try {
-            LevelDto levelDto = levelService.findByID(id);
-            List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
-            return ResponseEntity.ok(questions);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-    }
+//    @GetMapping("/level/{id}")
+//    public ResponseEntity<?> getQuestionsByLevel(@PathVariable Long id) {
+//        try {
+//            LevelDto levelDto = levelService.findByID(id);
+//            List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
+//            return ResponseEntity.ok(questions);
+//        }catch (ResourceNotFoundException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+//        }
+//    }
 
 }

@@ -243,32 +243,32 @@ public class QuestionServiceImplTest {
         assertThat(updatedQuestion).isNotNull();
     }
 
-    @Test
-    public void testFindQuestionsByValidLevelID() {
-        Long levelID = 1L;
-
-        Question question1 = new Question();
-        question1.setId(1L);
-        question1.setQuestionText("Question 1");
-        question1.setLevel(level);
-
-        Question question2 = new Question();
-        question2.setId(2L);
-        question2.setQuestionText("Question 2");
-        question2.setLevel(level);
-
-        given(modelMapper.map(levelDto, Level.class)).willReturn(level);
-        given(levelRepository.findById(levelID)).willReturn(Optional.of(level));
-        given(questionRepository.findByLevel(level)).willReturn(List.of(question1, question2));
-        given(modelMapper.map(question1, QuestionDtoResponse.class)).willReturn(new QuestionDtoResponse());
-        given(modelMapper.map(question2, QuestionDtoResponse.class)).willReturn(new QuestionDtoResponse());
-
-        List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
-
-        assertThat(questions).isNotEmpty().hasSize(2);
-
-        verify(levelRepository).findById(levelID);
-        verify(questionRepository).findByLevel(level);
-    }
+//    @Test
+//    public void testFindQuestionsByValidLevelID() {
+//        Long levelID = 1L;
+//
+//        Question question1 = new Question();
+//        question1.setId(1L);
+//        question1.setQuestionText("Question 1");
+//        question1.setLevel(level);
+//
+//        Question question2 = new Question();
+//        question2.setId(2L);
+//        question2.setQuestionText("Question 2");
+//        question2.setLevel(level);
+//
+//        given(modelMapper.map(levelDto, Level.class)).willReturn(level);
+//        given(levelRepository.findById(levelID)).willReturn(Optional.of(level));
+//        given(questionRepository.findByLevel(level)).willReturn(List.of(question1, question2));
+//        given(modelMapper.map(question1, QuestionDtoResponse.class)).willReturn(new QuestionDtoResponse());
+//        given(modelMapper.map(question2, QuestionDtoResponse.class)).willReturn(new QuestionDtoResponse());
+//
+//        List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
+//
+//        assertThat(questions).isNotEmpty().hasSize(2);
+//
+//        verify(levelRepository).findById(levelID);
+//        verify(questionRepository).findByLevel(level);
+//    }
 
 }

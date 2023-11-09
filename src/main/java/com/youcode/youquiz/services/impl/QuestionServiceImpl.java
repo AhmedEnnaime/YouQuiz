@@ -3,6 +3,7 @@ package com.youcode.youquiz.services.impl;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
+import com.youcode.youquiz.models.dto.SubjectDto;
 import com.youcode.youquiz.models.entities.Level;
 import com.youcode.youquiz.models.entities.Question;
 import com.youcode.youquiz.models.entities.Subject;
@@ -101,16 +102,27 @@ public class QuestionServiceImpl implements QuestionService {
         return modelMapper.map(existingQuestion, QuestionDto.class);
     }
 
-    @Override
-    public List<QuestionDtoResponse> findQuestionsByLevel(LevelDto levelDto) {
-        Level level = modelMapper.map(levelDto, Level.class);
-        Level foundLevel = levelRepository.findById(level.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + level.getId() + " does not exist"));
-        List<Question> questions = questionRepository.findByLevel(foundLevel);
-        return questions.stream()
-                .map(question -> modelMapper.map(question, QuestionDtoResponse.class))
-                .toList();
-    }
+//    @Override
+//    public List<QuestionDtoResponse> findQuestionsByLevel(LevelDto levelDto) {
+//        Level level = modelMapper.map(levelDto, Level.class);
+//        Level foundLevel = levelRepository.findById(level.getId())
+//                .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + level.getId() + " does not exist"));
+//        List<Question> questions = questionRepository.findByLevel(foundLevel);
+//        return questions.stream()
+//                .map(question -> modelMapper.map(question, QuestionDtoResponse.class))
+//                .toList();
+//    }
+//
+//    @Override
+//    public List<QuestionDtoResponse> findQuestionsBySubject(SubjectDto subjectDto) {
+//        Subject subject = modelMapper.map(subjectDto, Subject.class);
+//        Subject foundSubject = subjectRepository.findById(subject.getId())
+//                .orElseThrow(() -> new ResourceNotFoundException("The subject with ID " + subject.getId() + " does not exist"));
+//        List<Question> questions = questionRepository.findBySubject(foundSubject);
+//        return questions.stream()
+//                .map(question -> modelMapper.map(question, QuestionDtoResponse.class))
+//                .toList();
+//    }
 
 
 }
