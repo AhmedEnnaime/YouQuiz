@@ -147,4 +147,25 @@ public class QuestionServiceImplTest {
         List<QuestionDtoResponse> allQuestions = questionService.getAll();
         assertThat(allQuestions).isEmpty();
     }
+
+    @DisplayName("Test findByID question method when the id is valid")
+    @Test
+    public void testSuccessFindByID() {
+        Long questionID = 1L;
+        given(questionRepository.findById(questionID)).willReturn(Optional.of(question));
+        given(modelMapper.map(question, QuestionDtoResponse.class)).willReturn(questionDtoResponse);
+
+        QuestionDtoResponse foundQuestion = questionService.findByID(questionID);
+        verify(questionRepository).findById(questionID);
+        assertThat(foundQuestion).isNotNull();
+    }
+
+    @DisplayName("Test findByID question method when the id is not valid")
+    @Test
+    public void testFindByIDWithInvalidID() {
+        Long questionID = 999L;
+        given(questionRepository.findById(questionID)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> questionService.findByID(questionID));
+        verify(questionRepository).findById(questionID);
+    }
 }
