@@ -17,6 +17,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
@@ -118,5 +120,31 @@ public class QuestionServiceImplTest {
         given(questionRepository.findById(questionID)).willReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> questionService.delete(questionID));
         verify(questionRepository, times(0)).deleteById(questionID);
+    }
+
+    @DisplayName("Test getAll questions method when the list is not empty")
+    @Test
+    public void testFilledGetAll() {
+        Question question1 = Question.builder()
+                .id(2L)
+                .questionText("question text")
+                .questionType(QuestionType.SINGLE)
+                .totalScore(100.00)
+                .build();
+        given(questionRepository.findAll()).willReturn(List.of(question, question1));
+        given(modelMapper.map(question, QuestionDtoResponse.class)).willReturn(questionDtoResponse);
+        List<QuestionDtoResponse> allQuestions = questionService.getAll();
+        verify(questionRepository).findAll();
+        assertThat(allQuestions)
+                .isNotNull()
+                .hasSize(2);
+    }
+
+    @DisplayName("Test getAll questions method when the list is empty")
+    @Test
+    public void testEmptyGetAll() {
+        given(questionRepository.findAll()).willReturn(Collections.emptyList());
+        List<QuestionDtoResponse> allQuestions = questionService.getAll();
+        assertThat(allQuestions).isEmpty();
     }
 }
