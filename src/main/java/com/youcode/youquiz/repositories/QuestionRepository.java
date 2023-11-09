@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-//    List<Question> findByLevel(Level level);
-//    List<Question> findBySubject(Subject subject);
+    List<Question> findByLevel(Level level);
+    List<Question> findBySubject(Subject subject);
 }
