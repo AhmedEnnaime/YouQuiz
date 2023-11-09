@@ -178,10 +178,11 @@ public class SubjectServiceImplTest {
     }
 
     @DisplayName("Test update subject method when the ID is valid")
-    //@Test
+    @Test
     public void testUpdateValidSubject() {
         Long subjectId = 1L;
         given(subjectRepository.findById(subjectId)).willReturn(Optional.of(subject));
+        given(modelMapper.map(subject, SubjectDto.class)).willReturn(subjectDto);
         given(subjectRepository.save(subject)).willReturn(subject);
 
         SubjectDto updatedSubject = subjectService.update(subjectId, subjectDto);

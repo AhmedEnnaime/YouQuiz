@@ -168,4 +168,60 @@ public class QuestionServiceImplTest {
         assertThrows(ResourceNotFoundException.class, () -> questionService.findByID(questionID));
         verify(questionRepository).findById(questionID);
     }
+
+
+    @DisplayName("Test update question method when the ID is not valid")
+    @Test
+    public void testUpdateWithInvalidID() {
+        Long invalidQuestionID = 999L;
+        given(questionRepository.findById(invalidQuestionID)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> questionService.update(invalidQuestionID, questionDto));
+        verify(questionRepository).findById(invalidQuestionID);
+    }
+
+    @DisplayName("Test update question method with invalid level ID")
+    @Test
+    public void testUpdateWithInvalidLevelID() {
+        Long questionID = 1L;
+        Long levelID = 999L;
+        questionDto.setLevel_id(levelID);
+        given(questionRepository.findById(questionID)).willReturn(Optional.of(question));
+        given(levelRepository.findById(levelID)).willReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            questionService.update(questionID, questionDto);
+        });
+
+        verify(questionRepository).findById(questionID);
+        verify(levelRepository).findById(levelID);
+    }
+
+    @DisplayName("Test update question method with invalid subject ID")
+    @Test
+    public void testUpdateWithInvalidSubjectID() {
+        Long questionID = 1L;
+        Long subjectID = 999L;
+        questionDto.setSubject_id(subjectID);
+        given(questionRepository.findById(questionID)).willReturn(Optional.of(question));
+        given(subjectRepository.findById(subjectID)).willReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            questionService.update(questionID, questionDto);
+        });
+
+        verify(questionRepository).findById(questionID);
+        verify(subjectRepository).findById(subjectID);
+    }
+
+    @DisplayName("Test update question method in a success scenario")
+    @Test
+    public void testSuccessUpdate() {
+        Long questionID = 1L;
+        given(questionRepository.findById(questionID)).willReturn(Optional.of(question));
+        given(modelMapper.map(question, QuestionDto.class)).willReturn(questionDto);
+        given(questionRepository.save(question)).willReturn(question);
+        QuestionDto updatedQuestion = questionService.update(questionID, questionDto);
+        assertThat(updatedQuestion).isNotNull();
+    }
+
 }
