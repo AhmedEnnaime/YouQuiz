@@ -1,8 +1,10 @@
 package com.youcode.youquiz.controllers;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
+import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
+import com.youcode.youquiz.services.LevelService;
 import com.youcode.youquiz.services.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private LevelService levelService;
 
     @PostMapping
     public ResponseEntity<?> createQuestion(@Valid @RequestBody QuestionDto questionDto) {
@@ -66,6 +71,17 @@ public class QuestionController {
             QuestionDto updatedQuestion = questionService.update(id, questionDto);
             return ResponseEntity.status(HttpStatus.OK).body(updatedQuestion);
         } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/level/{id}")
+    public ResponseEntity<?> getQuestionsByLevel(@PathVariable Long id) {
+        try {
+            LevelDto levelDto = levelService.findByID(id);
+            List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
+            return ResponseEntity.ok(questions);
+        }catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }

@@ -1,6 +1,7 @@
 package com.youcode.youquiz.services.impl;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
+import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.entities.Level;
 import com.youcode.youquiz.models.entities.Question;
@@ -99,5 +100,17 @@ public class QuestionServiceImpl implements QuestionService {
         existingQuestion = questionRepository.save(existingQuestion);
         return modelMapper.map(existingQuestion, QuestionDto.class);
     }
+
+    @Override
+    public List<QuestionDtoResponse> findQuestionsByLevel(LevelDto levelDto) {
+        Level level = modelMapper.map(levelDto, Level.class);
+        Level foundLevel = levelRepository.findById(level.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + level.getId() + " does not exist"));
+        List<Question> questions = questionRepository.findByLevel(foundLevel);
+        return questions.stream()
+                .map(question -> modelMapper.map(question, QuestionDtoResponse.class))
+                .toList();
+    }
+
 
 }

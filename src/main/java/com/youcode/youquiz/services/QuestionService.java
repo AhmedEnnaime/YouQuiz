@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services;
 
+import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
 
@@ -15,4 +16,6 @@ public interface QuestionService {
     QuestionDtoResponse findByID(Long id);
 
     QuestionDto update(Long id, QuestionDto question);
+
+    List<QuestionDtoResponse> findQuestionsByLevel(LevelDto levelDto);
 }
