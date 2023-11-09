@@ -1,7 +1,9 @@
 package com.youcode.youquiz.services.impl;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
+import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
+import com.youcode.youquiz.models.entities.Level;
 import com.youcode.youquiz.models.entities.Question;
 import com.youcode.youquiz.models.enums.QuestionType;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
@@ -52,6 +54,10 @@ public class QuestionServiceImplTest {
 
     private QuestionDtoResponse questionDtoResponse;
 
+    private Level level;
+
+    private LevelDto levelDto;
+
     @BeforeEach
     public void setUp() {
         question = Question.builder()
@@ -71,6 +77,19 @@ public class QuestionServiceImplTest {
         questionDtoResponse.setQuestionText("question dto response text");
         questionDtoResponse.setQuestionType(QuestionType.SINGLE);
         questionDtoResponse.setTotalScore(100.00);
+
+        level = Level.builder()
+                .id(1L)
+                .description("level description")
+                .maxScore(30.00)
+                .minScore(5.00)
+                .build();
+
+        levelDto = new LevelDto();
+        levelDto.setId(1L);
+        levelDto.setDescription("level dto description");
+        levelDto.setMaxScore(30.00);
+        levelDto.setMinScore(5.00);
     }
 
     @DisplayName("Test create question method in a success scenario")
@@ -222,6 +241,34 @@ public class QuestionServiceImplTest {
         given(questionRepository.save(question)).willReturn(question);
         QuestionDto updatedQuestion = questionService.update(questionID, questionDto);
         assertThat(updatedQuestion).isNotNull();
+    }
+
+    @Test
+    public void testFindQuestionsByValidLevelID() {
+        Long levelID = 1L;
+
+        Question question1 = new Question();
+        question1.setId(1L);
+        question1.setQuestionText("Question 1");
+        question1.setLevel(level);
+
+        Question question2 = new Question();
+        question2.setId(2L);
+        question2.setQuestionText("Question 2");
+        question2.setLevel(level);
+
+        given(modelMapper.map(levelDto, Level.class)).willReturn(level);
+        given(levelRepository.findById(levelID)).willReturn(Optional.of(level));
+        given(questionRepository.findByLevel(level)).willReturn(List.of(question1, question2));
+        given(modelMapper.map(question1, QuestionDtoResponse.class)).willReturn(new QuestionDtoResponse());
+        given(modelMapper.map(question2, QuestionDtoResponse.class)).willReturn(new QuestionDtoResponse());
+
+        List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
+
+        assertThat(questions).isNotEmpty().hasSize(2);
+
+        verify(levelRepository).findById(levelID);
+        verify(questionRepository).findByLevel(level);
     }
 
 }
