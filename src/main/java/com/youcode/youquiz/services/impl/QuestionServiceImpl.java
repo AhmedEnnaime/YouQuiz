@@ -53,7 +53,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public void delete(Long id) {
-
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("The question with ID " + id + " does not exist"));
+        questionRepository.delete(question);
     }
 
     @Override
