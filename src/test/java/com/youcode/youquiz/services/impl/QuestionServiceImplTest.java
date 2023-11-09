@@ -12,9 +12,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
+
+import java.util.Optional;
+
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class QuestionServiceImplTest {
 
@@ -82,5 +88,24 @@ public class QuestionServiceImplTest {
         assertThrows(ResourceNotFoundException.class, () -> {
             questionService.save(questionDto);
         });
+    }
+
+    @DisplayName("Test delete question method with valid ID")
+    //@Test
+    public void testSuccessDelete() {
+        Long questionID = 1L;
+        given(questionRepository.findById(questionID)).willReturn(Optional.of(question));
+        willDoNothing().given(questionRepository).delete(question);
+        questionService.delete(questionID);
+        verify(questionRepository, times(1)).delete(question);
+    }
+
+    @DisplayName("Test delete subject method with invalid ID")
+    //@Test
+    public void testDeleteWithInvalidID() {
+        Long questionID = 999L;
+        given(questionRepository.findById(questionID)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> questionService.delete(questionID));
+        verify(questionRepository, times(0)).deleteById(questionID);
     }
 }
