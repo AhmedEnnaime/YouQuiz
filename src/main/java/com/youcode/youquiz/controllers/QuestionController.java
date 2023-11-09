@@ -49,4 +49,15 @@ public class QuestionController {
         return ResponseEntity.ok(questions);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findQuestionByID(@PathVariable Long id) {
+        try {
+            QuestionDtoResponse questionDtoResponse = questionService.findByID(id);
+            return ResponseEntity.status(HttpStatus.OK).body(questionDtoResponse);
+        }catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The question with this id " + id + " does not exist");
+        }
+    }
+
 }

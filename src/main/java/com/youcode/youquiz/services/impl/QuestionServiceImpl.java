@@ -69,7 +69,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionDtoResponse findByID(Long id) {
-        return null;
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("The question with ID " + id + " does not exist"));
+
+        return modelMapper.map(question, QuestionDtoResponse.class);
     }
 
     @Override
