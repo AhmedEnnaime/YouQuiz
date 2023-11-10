@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
@@ -97,6 +99,52 @@ public class ResponseServiceImplTest {
         Long responseID = 999L;
         given(responseRepository.findById(responseID)).willReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> responseService.findByID(responseID));
+        verify(responseRepository).findById(responseID);
+    }
+
+    @DisplayName("Test getAll responses method when the list is not empty")
+    @Test
+    public void testFilledGetAll() {
+        Response response1 = Response.builder()
+                .id(2L)
+                .response("response text")
+                .build();
+
+        given(responseRepository.findAll()).willReturn(List.of(response, response1));
+        given(modelMapper.map(response, ResponseDto.class)).willReturn(responseDto);
+        List<ResponseDto> allResponses = responseService.getAll();
+        assertThat(allResponses)
+                .isNotNull()
+                .hasSize(2);
+
+    }
+
+    @DisplayName("Test getAll responses method when the list is empty")
+    @Test
+    public void testEmptyGetAll(){
+        given(responseRepository.findAll()).willReturn(Collections.emptyList());
+        List<ResponseDto> allResponses = responseService.getAll();
+        assertThat(allResponses).isEmpty();
+    }
+
+    @DisplayName("Test update response method when the ID is valid")
+    @Test
+    public void testSuccessUpdate() {
+        Long responseID = 1L;
+        given(responseRepository.findById(responseID)).willReturn(Optional.of(response));
+        given(modelMapper.map(response, ResponseDto.class)).willReturn(responseDto);
+        given(responseRepository.save(response)).willReturn(response);
+        ResponseDto updatedResponse = responseService.update(responseID, responseDto);
+        assertThat(updatedResponse).isNotNull();
+        verify(responseRepository).save(response);
+    }
+
+    @DisplayName("Test update response method when the ID is invalid")
+    @Test
+    public void testUpdateWithInvalidID() {
+        Long responseID = 999L;
+        given(responseRepository.findById(responseID)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> responseService.update(responseID, responseDto));
         verify(responseRepository).findById(responseID);
     }
 }
