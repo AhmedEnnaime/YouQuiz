@@ -82,6 +82,21 @@ public class ResponseServiceImplTest {
     @DisplayName("Test findByID response method when the id is valid")
     @Test
     public void testSuccessFindByID() {
+        Long responseID = 1L;
+        given(responseRepository.findById(responseID)).willReturn(Optional.of(response));
+        given(modelMapper.map(response, ResponseDto.class)).willReturn(responseDto);
 
+        ResponseDto foundResponse = responseService.findByID(responseID);
+        verify(responseRepository).findById(responseID);
+        assertThat(foundResponse).isNotNull();
+    }
+
+    @DisplayName("Test findByID response method when the id is invalid")
+    @Test
+    public void testFinByInvalidID() {
+        Long responseID = 999L;
+        given(responseRepository.findById(responseID)).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> responseService.findByID(responseID));
+        verify(responseRepository).findById(responseID);
     }
 }
