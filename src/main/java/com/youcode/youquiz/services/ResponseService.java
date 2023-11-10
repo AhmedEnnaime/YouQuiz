@@ -1,17 +1,18 @@
 package com.youcode.youquiz.services;
 
+import com.youcode.youquiz.models.dto.ResponseDto;
 import com.youcode.youquiz.models.entities.Response;
 
 import java.util.List;
 
 public interface ResponseService {
-    Response createResponse(Response response);
+    ResponseDto save(ResponseDto response);
 
-    void deleteResponse(Long id);
+    void delete(Long id);
 
-    List<Response> getAllResponses();
+    List<ResponseDto> getAll();
 
-    Response getResponseByID(Long id);
+    ResponseDto findByID(Long id);
 
-    Response updateResponse(Long id, Response response);
+    ResponseDto update(Long id, ResponseDto response);
 }
