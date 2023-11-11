@@ -3,10 +3,9 @@ package com.youcode.youquiz.services.impl;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
+import com.youcode.youquiz.models.dto.ResponseDto;
 import com.youcode.youquiz.models.dto.SubjectDto;
-import com.youcode.youquiz.models.entities.Level;
-import com.youcode.youquiz.models.entities.Question;
-import com.youcode.youquiz.models.entities.Subject;
+import com.youcode.youquiz.models.entities.*;
 import com.youcode.youquiz.models.enums.QuestionType;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.payload.SubjectDtoResponse;
@@ -325,6 +324,37 @@ public class QuestionServiceImplTest {
 
         verify(subjectRepository).findById(subjectID);
         verify(questionRepository).findBySubject(subject);
+    }
+
+    @DisplayName("Test findResponsesByQuestion method when the question ID is valid")
+    @Test
+    public void testFindResponsesByValidQuestionID() {
+        Long questionID = 1L;
+        Question question = new Question();
+        question.setId(questionID);
+
+        ResponseDto responseDto1 = new ResponseDto();
+        responseDto1.setId(1L);
+        responseDto1.setResponse("Response 1");
+
+        ResponseDto responseDto2 = new ResponseDto();
+        responseDto2.setId(2L);
+        responseDto2.setResponse("Response 2");
+
+        Validation validation1 = new Validation();
+        validation1.setResponse(modelMapper.map(responseDto1, Response.class));
+
+        Validation validation2 = new Validation();
+        validation2.setResponse(modelMapper.map(responseDto2, Response.class));
+
+        List<Validation> validations = List.of(validation1, validation2);
+        given(questionRepository.findById(questionID)).willReturn(Optional.of(question));
+        given(modelMapper.map(validation1.getResponse(), ResponseDto.class)).willReturn(responseDto1);
+        given(modelMapper.map(validation2.getResponse(), ResponseDto.class)).willReturn(responseDto2);
+
+        question.setValidations(validations);
+        List<ResponseDto> responses = questionService.findResponsesByQuestion(questionID);
+        assertThat(responses).isNotEmpty().hasSize(2);
     }
 
 }
