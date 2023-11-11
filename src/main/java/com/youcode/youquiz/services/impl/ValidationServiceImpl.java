@@ -51,7 +51,22 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public ValidationDto update(Long id, ValidationDto validationDto) {
-        return null;
+        Validation existingValidation = validationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Validation with this id" + id + " not found"));
+        existingValidation.setPoints(validationDto.getPoints());
+
+        if (validationDto.getQuestion_id() != null) {
+            QuestionDtoResponse questionDtoResponse = questionService.findByID(validationDto.getQuestion_id());
+            existingValidation.setQuestion(modelMapper.map(questionDtoResponse, Question.class));
+        }
+
+        if (validationDto.getResponse_id() != null) {
+            ResponseDto responseDto = responseService.findByID(validationDto.getResponse_id());
+            existingValidation.setResponse(modelMapper.map(responseDto, Response.class));
+        }
+
+        existingValidation = validationRepository.save(existingValidation);
+        return modelMapper.map(existingValidation, ValidationDto.class);
     }
 
     @Override

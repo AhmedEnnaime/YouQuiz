@@ -57,4 +57,14 @@ public class ValidationController {
                     .body("The validation with this id " + id + " does not exist");
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateValidation(@PathVariable Long id, @Valid @RequestBody ValidationDto validationDto) {
+        try {
+            ValidationDto updatedValidation = validationService.update(id, validationDto);
+            return ResponseEntity.status(HttpStatus.OK).body(updatedValidation);
+        }catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }

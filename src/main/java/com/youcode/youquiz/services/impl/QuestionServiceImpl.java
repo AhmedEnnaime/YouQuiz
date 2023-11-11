@@ -3,6 +3,7 @@ package com.youcode.youquiz.services.impl;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
+import com.youcode.youquiz.models.dto.ResponseDto;
 import com.youcode.youquiz.models.dto.SubjectDto;
 import com.youcode.youquiz.models.entities.Level;
 import com.youcode.youquiz.models.entities.Question;
@@ -17,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -123,6 +125,17 @@ public class QuestionServiceImpl implements QuestionService {
         return questions.stream()
                 .map(question -> modelMapper.map(question, QuestionDtoResponse.class))
                 .toList();
+    }
+
+    @Override
+    public List<ResponseDto> findResponsesByQuestion(Long id) {
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("The question with ID " + id + " does not exist"));
+        List<ResponseDto> responseDtos = new ArrayList<>();
+        question.getValidations().forEach(validation -> {
+            responseDtos.add(modelMapper.map(validation.getResponse(), ResponseDto.class));
+        });
+        return responseDtos;
     }
 
 

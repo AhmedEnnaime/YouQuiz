@@ -3,6 +3,7 @@ package com.youcode.youquiz.controllers;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
+import com.youcode.youquiz.models.dto.ResponseDto;
 import com.youcode.youquiz.models.dto.SubjectDto;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.payload.SubjectDtoResponse;
@@ -98,6 +99,16 @@ public class QuestionController {
             SubjectDtoResponse subjectDto = subjectService.findByID(id);
             List<QuestionDtoResponse> questions = questionService.findQuestionsBySubject(subjectDto);
             return ResponseEntity.ok(questions);
+        }catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/response/{id}")
+    public ResponseEntity<?> getResponsesByQuestion(@PathVariable Long id) {
+        try {
+            List<ResponseDto> responses = questionService.findResponsesByQuestion(id);
+            return ResponseEntity.status(HttpStatus.OK).body(responses);
         }catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
