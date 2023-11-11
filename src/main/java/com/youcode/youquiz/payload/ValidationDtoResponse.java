@@ -1,6 +1,5 @@
 package com.youcode.youquiz.payload;
 
-import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.dto.ResponseDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class ValidationDtoResponse {
 
     private Long id;
-    private QuestionDto questionDto;
-    private ResponseDto responseDto;
+    private QuestionDtoResponse question;
+    private ResponseDto response;
     private Double points;
 }

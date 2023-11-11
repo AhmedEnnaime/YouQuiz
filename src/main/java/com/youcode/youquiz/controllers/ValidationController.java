@@ -1,16 +1,16 @@
 package com.youcode.youquiz.controllers;
 
 import com.youcode.youquiz.models.dto.ValidationDto;
+import com.youcode.youquiz.payload.ValidationDtoResponse;
 import com.youcode.youquiz.services.ValidationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Validated
@@ -24,5 +24,11 @@ public class ValidationController {
     public ResponseEntity<ValidationDto> createValidation(@Valid @RequestBody ValidationDto validationDto) {
         ValidationDto savedValidationDto = validationService.save(validationDto);
         return ResponseEntity.ok(savedValidationDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ValidationDtoResponse>> getValidations() {
+        List<ValidationDtoResponse> validationDtoResponses = validationService.getAll();
+        return ResponseEntity.ok(validationDtoResponses);
     }
 }
