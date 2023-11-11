@@ -11,5 +11,9 @@ public interface ValidationService {
 
     ValidationDto update(Long id, ValidationDto validationDto);
 
+    void delete(Long id);
+
+    ValidationDtoResponse findByID(Long id);
+
     List<ValidationDtoResponse> getAll();
 }

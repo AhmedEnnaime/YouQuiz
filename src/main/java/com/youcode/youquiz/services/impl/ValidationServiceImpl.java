@@ -1,7 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
-import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.dto.ResponseDto;
 import com.youcode.youquiz.models.dto.ValidationDto;
 import com.youcode.youquiz.models.entities.Question;
@@ -53,6 +52,20 @@ public class ValidationServiceImpl implements ValidationService {
     @Override
     public ValidationDto update(Long id, ValidationDto validationDto) {
         return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        Validation validation = validationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Validation with this id" + id + " not found"));
+        validationRepository.delete(validation);
+    }
+
+    @Override
+    public ValidationDtoResponse findByID(Long id) {
+        Validation validation = validationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Validation with this id" + id + " not found"));
+        return modelMapper.map(validation, ValidationDtoResponse.class);
     }
 
     @Override
