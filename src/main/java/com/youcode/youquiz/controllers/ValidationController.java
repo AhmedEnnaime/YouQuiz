@@ -25,9 +25,13 @@ public class ValidationController {
     private ValidationService validationService;
 
     @PostMapping
-    public ResponseEntity<ValidationDto> createValidation(@Valid @RequestBody ValidationDto validationDto) {
-        ValidationDto savedValidationDto = validationService.save(validationDto);
-        return ResponseEntity.ok(savedValidationDto);
+    public ResponseEntity<?> createValidation(@Valid @RequestBody ValidationDto validationDto) {
+        try {
+            ValidationDto savedValidationDto = validationService.save(validationDto);
+            return ResponseEntity.ok(savedValidationDto);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @GetMapping
