@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "trainers")
-@Builder
 public class Trainer extends User{
 
     @Id
