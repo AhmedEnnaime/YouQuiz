@@ -40,13 +40,13 @@ public class LevelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findLevelByID(@PathVariable Long id) {
+    public ResponseEntity<LevelDto> findLevelByID(@PathVariable Long id) {
         LevelDto level = levelService.findByID(id);
         return ResponseEntity.ok(level);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDto levelDto) {
+    public ResponseEntity<LevelDto> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDto levelDto) {
         LevelDto updatedLevel = levelService.update(id, levelDto);
         return ResponseEntity.ok(updatedLevel);
     }
