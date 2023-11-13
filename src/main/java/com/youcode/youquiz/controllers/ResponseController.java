@@ -1,6 +1,5 @@
 package com.youcode.youquiz.controllers;
 
-import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.ResponseDto;
 import com.youcode.youquiz.services.ResponseService;
 import jakarta.validation.Valid;
@@ -29,13 +28,8 @@ public class ResponseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteResponse(@PathVariable Long id) {
-        try {
-            responseService.delete(id);
-            return new ResponseEntity<>("Response deleted successfully", HttpStatus.OK);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The response with this id " + id + " does not exist");
-        }
+        responseService.delete(id);
+        return new ResponseEntity<>("Response deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping
@@ -45,24 +39,14 @@ public class ResponseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findResponseByID(@PathVariable Long id) {
-        try {
-            ResponseDto responseDto = responseService.findByID(id);
-            return ResponseEntity.ok(responseDto);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The response with ID " + id + " does not exist");
-        }
+    public ResponseEntity<ResponseDto> findResponseByID(@PathVariable Long id) {
+        ResponseDto responseDto = responseService.findByID(id);
+        return ResponseEntity.ok(responseDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateResponse(@PathVariable Long id, @Valid @RequestBody ResponseDto responseDto) {
-        try {
-            ResponseDto updateResponse = responseService.update(id, responseDto);
-            return ResponseEntity.ok(updateResponse);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The response with ID " + id + " does not exist");
-        }
+    public ResponseEntity<ResponseDto> updateResponse(@PathVariable Long id, @Valid @RequestBody ResponseDto responseDto) {
+        ResponseDto updatedResponse = responseService.update(id, responseDto);
+        return ResponseEntity.ok(updatedResponse);
     }
 }

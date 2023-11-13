@@ -1,6 +1,5 @@
 package com.youcode.youquiz.controllers;
 
-import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.dto.ResponseDto;
@@ -35,83 +34,52 @@ public class QuestionController {
     private SubjectService subjectService;
 
     @PostMapping
-    public ResponseEntity<?> createQuestion(@Valid @RequestBody QuestionDto questionDto) {
-        try {
-            QuestionDto createdQuestion = questionService.save(questionDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestion);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ResponseEntity<QuestionDto> createQuestion(@Valid @RequestBody QuestionDto questionDto) {
+        QuestionDto createdQuestion = questionService.save(questionDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestion);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQuestion(@PathVariable Long id) {
-        try {
-            questionService.delete(id);
-            return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The question with this id " + id + " does not exist");
-        }
+        questionService.delete(id);
+        return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<?> getQuestions() {
+    public ResponseEntity<List<QuestionDtoResponse>> getQuestions() {
         List<QuestionDtoResponse> questions = questionService.getAll();
         return ResponseEntity.ok(questions);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findQuestionByID(@PathVariable Long id) {
-        try {
-            QuestionDtoResponse questionDtoResponse = questionService.findByID(id);
-            return ResponseEntity.status(HttpStatus.OK).body(questionDtoResponse);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The question with this id " + id + " does not exist");
-        }
+    public ResponseEntity<QuestionDtoResponse> findQuestionByID(@PathVariable Long id) {
+        QuestionDtoResponse questionDtoResponse = questionService.findByID(id);
+        return ResponseEntity.status(HttpStatus.OK).body(questionDtoResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateQuestion(@PathVariable Long id, @Valid @RequestBody QuestionDto questionDto) {
-        try {
-            QuestionDto updatedQuestion = questionService.update(id, questionDto);
-            return ResponseEntity.status(HttpStatus.OK).body(updatedQuestion);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<QuestionDto> updateQuestion(@PathVariable Long id, @Valid @RequestBody QuestionDto questionDto) {
+        QuestionDto updatedQuestion = questionService.update(id, questionDto);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedQuestion);
     }
 
     @GetMapping("/level/{id}")
-    public ResponseEntity<?> getQuestionsByLevel(@PathVariable Long id) {
-        try {
-            LevelDto levelDto = levelService.findByID(id);
-            List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
-            return ResponseEntity.ok(questions);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<List<QuestionDtoResponse>> getQuestionsByLevel(@PathVariable Long id) {
+        LevelDto levelDto = levelService.findByID(id);
+        List<QuestionDtoResponse> questions = questionService.findQuestionsByLevel(levelDto);
+        return ResponseEntity.ok(questions);
     }
 
     @GetMapping("/subject/{id}")
-    public ResponseEntity<?> getQuestionsBySubject(@PathVariable Long id) {
-        try {
-            SubjectDtoResponse subjectDto = subjectService.findByID(id);
-            List<QuestionDtoResponse> questions = questionService.findQuestionsBySubject(subjectDto);
-            return ResponseEntity.ok(questions);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<List<QuestionDtoResponse>> getQuestionsBySubject(@PathVariable Long id) {
+        SubjectDtoResponse subjectDto = subjectService.findByID(id);
+        List<QuestionDtoResponse> questions = questionService.findQuestionsBySubject(subjectDto);
+        return ResponseEntity.ok(questions);
     }
 
     @GetMapping("/response/{id}")
-    public ResponseEntity<?> getResponsesByQuestion(@PathVariable Long id) {
-        try {
-            List<ResponseDto> responses = questionService.findResponsesByQuestion(id);
-            return ResponseEntity.status(HttpStatus.OK).body(responses);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<List<ResponseDto>> getResponsesByQuestion(@PathVariable Long id) {
+        List<ResponseDto> responses = questionService.findResponsesByQuestion(id);
+        return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
-
 }

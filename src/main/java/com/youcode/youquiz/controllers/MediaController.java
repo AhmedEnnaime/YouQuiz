@@ -1,6 +1,5 @@
 package com.youcode.youquiz.controllers;
 
-import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.MediaDto;
 import com.youcode.youquiz.services.MediaService;
 import jakarta.validation.Valid;
@@ -22,23 +21,15 @@ public class MediaController {
     private MediaService mediaService;
 
     @PostMapping
-    public ResponseEntity<?> createMedia(@Valid @RequestBody MediaDto mediaDto) {
-        try {
-            MediaDto createdMedia = mediaService.save(mediaDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdMedia);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<MediaDto> createMedia(@Valid @RequestBody MediaDto mediaDto) {
+        MediaDto createdMedia = mediaService.save(mediaDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdMedia);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMedia(@PathVariable Long id) {
-        try {
-            mediaService.delete(id);
-            return new ResponseEntity<>("Media deleted successfully", HttpStatus.OK);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The media with this id " + id + " does not exist");
-        }
+    public ResponseEntity<String> deleteMedia(@PathVariable Long id) {
+        mediaService.delete(id);
+        return new ResponseEntity<>("Media deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping

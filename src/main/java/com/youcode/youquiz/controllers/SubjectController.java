@@ -1,6 +1,5 @@
 package com.youcode.youquiz.controllers;
 
-import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.SubjectDto;
 import com.youcode.youquiz.payload.SubjectDtoResponse;
 import com.youcode.youquiz.services.SubjectService;
@@ -23,52 +22,32 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @PostMapping
-    public ResponseEntity<?> createSubject(@RequestBody @Valid SubjectDto subjectDto) {
-        try {
-            SubjectDto createdSubject = subjectService.save(subjectDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdSubject);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parent Subject not found");
-        }
+    public ResponseEntity<SubjectDto> createSubject(@RequestBody @Valid SubjectDto subjectDto) {
+        SubjectDto createdSubject = subjectService.save(subjectDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSubject);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSubject(@PathVariable Long id) {
-        try {
-            subjectService.delete(id);
-            return new ResponseEntity<>("Subject deleted successfully", HttpStatus.OK);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The subject with this id " + id + " does not exist");
-        }
+        subjectService.delete(id);
+        return new ResponseEntity<>("Subject deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findSubjectByID(@PathVariable Long id) {
-        try {
-            SubjectDtoResponse subjectDtoResponse = subjectService.findByID(id);
-            return ResponseEntity.status(HttpStatus.OK).body(subjectDtoResponse);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The subject with this id " + id + " does not exist");
-        }
+    public ResponseEntity<SubjectDtoResponse> findSubjectByID(@PathVariable Long id) {
+        SubjectDtoResponse subjectDtoResponse = subjectService.findByID(id);
+        return ResponseEntity.status(HttpStatus.OK).body(subjectDtoResponse);
     }
 
     @GetMapping
-    public ResponseEntity<?> getSubjects() {
+    public ResponseEntity<List<SubjectDtoResponse>> getSubjects() {
         List<SubjectDtoResponse> subjects = subjectService.getAll();
         return ResponseEntity.ok(subjects);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateSubject(@PathVariable Long id, @Valid @RequestBody SubjectDto subjectDto) {
-        try {
-            SubjectDto updatedSubject = subjectService.update(id, subjectDto);
-            return ResponseEntity.ok(updatedSubject);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The Subject with ID " + id + " does not exist or the parent id does not exist");
-        }
+    public ResponseEntity<SubjectDto> updateSubject(@PathVariable Long id, @Valid @RequestBody SubjectDto subjectDto) {
+        SubjectDto updatedSubject = subjectService.update(id, subjectDto);
+        return ResponseEntity.ok(updatedSubject);
     }
-
 }

@@ -29,13 +29,8 @@ public class LevelController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteLevel(@PathVariable Long id) {
-        try {
-            levelService.delete(id);
-            return new ResponseEntity<>("Level deleted successfully", HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The level with this id " + id + " does not exist");
-        }
+        levelService.delete(id);
+        return new ResponseEntity<>("Level deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping
@@ -46,25 +41,14 @@ public class LevelController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findLevelByID(@PathVariable Long id) {
-        try {
-            LevelDto level = levelService.findByID(id);
-            return ResponseEntity.ok(level);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The level with ID " + id + " does not exist");
-        }
+        LevelDto level = levelService.findByID(id);
+        return ResponseEntity.ok(level);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDto levelDto) {
-        try {
-            LevelDto updatedLevel = levelService.update(id, levelDto);
-            return ResponseEntity.ok(updatedLevel);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The level with ID " + id + " does not exist");
-        }
+        LevelDto updatedLevel = levelService.update(id, levelDto);
+        return ResponseEntity.ok(updatedLevel);
     }
-
 
 }

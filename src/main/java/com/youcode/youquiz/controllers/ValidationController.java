@@ -1,9 +1,6 @@
 package com.youcode.youquiz.controllers;
 
-import com.youcode.youquiz.exceptions.ResourceNotFoundException;
-import com.youcode.youquiz.models.dto.LevelDto;
 import com.youcode.youquiz.models.dto.ValidationDto;
-import com.youcode.youquiz.payload.SubjectDtoResponse;
 import com.youcode.youquiz.payload.ValidationDtoResponse;
 import com.youcode.youquiz.services.ValidationService;
 import jakarta.validation.Valid;
@@ -25,13 +22,9 @@ public class ValidationController {
     private ValidationService validationService;
 
     @PostMapping
-    public ResponseEntity<?> createValidation(@Valid @RequestBody ValidationDto validationDto) {
-        try {
-            ValidationDto savedValidationDto = validationService.save(validationDto);
-            return ResponseEntity.ok(savedValidationDto);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<ValidationDto> createValidation(@Valid @RequestBody ValidationDto validationDto) {
+        ValidationDto savedValidationDto = validationService.save(validationDto);
+        return ResponseEntity.ok(savedValidationDto);
     }
 
     @GetMapping
@@ -41,34 +34,20 @@ public class ValidationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findValidationByID(@PathVariable Long id) {
-        try {
-            ValidationDtoResponse validation = validationService.findByID(id);
-            return ResponseEntity.ok(validation);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The validation with ID " + id + " does not exist");
-        }
+    public ResponseEntity<ValidationDtoResponse> findValidationByID(@PathVariable Long id) {
+        ValidationDtoResponse validation = validationService.findByID(id);
+        return ResponseEntity.ok(validation);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteValidation(@PathVariable Long id) {
-        try {
-            ValidationDtoResponse validationDtoResponse = validationService.findByID(id);
-            return ResponseEntity.status(HttpStatus.OK).body(validationDtoResponse);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The validation with this id " + id + " does not exist");
-        }
+    public ResponseEntity<ValidationDtoResponse> deleteValidation(@PathVariable Long id) {
+        ValidationDtoResponse validationDtoResponse = validationService.findByID(id);
+        return ResponseEntity.status(HttpStatus.OK).body(validationDtoResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateValidation(@PathVariable Long id, @Valid @RequestBody ValidationDto validationDto) {
-        try {
-            ValidationDto updatedValidation = validationService.update(id, validationDto);
-            return ResponseEntity.status(HttpStatus.OK).body(updatedValidation);
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<ValidationDto> updateValidation(@PathVariable Long id, @Valid @RequestBody ValidationDto validationDto) {
+        ValidationDto updatedValidation = validationService.update(id, validationDto);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedValidation);
     }
 }
