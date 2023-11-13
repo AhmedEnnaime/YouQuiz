@@ -1,11 +1,9 @@
 package com.youcode.youquiz.services.impl;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
-import com.youcode.youquiz.models.dto.LevelDto;
-import com.youcode.youquiz.models.dto.QuestionDto;
-import com.youcode.youquiz.models.dto.ResponseDto;
-import com.youcode.youquiz.models.dto.SubjectDto;
+import com.youcode.youquiz.models.dto.*;
 import com.youcode.youquiz.models.entities.Level;
+import com.youcode.youquiz.models.entities.Media;
 import com.youcode.youquiz.models.entities.Question;
 import com.youcode.youquiz.models.entities.Subject;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
@@ -13,12 +11,14 @@ import com.youcode.youquiz.payload.SubjectDtoResponse;
 import com.youcode.youquiz.repositories.LevelRepository;
 import com.youcode.youquiz.repositories.QuestionRepository;
 import com.youcode.youquiz.repositories.SubjectRepository;
+import com.youcode.youquiz.services.MediaService;
 import com.youcode.youquiz.services.QuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -36,6 +36,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private MediaService mediaService;
+
     @Override
     public QuestionDto save(QuestionDto questionDto) {
 
@@ -52,6 +55,7 @@ public class QuestionServiceImpl implements QuestionService {
                     .orElseThrow(() -> new ResourceNotFoundException("Subject not found"));
             question.setSubject(subject);
         }
+
         question = questionRepository.save(question);
         return modelMapper.map(question, QuestionDto.class);
     }

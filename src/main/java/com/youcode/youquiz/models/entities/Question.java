@@ -51,7 +51,7 @@ public class Question implements Serializable {
     @JoinColumn(name = "level_id")
     private Level level;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<Media> medias;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)

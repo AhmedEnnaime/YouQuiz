@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collections;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class QuestionDto {
