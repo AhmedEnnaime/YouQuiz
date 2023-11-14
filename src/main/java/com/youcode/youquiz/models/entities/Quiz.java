@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "quizs")
+@Builder
 public class Quiz implements Serializable {
 
     private static final long serialVersionUID = 1L;

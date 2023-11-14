@@ -208,8 +208,6 @@ public class SubjectServiceImplTest {
         verify(subjectRepository).findById(invalidParentId);
     }
 
-
-
     @DisplayName("Test update subject method when the ID is not valid")
     @Test
     public void testUpdateNotFound() {
