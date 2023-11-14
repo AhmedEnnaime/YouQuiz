@@ -196,7 +196,7 @@ public class QuizServiceImplTest {
     public void testUpdateValidQuiz() {
         Long quizId = 1L;
         given(quizRepository.findById(quizId)).willReturn(Optional.of(quiz));
-//        given(trainerRepository.findById(1L)).willReturn(Optional.of(trainer));
+        given(trainerRepository.findById(1L)).willReturn(Optional.of(trainer));
         given(modelMapper.map(quiz, QuizDto.class)).willReturn(quizDto);
         given(quizRepository.save(quiz)).willReturn(quiz);
 
@@ -213,4 +213,18 @@ public class QuizServiceImplTest {
         assertThrows(ResourceNotFoundException.class, () -> quizService.update(invalidIDQuiz, quizDto));
         verify(quizRepository).findById(invalidIDQuiz);
     }
+
+    @DisplayName("Test update quiz method when the trainer ID is not valid")
+    @Test
+    public void testUpdateInvalidTrainerId() {
+        Long quizId = 1L;
+        quizDto.setTrainer_id(999L);
+        given(quizRepository.findById(quizId)).willReturn(Optional.of(quiz));
+        given(trainerRepository.findById(quizDto.getTrainer_id())).willReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> quizService.update(quizId, quizDto));
+        verify(quizRepository).findById(quizId);
+        verify(trainerRepository).findById(quizDto.getTrainer_id());
+    }
+
+
 }

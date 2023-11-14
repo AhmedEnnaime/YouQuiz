@@ -3,7 +3,6 @@ package com.youcode.youquiz.services.impl;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.QuizDto;
 import com.youcode.youquiz.models.entities.Quiz;
-import com.youcode.youquiz.models.entities.Student;
 import com.youcode.youquiz.models.entities.Trainer;
 import com.youcode.youquiz.payload.QuizDtoResponse;
 import com.youcode.youquiz.repositories.QuizRepository;
@@ -71,6 +70,13 @@ public class QuizServiceImpl implements QuizService {
         existingQuiz.setShowAnswers(quizDto.getShowAnswers());
         existingQuiz.setShowFinalResults(quizDto.getShowFinalResults());
         existingQuiz.setDurationInMinutes(quizDto.getDurationInMinutes());
+        if (quizDto.getTrainer_id() != null) {
+            Trainer trainer = trainerRepository.findById(quizDto.getTrainer_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("The trainer with id " + quizDto.getTrainer_id() + " is not found"));
+            existingQuiz.setTrainer(trainer);
+        }else {
+            existingQuiz.setTrainer(null);
+        }
         Quiz updatedQuiz = quizRepository.save(existingQuiz);
         return modelMapper.map(updatedQuiz, QuizDto.class);
     }
