@@ -1,6 +1,6 @@
 package com.youcode.youquiz.payload;
 
-import com.youcode.youquiz.models.entities.Trainer;
+import com.youcode.youquiz.models.dto.TrainerDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,5 +15,5 @@ public class QuizDtoResponse {
     private Integer chanceNum;
     private Integer durationInMinutes;
     private String remark;
-    private Trainer trainer;
+    private TrainerDto trainer;
 }
