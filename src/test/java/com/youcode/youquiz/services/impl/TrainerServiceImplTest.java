@@ -137,7 +137,7 @@ public class TrainerServiceImplTest {
         verify(trainerRepository).findById(trainerID);
     }
 
-    @DisplayName("Test update subject method when the ID is valid")
+    @DisplayName("Test update trainer method when the ID is valid")
     @Test
     public void testSuccessUpdate() {
         Long trainerID = 1L;
