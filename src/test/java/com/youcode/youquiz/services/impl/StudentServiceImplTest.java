@@ -2,9 +2,7 @@ package com.youcode.youquiz.services.impl;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.StudentDto;
-import com.youcode.youquiz.models.dto.TrainerDto;
 import com.youcode.youquiz.models.entities.Student;
-import com.youcode.youquiz.models.entities.Trainer;
 import com.youcode.youquiz.repositories.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
