@@ -11,7 +11,7 @@ public class QuizDto {
 
     private Long id;
     @NotNull(message = "score is required")
-    @Min(value = 0, message = "the minimum score is 0")
+    @Min(value = 0, message = "the minimum passing score is 0")
     private Double score;
     @NotNull(message = "show answers is required")
     private Boolean showAnswers;
