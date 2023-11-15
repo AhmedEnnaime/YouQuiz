@@ -613,6 +613,78 @@ To run this project, you will need to define the following environments variable
 | `address` | `string` | **Required**. address of trainer |
 | `speciality` | `string` | **Required**. speciality of trainer |
 
+#### Get all assignments
+
+```http
+  GET /api/assignQuiz
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | id of assignment |
+| `score` | `double` | score of a student in a quiz |
+| `played` | `int` | try of the quiz |
+| `reason` | `string` | reason of assigning a quiz |
+| `result` | `string` | result of a student in a quiz |
+| `debutDate` | `date` | debut date of quiz |
+| `endDate` | `date` | end date of quiz |
+| `student` | `Student` | student that will pass a quiz |
+| `quiz` | `Quiz` | quiz assigned for students |
+
+#### Get one assignment
+
+```http
+  GET /api/assignQuiz/${id}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+**Required**. Id of assignment to fetch |
+
+#### Delete assignment
+
+```http
+  DELETE /api/assignQuiz/${id}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+**Required**. Id of assignment to delete |
+
+#### Create assignment
+
+```http
+  POST /api/assignQuiz
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `score` | `double` | score of a student in a quiz |
+| `played` | `int` | try of the quiz |
+| `reason` | `string` | reason of assigning a quiz |
+| `result` | `string` | result of a student in a quiz |
+| `debutDate` | `date` | debut date of quiz |
+| `endDate` | `date` | end date of quiz |
+| `student_id` | `int` | id of student that will pass a quiz |
+| `quiz_id` | `int` | id of quiz assigned for students |
+
+#### Update assignment
+
+```http
+  PUT /api/assignQuiz/${id}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | **Required**. Id of assignment to update |
+| `score` | `double` | score of a student in a quiz |
+| `played` | `int` | try of the quiz |
+| `reason` | `string` | reason of assigning a quiz |
+| `result` | `string` | result of a student in a quiz |
+| `debutDate` | `date` | debut date of quiz |
+| `endDate` | `date` | end date of quiz |
+| `student_id` | `int` | id of student that will pass a quiz |
+| `quiz_id` | `int` | id of quiz assigned for students |
 
 ## Feedback
 
