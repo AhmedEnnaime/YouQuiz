@@ -19,14 +19,17 @@ To run this project, you will need to define the following environments variable
 
 `POSTGRES_PASSWORD`
 
+## Tech Stack
 
-## Screenshots
+**Client:** Angular, TailwindCSS
 
-### Application Architecture
+**Server:** Springboot, Docker, Hibernate, Spring data JPA, Jenkins, Sonarqube, Prometheus, Grafana,
+
+## Application Architecture
 
 ![App architecture](./assets/architecture.png)
 
-### Class Diagram
+## Class Diagram
 
 ![App class diagram](./assets/diagram_class.png)
 
@@ -609,3 +612,8 @@ To run this project, you will need to define the following environments variable
 | `birthDate` | `date` | **Required**. birthDate of trainer |
 | `address` | `string` | **Required**. address of trainer |
 | `speciality` | `string` | **Required**. speciality of trainer |
+
+
+## Feedback
+
+If you have any feedback, please reach out to me at ahmedennaime20@gmail.com or in linkedin [@AhmedEnnaime](https://www.linkedin.com/in/ahmed-ennaime-731171225/)

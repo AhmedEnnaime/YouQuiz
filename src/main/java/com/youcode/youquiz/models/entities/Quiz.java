@@ -55,7 +55,7 @@ public class Quiz implements Serializable {
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AssignQuiz> assignQuizzes;
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
