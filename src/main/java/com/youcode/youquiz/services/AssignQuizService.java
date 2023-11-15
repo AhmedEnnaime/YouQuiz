@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AssignQuizService {
 
-    AssignQuizDto save(AssignQuizDto assignQuizDto);
+    List<AssignQuizDto> saveAll(List<AssignQuizDto> assignQuizDtos);
 
     void delete(Long id);
 
