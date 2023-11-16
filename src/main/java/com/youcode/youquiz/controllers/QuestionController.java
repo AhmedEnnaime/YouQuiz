@@ -95,4 +95,10 @@ public class QuestionController {
         tempoQuizService.delete(questionID, quizID);
         return new ResponseEntity<>("Question detached successfully from quiz", HttpStatus.OK);
     }
+
+    @PatchMapping("/{questionID}")
+    public ResponseEntity<TempoQuizDto> updateTimeOfQuestionInQuiz(@PathVariable Long questionID, @Valid @RequestBody TempoQuizDto tempoQuizDto) {
+        TempoQuizDto updatedTempoQuiz = tempoQuizService.update(questionID, tempoQuizDto);
+        return ResponseEntity.ok(updatedTempoQuiz);
+    }
 }

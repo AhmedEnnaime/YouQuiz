@@ -59,7 +59,12 @@ public class TempoQuizServiceImpl implements TempoQuizService {
     }
 
     @Override
-    public TempoQuizDto update(Long id, TempoQuizDto tempoQuizDto) {
-        return null;
+    public TempoQuizDto update(Long questionID, TempoQuizDto tempoQuizDto) {
+        TempoID tempoID = new TempoID(tempoQuizDto.getQuiz_id(), questionID);
+        TempoQuiz tempoQuiz = tempoQuizRepository.findById(tempoID)
+                .orElseThrow(() -> new ResourceNotFoundException("The tempo quiz with id " + tempoID + " is not found"));
+        tempoQuiz.setTime(tempoQuizDto.getTime());
+        tempoQuizDto.setQuestion_id(questionID);
+        return modelMapper.map(tempoQuizRepository.save(tempoQuiz), TempoQuizDto.class);
     }
 }
