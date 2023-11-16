@@ -6,7 +6,7 @@ public interface TempoQuizService {
 
     TempoQuizDto save(TempoQuizDto tempoQuizDto);
 
-    void delete(Long id, Long quizID);
+    void delete(Long questionID, Long quizID);
 
     TempoQuizDto update(Long id, TempoQuizDto tempoQuizDto);
 }

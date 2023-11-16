@@ -89,4 +89,10 @@ public class QuestionController {
         TempoQuizDto createdTempoQuiz = tempoQuizService.save(tempoQuizDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTempoQuiz);
     }
+
+    @DeleteMapping("/{questionID}/tempo/{quizID}")
+    public ResponseEntity<String> detachQuestionFromQuiz(@PathVariable Long questionID, @PathVariable Long quizID) {
+        tempoQuizService.delete(questionID, quizID);
+        return new ResponseEntity<>("Question detached successfully from quiz", HttpStatus.OK);
+    }
 }
