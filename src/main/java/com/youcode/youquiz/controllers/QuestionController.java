@@ -1,14 +1,12 @@
 package com.youcode.youquiz.controllers;
 
-import com.youcode.youquiz.models.dto.LevelDto;
-import com.youcode.youquiz.models.dto.QuestionDto;
-import com.youcode.youquiz.models.dto.ResponseDto;
-import com.youcode.youquiz.models.dto.SubjectDto;
+import com.youcode.youquiz.models.dto.*;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.payload.SubjectDtoResponse;
 import com.youcode.youquiz.services.LevelService;
 import com.youcode.youquiz.services.QuestionService;
 import com.youcode.youquiz.services.SubjectService;
+import com.youcode.youquiz.services.TempoQuizService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +30,9 @@ public class QuestionController {
 
     @Autowired
     private SubjectService subjectService;
+
+    @Autowired
+    private TempoQuizService tempoQuizService;
 
     @PostMapping
     public ResponseEntity<QuestionDto> createQuestion(@Valid @RequestBody QuestionDto questionDto) {
@@ -81,5 +82,11 @@ public class QuestionController {
     public ResponseEntity<List<ResponseDto>> getResponsesByQuestion(@PathVariable Long id) {
         List<ResponseDto> responses = questionService.findResponsesByQuestion(id);
         return ResponseEntity.status(HttpStatus.OK).body(responses);
+    }
+
+    @PostMapping("/tempo")
+    public ResponseEntity<TempoQuizDto> assignQuestionToQuiz(@Valid @RequestBody TempoQuizDto tempoQuizDto) {
+        TempoQuizDto createdTempoQuiz = tempoQuizService.save(tempoQuizDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTempoQuiz);
     }
 }
