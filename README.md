@@ -688,6 +688,42 @@ To run this project, you will need to define the following environments variable
 | `student_id` | `int` | id of student that will pass a quiz |
 | `quiz_id` | `int` | id of quiz assigned for students |
 
+
+#### Temporize a question and assign it to a quiz
+
+```http
+  POST /api/questions/tempo
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `question_id` | `int` | id of question you want to temporize |
+| `quiz_id` | `int` | id of quiz that you want to assign to |
+| `time` | `int` | seconds to answer a question in a quiz |
+
+#### Detach a question from a quiz
+
+```http
+  DELETE /api/questions/${questionID}/tempo/${quizID}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `question_id` | `int` | id of question you want to detach from a quiz |
+| `quiz_id` | `int` | id of quiz that you want to remove a question from |
+
+#### Update time of a question in a quiz
+
+```http
+  PATCH /api/questions/${questionID}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `questionID` | `int` | id of question you want to update it's time |
+| `quiz_id` | `int` | id of quiz that you want to assign to |
+| `time` | `int` | seconds you want to update |
+
 ## Feedback
 
 If you have any feedback, please reach out to me at ahmedennaime20@gmail.com or in linkedin [@AhmedEnnaime](https://www.linkedin.com/in/ahmed-ennaime-731171225/)

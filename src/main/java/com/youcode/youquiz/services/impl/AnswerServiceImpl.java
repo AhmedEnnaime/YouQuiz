@@ -3,12 +3,10 @@ package com.youcode.youquiz.services.impl;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.AnswerDto;
 import com.youcode.youquiz.models.dto.ResponseDto;
-import com.youcode.youquiz.models.entities.Answer;
-import com.youcode.youquiz.models.entities.AssignQuiz;
-import com.youcode.youquiz.models.entities.Response;
-import com.youcode.youquiz.models.entities.Validation;
+import com.youcode.youquiz.models.entities.*;
 import com.youcode.youquiz.repositories.AnswerRepository;
 import com.youcode.youquiz.repositories.AssignQuizRepository;
+import com.youcode.youquiz.repositories.QuestionRepository;
 import com.youcode.youquiz.repositories.ValidationRepository;
 import com.youcode.youquiz.services.AnswerService;
 import org.modelmapper.ModelMapper;
@@ -32,6 +30,9 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Autowired
     private ValidationRepository validationRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @Override
     public AnswerDto create(AnswerDto answerDto) throws Exception {
@@ -61,5 +62,10 @@ public class AnswerServiceImpl implements AnswerService {
                 .map(answer -> answer.getValidation().getResponse())
                 .toList();
         return Arrays.asList(modelMapper.map(responses, ResponseDto[].class));
+    }
+
+    @Override
+    public List<ResponseDto> findAnswersByQuestion(Long questionID) {
+        return null;
     }
 }

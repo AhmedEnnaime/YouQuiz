@@ -3,7 +3,6 @@ package com.youcode.youquiz.services.impl;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.*;
 import com.youcode.youquiz.models.entities.Level;
-import com.youcode.youquiz.models.entities.Media;
 import com.youcode.youquiz.models.entities.Question;
 import com.youcode.youquiz.models.entities.Subject;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
@@ -18,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service

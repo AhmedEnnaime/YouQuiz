@@ -8,7 +8,6 @@ import com.youcode.youquiz.models.entities.Student;
 import com.youcode.youquiz.models.entities.Trainer;
 import com.youcode.youquiz.models.enums.Result;
 import com.youcode.youquiz.payload.AssignQuizDtoResponse;
-import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.repositories.AssignQuizRepository;
 import com.youcode.youquiz.repositories.QuizRepository;
 import com.youcode.youquiz.repositories.StudentRepository;

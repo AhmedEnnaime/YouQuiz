@@ -10,4 +10,6 @@ public interface AnswerService {
     AnswerDto create(AnswerDto answerDto) throws Exception;
 
     List<ResponseDto> findResponseOfUserQuiz(Long assignQuizID);
+
+    List<ResponseDto> findAnswersByQuestion(Long questionID);
 }
