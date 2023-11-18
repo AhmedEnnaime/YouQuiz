@@ -23,7 +23,9 @@ To run this project, you will need to define the following environments variable
 
 **Client:** Angular, TailwindCSS
 
-**Server:** Springboot, Docker, Hibernate, Spring data JPA, Jenkins, Sonarqube, Prometheus, Grafana,
+**Server:** Springboot, Docker, Hibernate, Spring data JPA, Jenkins, Sonarqube, Prometheus, Grafana
+
+**Unit Testing:** Junit 5, Mockito
 
 ## Application Architecture
 
