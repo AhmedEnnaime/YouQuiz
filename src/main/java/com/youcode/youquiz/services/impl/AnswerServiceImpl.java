@@ -4,6 +4,7 @@ import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.AnswerDto;
 import com.youcode.youquiz.models.dto.ResponseDto;
 import com.youcode.youquiz.models.entities.*;
+import com.youcode.youquiz.payload.AnswerDtoResponse;
 import com.youcode.youquiz.repositories.AnswerRepository;
 import com.youcode.youquiz.repositories.AssignQuizRepository;
 import com.youcode.youquiz.repositories.QuestionRepository;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,17 +57,28 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public List<ResponseDto> findResponseOfUserQuiz(Long assignQuizID) {
+    public List<AnswerDtoResponse> findResponseOfUserQuiz(Long assignQuizID) {
         AssignQuiz assignQuiz = assignQuizRepository.findById(assignQuizID)
                 .orElseThrow(() -> new ResourceNotFoundException("The assignment with id " + assignQuizID + " is not found"));
+        List<Double> points = new ArrayList<>();
         List<Response> responses = assignQuiz.getAnswers().stream()
-                .map(answer -> answer.getValidation().getResponse())
+                .map(answer -> {
+                    points.add(answer.getValidation().getPoints());
+                    return answer.getValidation().getResponse();
+                })
                 .toList();
-        return Arrays.asList(modelMapper.map(responses, ResponseDto[].class));
+        List<AnswerDtoResponse> answerDtoResponses = Arrays.asList(modelMapper.map(responses, AnswerDtoResponse[].class));
+
+        for (int i =0; i < points.size(); i++) {
+            AnswerDtoResponse answerDtoResponse = answerDtoResponses.get(i);
+            answerDtoResponse.setPoints(points.get(i));
+            answerDtoResponses.set(i, answerDtoResponse);
+        }
+        return answerDtoResponses;
     }
 
     @Override
-    public List<ResponseDto> findAnswersByQuestion(Long questionID) {
+    public List<ResponseDto> findStudentAnswersByQuestion(Long questionID) {
         return null;
     }
 }

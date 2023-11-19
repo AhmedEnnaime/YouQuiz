@@ -2,6 +2,7 @@ package com.youcode.youquiz.services;
 
 import com.youcode.youquiz.models.dto.AnswerDto;
 import com.youcode.youquiz.models.dto.ResponseDto;
+import com.youcode.youquiz.payload.AnswerDtoResponse;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface AnswerService {
 
     AnswerDto create(AnswerDto answerDto) throws Exception;
 
-    List<ResponseDto> findResponseOfUserQuiz(Long assignQuizID);
+    List<AnswerDtoResponse> findResponseOfUserQuiz(Long assignQuizID);
 
-    List<ResponseDto> findAnswersByQuestion(Long questionID);
+    List<ResponseDto> findStudentAnswersByQuestion(Long questionID);
 }

@@ -2,6 +2,7 @@ package com.youcode.youquiz.controllers;
 
 import com.youcode.youquiz.models.dto.AnswerDto;
 import com.youcode.youquiz.models.dto.ResponseDto;
+import com.youcode.youquiz.payload.AnswerDtoResponse;
 import com.youcode.youquiz.services.AnswerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}/response")
-    public ResponseEntity<List<ResponseDto>> findResponseOfStudent(@PathVariable Long id) {
-        List<ResponseDto> responses = answerService.findResponseOfUserQuiz(id);
+    public ResponseEntity<List<AnswerDtoResponse>> findResponseOfStudent(@PathVariable Long id) {
+        List<AnswerDtoResponse> responses = answerService.findResponseOfUserQuiz(id);
         return ResponseEntity.ok(responses);
     }
 

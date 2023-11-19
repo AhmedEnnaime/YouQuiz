@@ -7,6 +7,7 @@ import com.youcode.youquiz.models.entities.Answer;
 import com.youcode.youquiz.models.entities.AssignQuiz;
 import com.youcode.youquiz.models.entities.Response;
 import com.youcode.youquiz.models.entities.Validation;
+import com.youcode.youquiz.payload.AnswerDtoResponse;
 import com.youcode.youquiz.repositories.AnswerRepository;
 import com.youcode.youquiz.repositories.AssignQuizRepository;
 import com.youcode.youquiz.repositories.QuestionRepository;
@@ -133,7 +134,7 @@ public class AnswerServiceImplTest {
 
         given(assignQuizRepository.findById(assignQuizId)).willReturn(Optional.of(assignQuiz));
         given(answerRepository.findByAssignQuizId(assignQuizId)).willReturn(answers);
-        List<ResponseDto> responseDtos = answerService.findResponseOfUserQuiz(assignQuizId);
+        List<AnswerDtoResponse> responseDtos = answerService.findResponseOfUserQuiz(assignQuizId);
         assertThat(responseDtos).isNotNull().hasSize(2);
     }
 
