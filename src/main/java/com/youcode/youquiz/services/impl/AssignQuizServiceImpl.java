@@ -36,25 +36,41 @@ public class AssignQuizServiceImpl implements AssignQuizService {
     public List<AssignQuizDto> saveAll(List<AssignQuizDto> assignQuizDtos) {
         return assignQuizDtos.stream()
                 .map(assignQuizDto -> {
-                    AssignQuiz assignQuiz = modelMapper.map(assignQuizDto, AssignQuiz.class);
+                    AssignQuiz existingAssignQuiz = assignQuizRepository.findByStudentIdAndQuizId(
+                            assignQuizDto.getStudent_id(), assignQuizDto.getQuiz_id());
 
-                    if (assignQuizDto.getQuiz_id() != null) {
-                        Quiz quiz = quizRepository.findById(assignQuizDto.getQuiz_id())
-                                .orElseThrow(() -> new ResourceNotFoundException("The quiz with id " + assignQuizDto.getQuiz_id() + " is not found"));
-                        assignQuiz.setQuiz(quiz);
+                    if (existingAssignQuiz != null) {
+                        AssignQuiz newAssignQuiz = new AssignQuiz();
+                        newAssignQuiz.setPlayed(existingAssignQuiz.getPlayed() + 1);
+                        newAssignQuiz.setQuiz(existingAssignQuiz.getQuiz());
+                        newAssignQuiz.setStudent(existingAssignQuiz.getStudent());
+                        newAssignQuiz.setReason(existingAssignQuiz.getReason());
+                        newAssignQuiz.setResult(existingAssignQuiz.getResult());
+                        newAssignQuiz.setEndDate(existingAssignQuiz.getEndDate());
+                        newAssignQuiz.setDebutDate(existingAssignQuiz.getDebutDate());
+                        return assignQuizRepository.save(newAssignQuiz);
+                    } else {
+                        AssignQuiz assignQuiz = modelMapper.map(assignQuizDto, AssignQuiz.class);
+
+                        if (assignQuizDto.getQuiz_id() != null) {
+                            Quiz quiz = quizRepository.findById(assignQuizDto.getQuiz_id())
+                                    .orElseThrow(() -> new ResourceNotFoundException("The quiz with id " + assignQuizDto.getQuiz_id() + " is not found"));
+                            assignQuiz.setQuiz(quiz);
+                        }
+
+                        if (assignQuizDto.getStudent_id() != null) {
+                            Student student = studentRepository.findById(assignQuizDto.getStudent_id())
+                                    .orElseThrow(() -> new ResourceNotFoundException("The student with id " + assignQuizDto.getStudent_id() + " is not found"));
+                            assignQuiz.setStudent(student);
+                        }
+
+                        return assignQuizRepository.save(assignQuiz);
                     }
-
-                    if (assignQuizDto.getStudent_id() != null) {
-                        Student student = studentRepository.findById(assignQuizDto.getStudent_id())
-                                .orElseThrow(() -> new ResourceNotFoundException("The student with id " + assignQuizDto.getStudent_id() + " is not found"));
-                        assignQuiz.setStudent(student);
-                    }
-
-                    return assignQuizRepository.save(assignQuiz);
                 })
                 .map(assignQuiz -> modelMapper.map(assignQuiz, AssignQuizDto.class))
                 .collect(Collectors.toList());
     }
+
 
 
     @Override

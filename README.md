@@ -724,6 +724,29 @@ To run this project, you will need to define the following environments variable
 | `quiz_id` | `int` | id of quiz that you want to assign to |
 | `time` | `int` | seconds you want to update |
 
+#### Answer a question
+
+```http
+  POST /api/answers
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `assignQuiz_id` | `int` | id of assignment you want to answer |
+| `validation_id` | `int` | id of validation or question that you will answer |
+
+#### Get student answer in an assignment
+
+```http
+  GET /api/answers/${id}/response
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | id of assignment you want to fetch it's answers |
+| `response` | `string` | response content answered |
+| `points` | `int` | points of that question |
+
 ## Feedback
 
 If you have any feedback, please reach out to me at ahmedennaime20@gmail.com or in linkedin [@AhmedEnnaime](https://www.linkedin.com/in/ahmed-ennaime-731171225/)

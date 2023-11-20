@@ -174,6 +174,39 @@ public class AssignQuizServiceImplTest {
         assertThat(result).isNotNull().hasSize(2);
     }
 
+    @DisplayName("Test saveAll method when quiz_id and student_id already exist")
+    @Test
+    public void testSaveAllWithExistingQuizAndStudent() {
+        given(quizRepository.findById(1L)).willReturn(Optional.of(quiz));
+        given(studentRepository.findById(2L)).willReturn(Optional.of(student));
+
+        AssignQuiz existingAssignQuiz = AssignQuiz.builder()
+                .id(3L)
+                .played(1)
+                .score(null)
+                .reason("reason")
+                .result(Result.PASS)
+                .debutDate(LocalDateTime.now())
+                .endDate(LocalDateTime.now())
+                .quiz(quiz)
+                .student(student)
+                .build();
+
+        given(assignQuizRepository.findByStudentIdAndQuizId(2L, 1L)).willReturn(existingAssignQuiz);
+
+        given(assignQuizRepository.save(any(AssignQuiz.class))).willReturn(new AssignQuiz());
+        AssignQuizDto assignQuizDto1 = new AssignQuizDto();
+        assignQuizDto1.setQuiz_id(1L);
+        assignQuizDto1.setStudent_id(2L);
+
+        List<AssignQuizDto> assignQuizDtoList = Collections.singletonList(assignQuizDto1);
+        List<AssignQuizDto> result = assignQuizService.saveAll(assignQuizDtoList);
+
+        verify(assignQuizRepository, times(1)).save(any(AssignQuiz.class));
+        assertThat(result).isNotNull().hasSize(1);
+    }
+
+
     @Test
     public void testSaveAllWithInvalidStudentId() {
 
