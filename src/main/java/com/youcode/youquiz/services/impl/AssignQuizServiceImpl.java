@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,10 +37,14 @@ public class AssignQuizServiceImpl implements AssignQuizService {
     public List<AssignQuizDto> saveAll(List<AssignQuizDto> assignQuizDtos) {
         return assignQuizDtos.stream()
                 .map(assignQuizDto -> {
-                    AssignQuiz existingAssignQuiz = assignQuizRepository.findByStudentIdAndQuizId(
+                    List<AssignQuiz> existingAssignQuizzes = assignQuizRepository.findByStudentIdAndQuizId(
                             assignQuizDto.getStudent_id(), assignQuizDto.getQuiz_id());
 
-                    if (existingAssignQuiz != null) {
+                    if (!existingAssignQuizzes.isEmpty()) {
+                        AssignQuiz existingAssignQuiz = existingAssignQuizzes.stream()
+                                .max(Comparator.comparingInt(AssignQuiz::getPlayed))
+                                .orElseThrow(() -> new RuntimeException("No AssignQuiz found")); // Handle as appropriate
+
                         AssignQuiz newAssignQuiz = new AssignQuiz();
                         newAssignQuiz.setPlayed(existingAssignQuiz.getPlayed() + 1);
                         newAssignQuiz.setQuiz(existingAssignQuiz.getQuiz());
@@ -70,7 +75,6 @@ public class AssignQuizServiceImpl implements AssignQuizService {
                 .map(assignQuiz -> modelMapper.map(assignQuiz, AssignQuizDto.class))
                 .collect(Collectors.toList());
     }
-
 
 
     @Override
