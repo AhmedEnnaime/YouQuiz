@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
+import com.youcode.youquiz.exceptions.MaxAttemptsReachedException;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.*;
 import com.youcode.youquiz.models.entities.AssignQuiz;
@@ -199,7 +200,32 @@ public class AssignQuizServiceImplTest {
         assertThat(result).isNotNull().hasSize(1);
     }
 
+    @DisplayName("Test saveAll method with MaxAttemptsReachedException")
+    @Test
+    public void testSaveAllWithMaxAttemptsReachedException() {
+        given(quizRepository.findById(1L)).willReturn(Optional.of(quiz));
+        given(studentRepository.findById(2L)).willReturn(Optional.of(student));
+        AssignQuiz existingAssignQuiz = AssignQuiz.builder()
+                .id(3L)
+                .played(2)
+                .score(null)
+                .reason("reason")
+                .result(Result.PASS)
+                .debutDate(LocalDateTime.now())
+                .endDate(LocalDateTime.now())
+                .quiz(quiz)
+                .student(student)
+                .build();
+        given(assignQuizRepository.findByStudentIdAndQuizId(2L, 1L)).willReturn(Collections.singletonList(existingAssignQuiz));
 
+        AssignQuizDto assignQuizDto1 = new AssignQuizDto();
+        assignQuizDto1.setQuiz_id(1L);
+        assignQuizDto1.setStudent_id(2L);
+        assertThatThrownBy(() -> assignQuizService.saveAll(Collections.singletonList(assignQuizDto1)))
+                .isInstanceOf(MaxAttemptsReachedException.class)
+                .hasMessageContaining("Max attempts reached for student id: 2, quiz id: 1");
+        verify(assignQuizRepository, times(0)).save(any(AssignQuiz.class));
+    }
 
     @Test
     public void testSaveAllWithInvalidStudentId() {

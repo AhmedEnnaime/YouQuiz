@@ -1,5 +1,6 @@
 package com.youcode.youquiz.configuration;
 
+import com.youcode.youquiz.exceptions.MaxAttemptsReachedException;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -41,4 +42,13 @@ public class ValidationException {
         errors.put("error", ex.getMessage());
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MaxAttemptsReachedException.class)
+    public Map<String, String> handleMaxAttemptsReachedException(MaxAttemptsReachedException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
+
 }

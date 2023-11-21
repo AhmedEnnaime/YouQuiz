@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
+import com.youcode.youquiz.exceptions.MaxAttemptsReachedException;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.AssignQuizDto;
 import com.youcode.youquiz.models.entities.AssignQuiz;
@@ -43,7 +44,13 @@ public class AssignQuizServiceImpl implements AssignQuizService {
                     if (!existingAssignQuizzes.isEmpty()) {
                         AssignQuiz existingAssignQuiz = existingAssignQuizzes.stream()
                                 .max(Comparator.comparingInt(AssignQuiz::getPlayed))
-                                .orElseThrow(() -> new RuntimeException("No AssignQuiz found")); // Handle as appropriate
+                                .orElseThrow(() -> new ResourceNotFoundException("No AssignQuiz found"));
+
+                        int chanceNum = existingAssignQuiz.getQuiz().getChanceNum();
+                        if (existingAssignQuiz.getPlayed() >= chanceNum) {
+                            throw new MaxAttemptsReachedException("Max attempts reached for student id: "
+                                    + assignQuizDto.getStudent_id() + ", quiz id: " + assignQuizDto.getQuiz_id());
+                        }
 
                         AssignQuiz newAssignQuiz = new AssignQuiz();
                         newAssignQuiz.setPlayed(existingAssignQuiz.getPlayed() + 1);
@@ -75,6 +82,7 @@ public class AssignQuizServiceImpl implements AssignQuizService {
                 .map(assignQuiz -> modelMapper.map(assignQuiz, AssignQuizDto.class))
                 .collect(Collectors.toList());
     }
+
 
 
     @Override
