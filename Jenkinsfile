@@ -4,6 +4,7 @@ pipeline {
         docker {
             image 'maven:3.9.5-amazoncorretto-17-al2023'
             args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
+            label 'docker-agent'
         }
     }
     options {
@@ -16,7 +17,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "mvn sonar:sonar -Dsonar.login=sqa_f048cba3b4e880b1d7557d449082c257c906ddb8 -Dsonar.java.binaries=target/classes"
+                    sh "mvn -f ./YouQuiz/pom.xml sonar:sonar -Dsonar.login=sqa_f048cba3b4e880b1d7557d449082c257c906ddb8 -Dsonar.java.binaries=target/classes"
                 }
             }
         }
