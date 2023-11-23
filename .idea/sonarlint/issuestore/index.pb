@@ -9,7 +9,5 @@ I
 YouQuiz/class-diagram.txt,4/5/45df8503dff7506ed971754b921eb589bbba8f68
 A
 YouQuiz/README.md,3/1/31efdbbfbc11ac29364f724c3c3a70e92fc51540
-C
-YouQuiz/Jenkinsfile,7/8/7834d449f609f523a3b95cca7fa1036c52e9b5c4
 B
 jenkins.Dockerfile,8/d/8d2fb902ec4a9fc6ac0edd321f8d1874835c5c8d

@@ -58,6 +58,25 @@ services:
     volumes:
       - ./YouQuiz/monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
 
+  youquiz_front:
+    container_name: youquiz_front
+    build:
+      context: ./YouQuiz_front
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:4200"
+    expose:
+      - "4200"
+    environment:
+      - MOD=dev
+    volumes:
+      - ./YouQuiz_front:/app/youquiz_front
+      - /app/youquiz_front/node_modules
+    depends_on:
+      - spring-app
+    networks:
+      - youquiz
+
 networks:
   youquiz:
     name: youquiz
