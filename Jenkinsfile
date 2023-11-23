@@ -15,7 +15,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "mvn -f ./YouQuiz/pom.xml sonar:sonar -Dsonar.login=sqa_311ac7e6d170c86f40dcd42cab7dd5afd9168d25"
+                    sh "mvn sonar:sonar -Dsonar.login=sqa_f048cba3b4e880b1d7557d449082c257c906ddb8 -Dsonar.java.binaries=target/classes"
                 }
             }
         }
