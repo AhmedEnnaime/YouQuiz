@@ -1,0 +1,68 @@
+version: "3.9"
+services:
+  spring-app:
+    container_name: spring-app
+    build:
+      context: ./YouQuiz
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/youquiz
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=3ea14367A4
+    networks:
+      - youquiz
+    depends_on:
+      - psql-db
+  psql-db:
+    container_name: psql-db
+    image: "postgres:15"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "youquiz"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "3ea14367A4"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - youquiz
+
+  sonarqube:
+    image: sonarqube:lts
+    ports:
+      - "9000:9000"
+    networks:
+      - youquiz
+    environment:
+      - SONAR_FORCEAUTHENTICATION=false
+  prometheus:
+    image: prom/prometheus:v2.44.0
+    container_name: prometheus
+    networks:
+      - youquiz
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./YouQuiz/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    image: grafana/grafana:9.5.2
+    container_name: grafana
+    networks:
+      - youquiz
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./YouQuiz/monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+
+networks:
+  youquiz:
+    name: youquiz
+    driver: bridge
+
+volumes:
+  postgres-db:
+    driver: local
