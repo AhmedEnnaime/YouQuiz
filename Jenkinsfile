@@ -16,7 +16,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "mvn sonar:sonar -Dsonar.login=sqa_f048cba3b4e880b1d7557d449082c257c906ddb8"
+                    sh "mvn -f ./YouQuiz/pom.xml sonar:sonar -Dsonar.login=sqa_f048cba3b4e880b1d7557d449082c257c906ddb8"
                 }
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                 echo "Building.."
                 script {
                     sh '''
-                    mvn -B -DskipTests clean package
+                    mvn -f ./YouQuiz/pom.xml -B -DskipTests clean package
                     '''
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
                 echo "Testing.."
                 script {
                     sh '''
-                    mvn test
+                    mvn -f ./YouQuiz/pom.xml test
                     '''
                 }
             }
