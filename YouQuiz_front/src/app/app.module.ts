@@ -16,6 +16,7 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { SummaryComponent } from './components/summary/summary.component';
+import { SummaryCardComponent } from './components/summary/summary-card/summary-card.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SummaryComponent } from './components/summary/summary.component';
     MainLayoutComponent,
     ProfileComponent,
     SummaryComponent,
+    SummaryCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
   providers: [],

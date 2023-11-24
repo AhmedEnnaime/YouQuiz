@@ -1,0 +1,11 @@
+<div class="summary-card bg-white border-solid border-2 rounded-xl border-gray-200 px-12 py-6">
+    <div class="flex flex-row mb-4">
+        <h3 class="text-xl text-gray-600">
+            {{ props?.title }}
+        </h3>
+        <img [src]="props?.iconUrl" class="w-10 ml-auto">
+    </div>
+    <div>
+        <ng-content></ng-content>
+    </div>
+</div>
