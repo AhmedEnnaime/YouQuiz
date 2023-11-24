@@ -17,6 +17,8 @@ import { MainLayoutComponent } from './shared/main-layout/main-layout.component'
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { SummaryCardComponent } from './components/summary/summary-card/summary-card.component';
+import { TodayQuizComponent } from './components/today-quiz/today-quiz.component';
+import { TodayQuizCardComponent } from './components/today-quiz/today-quiz-card/today-quiz-card.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { SummaryCardComponent } from './components/summary/summary-card/summary-
     ProfileComponent,
     SummaryComponent,
     SummaryCardComponent,
+    TodayQuizComponent,
+    TodayQuizCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
   providers: [],

@@ -36,8 +36,8 @@
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li *ngFor="let menuItem of menuItems">
                         <a [routerLink]="[menuItem.url]"
-                            class="menu-item px-4 py-2 md:rounded-full hover:md:bg-green-100 hover:text-green-700"
-                            [ngClass]="[menuItem?.['isActive'] ? 'md:bg-green-200 text-green-700 font-semibold' : '']">
+                            class="menu-item px-4 py-2 md:rounded-full hover:md:bg-blue-100 hover:text-blue-700"
+                            [ngClass]="[menuItem?.['isActive'] ? 'md:bg-blue-200 text-blue-700 font-semibold' : '']">
                             {{ menuItem.text }}
 
                         </a>
