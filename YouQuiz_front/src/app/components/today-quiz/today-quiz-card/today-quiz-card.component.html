@@ -1,0 +1,19 @@
+<div class="bg-white border-solid border-2  border-gray-200 rounded-xl px-6 py-6">
+    <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-full" [ngClass]="progressBackground">
+        <fa-icon [icon]="props?.icon" [ngClass]="iconColor"></fa-icon>
+    </div>
+    <h6 class="text-lg">
+        {{ props?.instruction }}
+    </h6>
+    <div>
+        <div class="flex flex-row justify-center items-center">
+            <div class="w-4/6 bg-gray-200 rounded-full h-1.5" [ngClass]="progressBackground">
+                <div class="bg-blue-600 h-1.5 rounded-full" [style]="progressStyle" [ngClass]="progressForeground">
+                </div>
+            </div>
+            <div class="w-2/6 ml-2 flex items-center">
+                <span>{{ props?.current }}</span>/<span>{{ props?.total }}</span>
+            </div>
+        </div>
+    </div>
+</div>
