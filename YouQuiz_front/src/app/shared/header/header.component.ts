@@ -33,8 +33,8 @@ export class HeaderComponent implements OnInit {
       notificationCount: 0,
     },
     {
-      text: 'Listing',
-      url: '/listings',
+      text: 'Levels',
+      url: '/levels',
       notificationCount: 0,
     },
   ];

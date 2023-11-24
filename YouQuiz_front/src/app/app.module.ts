@@ -15,6 +15,7 @@ import {
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
     DashboardComponent,
     MainLayoutComponent,
     ProfileComponent,
+    SummaryComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
   providers: [],
