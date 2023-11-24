@@ -18,18 +18,18 @@ export class HeaderComponent implements OnInit {
       notificationCount: 0,
     },
     {
-      text: 'Inbox',
-      url: '/inbox',
+      text: 'Students',
+      url: '/students',
       notificationCount: 4,
     },
     {
-      text: 'Calendar',
-      url: '/calendar',
+      text: 'Quizzes',
+      url: '/quizzes',
       notificationCount: 0,
     },
     {
-      text: 'Insights',
-      url: '/insights',
+      text: 'Subjects',
+      url: '/subjects',
       notificationCount: 0,
     },
     {
