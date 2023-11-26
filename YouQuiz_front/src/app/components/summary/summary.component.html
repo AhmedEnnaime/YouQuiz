@@ -2,7 +2,7 @@
     <ul class="flex align-middle gap-4 flex-col sm:flex-row flex-wrap xl:flex-nowrap">
         <li class="w-full sm:w-[calc(50%_-_.5rem)] xl:w-1/4">
             <app-summary-card [props]="{'title': 'Students', 'iconUrl': 'assets/img/students.png'}">
-                <span class="text-3xl font-semibold text-gray-700">12</span>
+                <span class="text-3xl font-semibold text-gray-700">{{ students.length }}</span>
             </app-summary-card>
         </li>
         <li class="w-full sm:w-[calc(50%_-_.5rem)] xl:w-1/4">

@@ -21,6 +21,7 @@ import { TodayQuizComponent } from './components/today-quiz/today-quiz.component
 import { TodayQuizCardComponent } from './components/today-quiz/today-quiz-card/today-quiz-card.component';
 import { AssignedQuizzesComponent } from './components/assigned-quizzes/assigned-quizzes.component';
 import { AssignedQuizCardComponent } from './components/assigned-quizzes/assigned-quiz-card/assigned-quiz-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,12 @@ import { AssignedQuizCardComponent } from './components/assigned-quizzes/assigne
     AssignedQuizzesComponent,
     AssignedQuizCardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
