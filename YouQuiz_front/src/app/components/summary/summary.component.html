@@ -7,12 +7,13 @@
         </li>
         <li class="w-full sm:w-[calc(50%_-_.5rem)] xl:w-1/4">
             <app-summary-card [props]="{'title': 'Trainers', 'iconUrl': 'assets/img/trainers.png'}">
-                <span class="text-3xl font-semibold text-gray-700">12</span>
+                <span class="text-3xl font-semibold text-gray-700">{{ trainers.length }}</span>
             </app-summary-card>
         </li>
         <li class="w-full sm:w-[calc(50%_-_.5rem)] xl:w-1/4">
             <app-summary-card [props]="{'title': 'My Quizzes', 'iconUrl': 'assets/img/quizz.png'}">
-                <span class="text-3xl font-semibold text-gray-700">78</span>
+                <span class="text-3xl font-semibold text-gray-700">{{ trainers.length > 0 ?
+                    trainers[0].getNumberOfQuizzes() : 0 }}</span>
             </app-summary-card>
         </li>
         <li class="w-full sm:w-[calc(50%_-_.5rem)] xl:w-1/4">

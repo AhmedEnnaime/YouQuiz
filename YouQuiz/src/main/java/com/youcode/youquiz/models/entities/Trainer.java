@@ -24,6 +24,6 @@ public class Trainer extends User{
     @NotBlank(message = "speciality should not be empty")
     private String speciality;
 
-    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "trainer", fetch = FetchType.EAGER)
     private List<Quiz> quizzes;
 }
