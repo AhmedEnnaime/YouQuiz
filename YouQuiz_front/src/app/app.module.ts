@@ -19,6 +19,8 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { SummaryCardComponent } from './components/summary/summary-card/summary-card.component';
 import { TodayQuizComponent } from './components/today-quiz/today-quiz.component';
 import { TodayQuizCardComponent } from './components/today-quiz/today-quiz-card/today-quiz-card.component';
+import { AssignedQuizzesComponent } from './components/assigned-quizzes/assigned-quizzes.component';
+import { AssignedQuizCardComponent } from './components/assigned-quizzes/assigned-quiz-card/assigned-quiz-card.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { TodayQuizCardComponent } from './components/today-quiz/today-quiz-card/
     SummaryCardComponent,
     TodayQuizComponent,
     TodayQuizCardComponent,
+    AssignedQuizzesComponent,
+    AssignedQuizCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
   providers: [],
