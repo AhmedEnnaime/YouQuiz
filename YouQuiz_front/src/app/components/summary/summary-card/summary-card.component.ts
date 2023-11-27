@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SummaryCardProps } from 'src/app/core/ISummaryCardProps';
+import { SummaryCardProps } from 'src/app/core/interfaces/ISummaryCardProps';
 
 @Component({
   selector: 'app-summary-card',
