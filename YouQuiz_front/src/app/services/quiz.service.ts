@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
-import { Subject } from '../shared/models/subject.model';
+import { Observable } from 'rxjs';
+import { Quiz } from '../shared/models/quiz.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SubjectService {
+export class QuizService {
   private baseUrl: string = 'http://localhost:8082/api';
 
   constructor(private http: HttpClient) {}
 
-  getSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(`${this.baseUrl}/subjects`);
+  getQuizzes(): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(`${this.baseUrl}/quizzes`);
   }
 }
