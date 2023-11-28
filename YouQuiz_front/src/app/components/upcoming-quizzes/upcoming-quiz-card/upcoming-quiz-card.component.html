@@ -9,6 +9,6 @@
             <span class="h-2 w-2 inline-block rounded-full bg-gray-300 mx-2"></span>
             <span> {{ upcomingQuiz?.quiz?.remark }} </span>
         </p>
-        <app-label class="" [props]="{'durationInMinutes': props?.durationInMinutes}"></app-label>
+        <app-label class="" [props]="{'durationInMinutes': props?.quiz?.durationInMinutes}"></app-label>
     </div>
 </div>

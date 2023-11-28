@@ -2,9 +2,9 @@ import { Quiz } from './quiz.model';
 import { User } from './user.model';
 
 export class Trainer extends User {
-  private id?: number;
-  private speciality: string;
-  private quizzes: Quiz[];
+  public id?: number;
+  public speciality: string;
+  public quizzes: Quiz[];
 
   constructor(
     firstName: string,

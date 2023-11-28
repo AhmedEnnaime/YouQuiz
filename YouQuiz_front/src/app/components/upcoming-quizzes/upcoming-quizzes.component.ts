@@ -14,9 +14,30 @@ export class UpcomingQuizzesComponent implements OnInit {
   constructor(private assignQuizService: AssignQuizService) {}
   ngOnInit(): void {
     this.assignQuizService.getAssignments().subscribe((upcomingQuizzes) => {
-      this.upcomingQuizzes = upcomingQuizzes;
-      this.numOfUpcomingQuizzes = upcomingQuizzes.length;
-      console.log(upcomingQuizzes);
+      const futureAssignments = upcomingQuizzes.filter(
+        (quiz) => new Date(quiz.debutDate) > new Date()
+      );
+
+      const uniqueAssignmentsMap = new Map<string, AssignQuiz>();
+      futureAssignments.forEach((assignment) => {
+        const key =
+          assignment.quiz.id +
+          '-' +
+          assignment.debutDate +
+          '-' +
+          assignment.endDate;
+
+        if (
+          !uniqueAssignmentsMap.has(key) ||
+          new Date(assignment.debutDate) <
+            new Date(uniqueAssignmentsMap.get(key)!.debutDate)
+        ) {
+          uniqueAssignmentsMap.set(key, assignment);
+        }
+      });
+      this.upcomingQuizzes = Array.from(uniqueAssignmentsMap.values());
+
+      this.numOfUpcomingQuizzes = this.upcomingQuizzes.length;
     });
   }
 }

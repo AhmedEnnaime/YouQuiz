@@ -1,3 +1,5 @@
+import { Trainer } from './trainer.model';
+
 export class Quiz {
   public id?: number;
   public score: number;
@@ -6,6 +8,7 @@ export class Quiz {
   public chanceNum: number;
   public remark?: string;
   public durationInMinutes: number;
+  public trainer: Trainer;
 
   constructor(
     id: number,
@@ -14,7 +17,8 @@ export class Quiz {
     showFinalResults: boolean,
     chanceNum: number,
     remark: string,
-    durationInMinutes: number
+    durationInMinutes: number,
+    trainer: Trainer
   ) {
     this.id = id;
     this.score = score;
@@ -23,5 +27,6 @@ export class Quiz {
     this.chanceNum = chanceNum;
     this.remark = remark;
     this.durationInMinutes = durationInMinutes;
+    this.trainer = trainer;
   }
 }

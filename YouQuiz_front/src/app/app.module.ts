@@ -26,6 +26,9 @@ import { UpcomingQuizzesComponent } from './components/upcoming-quizzes/upcoming
 import { UpcomingQuizCardComponent } from './components/upcoming-quizzes/upcoming-quiz-card/upcoming-quiz-card.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { LabelComponent } from './shared/label/label.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { QuizzesComponent } from './components/pages/quizzes/quizzes.component';
+import { QuizCardComponent } from './components/pages/quizzes/quiz-card/quiz-card.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import { LabelComponent } from './shared/label/label.component';
     UpcomingQuizCardComponent,
     CalendarComponent,
     LabelComponent,
+    NotFoundComponent,
+    QuizzesComponent,
+    QuizCardComponent,
   ],
   imports: [
     BrowserModule,

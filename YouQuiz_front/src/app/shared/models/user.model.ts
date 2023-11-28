@@ -1,8 +1,8 @@
 export class User {
-  protected firstName: string;
-  protected lastName: string;
-  protected birthDate: Date;
-  protected address: string;
+  public firstName: string;
+  public lastName: string;
+  public birthDate: Date;
+  public address: string;
 
   constructor(
     firstName: string,
