@@ -22,6 +22,10 @@ import { TodayQuizCardComponent } from './components/today-quiz/today-quiz-card/
 import { AssignedQuizzesComponent } from './components/assigned-quizzes/assigned-quizzes.component';
 import { AssignedQuizCardComponent } from './components/assigned-quizzes/assigned-quiz-card/assigned-quiz-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UpcomingQuizzesComponent } from './components/upcoming-quizzes/upcoming-quizzes.component';
+import { UpcomingQuizCardComponent } from './components/upcoming-quizzes/upcoming-quiz-card/upcoming-quiz-card.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { LabelComponent } from './shared/label/label.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,10 @@ import { HttpClientModule } from '@angular/common/http';
     TodayQuizCardComponent,
     AssignedQuizzesComponent,
     AssignedQuizCardComponent,
+    UpcomingQuizzesComponent,
+    UpcomingQuizCardComponent,
+    CalendarComponent,
+    LabelComponent,
   ],
   imports: [
     BrowserModule,

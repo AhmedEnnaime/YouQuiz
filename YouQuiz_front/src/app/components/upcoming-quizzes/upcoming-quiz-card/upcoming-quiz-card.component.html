@@ -1,0 +1,14 @@
+<div class="flex flex-row justify-between mt-3 mb-5">
+    <div *ngIf="upcomingQuiz" class="mr-4">
+        <app-calendar [date]="upcomingQuiz.debutDate"></app-calendar>
+    </div>
+    <div class="ml-0 mr-auto">
+        <h3 class="text-xl text-gray-500 ">{{upcomingQuiz?.reason }}</h3>
+        <p class="text-base text-gray-700 mb-3">
+            <span> {{ upcomingQuiz?.['time'] }} </span>
+            <span class="h-2 w-2 inline-block rounded-full bg-gray-300 mx-2"></span>
+            <span> {{ upcomingQuiz?.quiz?.remark }} </span>
+        </p>
+        <app-label class="" [props]="{'durationInMinutes': props?.durationInMinutes}"></app-label>
+    </div>
+</div>

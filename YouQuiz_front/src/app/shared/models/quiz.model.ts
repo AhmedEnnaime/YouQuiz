@@ -1,11 +1,11 @@
 export class Quiz {
-  private id?: number;
-  private score: number;
-  private showAnswers: boolean;
-  private showFinalResults: boolean;
-  private chanceNum: number;
-  private remark?: string;
-  private durationInMinutes: number;
+  public id?: number;
+  public score: number;
+  public showAnswers: boolean;
+  public showFinalResults: boolean;
+  public chanceNum: number;
+  public remark?: string;
+  public durationInMinutes: number;
 
   constructor(
     id: number,

@@ -1,8 +1,8 @@
 export class User {
-  private firstName: string;
-  private lastName: string;
-  private birthDate: Date;
-  private address: string;
+  protected firstName: string;
+  protected lastName: string;
+  protected birthDate: Date;
+  protected address: string;
 
   constructor(
     firstName: string,

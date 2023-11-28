@@ -3,15 +3,15 @@ import { Student } from './student.model';
 import { Quiz } from './quiz.model';
 
 export class AssignQuiz {
-  private id?: number;
-  private score: number;
-  private played: number;
-  private result: Result;
-  private reason: string;
-  private debutDate: Date;
-  private endDate: Date;
-  private student: Student;
-  private quiz: Quiz;
+  public id?: number;
+  public score: number;
+  public played: number;
+  public result?: Result;
+  public reason: string;
+  public debutDate: Date;
+  public endDate: Date;
+  public student: Student;
+  public quiz: Quiz;
 
   constructor(
     id: number,
