@@ -27,3 +27,5 @@ t
 DYouQuiz/src/main/java/com/youcode/youquiz/models/entities/Media.java,b/3/b3eeaf5728c25dd22118dc6e5b2dc09384cbdfa0
 w
 GYouQuiz/src/main/java/com/youcode/youquiz/models/entities/Response.java,3/8/3894e7866502942ec2bc7b2433081f97d9848831
+s
+CYouQuiz/src/main/java/com/youcode/youquiz/models/entities/Quiz.java,1/1/1185e8ee08d184f3b94f992216045aedfd59a55a

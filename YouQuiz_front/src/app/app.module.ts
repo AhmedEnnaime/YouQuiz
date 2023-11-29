@@ -29,6 +29,7 @@ import { LabelComponent } from './shared/label/label.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { QuizzesComponent } from './components/pages/quizzes/quizzes.component';
 import { QuizCardComponent } from './components/pages/quizzes/quiz-card/quiz-card.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { QuizCardComponent } from './components/pages/quizzes/quiz-card/quiz-car
     NotFoundComponent,
     QuizzesComponent,
     QuizCardComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

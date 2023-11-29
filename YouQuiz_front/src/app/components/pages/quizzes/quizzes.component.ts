@@ -9,8 +9,13 @@ import { Quiz } from 'src/app/shared/models/quiz.model';
 })
 export class QuizzesComponent implements OnInit {
   quizzes: Quiz[] = [];
+  show = false;
 
   constructor(private quizService: QuizService) {}
+
+  openModal() {
+    this.show = true;
+  }
 
   ngOnInit(): void {
     this.quizService.getQuizzes().subscribe((quizzes) => {
