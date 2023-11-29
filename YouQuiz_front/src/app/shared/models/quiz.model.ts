@@ -8,7 +8,8 @@ export class Quiz {
   public chanceNum: number;
   public remark?: string;
   public durationInMinutes: number;
-  public trainer: Trainer;
+  public trainer_id?: number;
+  public trainer?: Trainer;
 
   constructor(
     id: number,
@@ -18,6 +19,7 @@ export class Quiz {
     chanceNum: number,
     remark: string,
     durationInMinutes: number,
+    trainer_id: number,
     trainer: Trainer
   ) {
     this.id = id;
@@ -27,6 +29,7 @@ export class Quiz {
     this.chanceNum = chanceNum;
     this.remark = remark;
     this.durationInMinutes = durationInMinutes;
+    this.trainer_id = trainer_id;
     this.trainer = trainer;
   }
 }
