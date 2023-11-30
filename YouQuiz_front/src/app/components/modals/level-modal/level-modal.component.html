@@ -1,0 +1,21 @@
+<form class="flex flex-col h-fit justify-center items-center gap-5" [formGroup]="form">
+    <mat-dialog-content>
+        <h2 class="font-Montserrat font-bold text-[30px] w-[200px] inline-block mt-5">Add level</h2>
+        <mat-form-field class="w-full">
+            <mat-label>Description</mat-label>
+            <input matInput placeholder="description" formControlName="description">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>Max Score</mat-label>
+            <input matInput placeholder="max score" formControlName="maxScore" type="number">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>Min Score</mat-label>
+            <input matInput placeholder="min score" formControlName="minScore" type="number">
+        </mat-form-field>
+        <mat-dialog-actions align="center">
+            <button mat-dialog-close class="bg-[#ce8c12] rounded-md text-white font-bold p-2">Close</button>
+            <button class="bg-[#1267CE] rounded-md text-white font-bold p-2 ml-3" (click)="addLevel()">Create</button>
+        </mat-dialog-actions>
+    </mat-dialog-content>
+</form>

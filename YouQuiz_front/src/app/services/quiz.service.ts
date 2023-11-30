@@ -23,10 +23,14 @@ export class QuizService {
   }
 
   addQuiz(quiz: Quiz): Observable<Quiz> {
-    return this.http.post<Quiz>(
-      `${this.baseUrl}/quizzes`,
-      quiz,
-      this.httpOptions
-    );
+    return this.http
+      .post<Quiz>(`${this.baseUrl}/quizzes`, quiz, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  deleteQuiz(id: number): Observable<string> {
+    return this.http
+      .delete<string>(`${this.baseUrl}/quizzes/${id}`, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
   }
 }

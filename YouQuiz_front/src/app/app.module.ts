@@ -41,6 +41,7 @@ import { LevelsComponent } from './components/levels/levels.component';
 import { LevelCardComponent } from './components/levels/level-card/level-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
+import { LevelModalComponent } from './components/modals/level-modal/level-modal.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { DeleteModalComponent } from './components/modals/delete-modal/delete-mo
     LevelsComponent,
     LevelCardComponent,
     DeleteModalComponent,
+    LevelModalComponent,
   ],
   imports: [
     BrowserModule,

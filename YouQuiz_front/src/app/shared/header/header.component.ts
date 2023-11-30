@@ -32,11 +32,6 @@ export class HeaderComponent implements OnInit {
       url: '/subjects',
       notificationCount: 0,
     },
-    {
-      text: 'Levels',
-      url: '/levels',
-      notificationCount: 0,
-    },
   ];
 
   ngOnInit(): void {

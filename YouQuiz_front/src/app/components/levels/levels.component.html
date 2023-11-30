@@ -7,7 +7,7 @@
                 <span class="text-sm text-white font-semibold align-center">{{ levels.length }}</span>
             </span>
         </div>
-        <app-button [props]="{'type': 'success', 'text':'Add new level'}"></app-button>
+        <app-button (click)="(openDialog())" [props]="{'type': 'success', 'text':'Add new level'}"></app-button>
 
     </div>
     <div class="bg-white border-solid border-2 border-gray-200 rounded-xl px-6 py-4">
