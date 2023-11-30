@@ -37,6 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { LevelsComponent } from './components/levels/levels.component';
+import { LevelCardComponent } from './components/levels/level-card/level-card.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { MatRadioModule } from '@angular/material/radio';
     QuizzesComponent,
     QuizCardComponent,
     ModalComponent,
+    LevelsComponent,
+    LevelCardComponent,
   ],
   imports: [
     BrowserModule,

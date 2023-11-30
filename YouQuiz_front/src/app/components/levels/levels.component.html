@@ -1,0 +1,20 @@
+<div>
+    <div class="flex justify-between p-4">
+
+        <div class="flex flex-row items-start">
+            <h2 class="text-2xl font-semibold mb-4">Levels Available</h2>
+            <span *ngIf="levels" class="h-6 w-8 inline-block ml-1 bg-green-500 rounded-full text-center align-center">
+                <span class="text-sm text-white font-semibold align-center">{{ levels.length }}</span>
+            </span>
+        </div>
+        <app-button [props]="{'type': 'success', 'text':'Add new level'}"></app-button>
+
+    </div>
+    <div class="bg-white border-solid border-2 border-gray-200 rounded-xl px-6 py-4">
+        <ul>
+            <li *ngFor="let level of levels">
+                <app-level-card [props]="level"></app-level-card>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -26,12 +26,12 @@ export class ModalComponent {
 
   addQuiz() {
     const newQuiz: Quiz = {
-      score: this.form.value.score || 0,
-      showAnswers: this.form.value.showAnswers || false,
-      showFinalResults: this.form.value.showFinalResults || false,
-      chanceNum: this.form.value.chanceNum || 0,
-      remark: this.form.value.remark || '',
-      durationInMinutes: this.form.value.durationInMinutes || 0,
+      score: this.form.value.score ?? 0,
+      showAnswers: this.form.value.showAnswers ?? false,
+      showFinalResults: this.form.value.showFinalResults ?? false,
+      chanceNum: this.form.value.chanceNum ?? 0,
+      remark: this.form.value.remark ?? '',
+      durationInMinutes: this.form.value.durationInMinutes ?? 0,
       trainer_id: 1,
     };
     this.quizService.addQuiz(newQuiz).subscribe({

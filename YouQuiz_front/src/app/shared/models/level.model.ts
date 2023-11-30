@@ -1,8 +1,8 @@
 export class Level {
-  private id?: number;
-  private description?: string;
-  private maxScore: number;
-  private minScore: number;
+  public id?: number;
+  public description?: string;
+  public maxScore: number;
+  public minScore: number;
 
   constructor(
     id: number,
