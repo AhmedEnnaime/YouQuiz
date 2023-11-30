@@ -29,7 +29,7 @@ import { LabelComponent } from './shared/label/label.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { QuizzesComponent } from './components/pages/quizzes/quizzes.component';
 import { QuizCardComponent } from './components/pages/quizzes/quiz-card/quiz-card.component';
-import { ModalComponent } from './components/modal/modal.component';
+import { ModalComponent } from './components/modals/modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,6 +39,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { LevelsComponent } from './components/levels/levels.component';
 import { LevelCardComponent } from './components/levels/level-card/level-card.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { LevelCardComponent } from './components/levels/level-card/level-card.co
     ModalComponent,
     LevelsComponent,
     LevelCardComponent,
+    DeleteModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ import { LevelCardComponent } from './components/levels/level-card/level-card.co
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

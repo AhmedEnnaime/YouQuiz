@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { QuizService } from 'src/app/services/quiz.service';
 import { Quiz } from 'src/app/shared/models/quiz.model';
-import { ModalComponent } from '../../modal/modal.component';
+import { ModalComponent } from '../../modals/modal/modal.component';
 
 @Component({
   selector: 'app-quizzes',
