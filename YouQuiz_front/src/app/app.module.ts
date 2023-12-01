@@ -42,6 +42,7 @@ import { LevelCardComponent } from './components/levels/level-card/level-card.co
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
 import { LevelModalComponent } from './components/modals/level-modal/level-modal.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { LevelModalComponent } from './components/modals/level-modal/level-modal
     MatInputModule,
     MatRadioModule,
     MatIconModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [],
   bootstrap: [AppComponent],
