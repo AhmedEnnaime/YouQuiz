@@ -43,6 +43,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
 import { LevelModalComponent } from './components/modals/level-modal/level-modal.component';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { LevelsReducer } from './shared/store/reducers/level.reducer';
+import { LevelEffects } from './shared/store/effects/level.effect';
 
 @NgModule({
   declarations: [
@@ -86,7 +90,12 @@ import { StoreModule } from '@ngrx/store';
     MatInputModule,
     MatRadioModule,
     MatIconModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule,
+    StoreModule.forRoot({ levels: LevelsReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
+    EffectsModule.forRoot([LevelEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
