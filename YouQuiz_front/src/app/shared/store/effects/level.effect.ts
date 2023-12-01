@@ -19,4 +19,32 @@ export class LevelEffects {
       )
     )
   );
+
+  addLevel$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LevelActions.addLevel),
+        exhaustMap((action) =>
+          this.levelService
+            .addLevel(action.level)
+            .pipe(
+              map((addedLevel: Level) =>
+                LevelActions.addLevel({ level: addedLevel })
+              )
+            )
+        )
+      ),
+    { dispatch: false }
+  );
+
+  removeLevel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LevelActions.removeLevel),
+      exhaustMap((action) =>
+        this.levelService
+          .deleteLevel(action.id)
+          .pipe(map(() => LevelActions.removeLevel({ id: action.id })))
+      )
+    )
+  );
 }

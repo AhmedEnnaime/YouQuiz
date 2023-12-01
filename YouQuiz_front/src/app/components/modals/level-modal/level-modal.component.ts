@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { LevelService } from 'src/app/services/level.service';
 import { Level } from 'src/app/shared/models/level.model';
+import * as LevelActions from '../../../shared/store/actions/level.action';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-level-modal',
@@ -11,8 +12,8 @@ import { Level } from 'src/app/shared/models/level.model';
 })
 export class LevelModalComponent {
   constructor(
-    private levelService: LevelService,
-    private dialogRef: MatDialogRef<LevelModalComponent>
+    private dialogRef: MatDialogRef<LevelModalComponent>,
+    private store: Store
   ) {}
 
   form = new FormGroup({
@@ -28,14 +29,7 @@ export class LevelModalComponent {
       minScore: this.form.value.minScore ?? 0,
     };
 
-    this.levelService.addLevel(newLevel).subscribe({
-      next: (addedLevel) => {
-        console.log('Level added:', addedLevel);
-        this.dialogRef.close();
-      },
-      error: (error) => {
-        console.error('Error adding level:', error);
-      },
-    });
+    this.store.dispatch(LevelActions.addLevel({ level: newLevel }));
+    this.dialogRef.close();
   }
 }

@@ -5,3 +5,13 @@ export const loadLevels = createAction(
   '[Levels] Load Levels',
   props<{ levels: Level[] }>()
 );
+
+export const addLevel = createAction(
+  '[Levels] Add level',
+  props<{ level: Level }>()
+);
+
+export const removeLevel = createAction(
+  '[Levels] Remove level',
+  props<{ id: number }>()
+);

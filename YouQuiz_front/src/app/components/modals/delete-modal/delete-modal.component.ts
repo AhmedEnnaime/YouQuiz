@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import * as LevelActions from '../../../shared/store/actions/level.action';
 import { LevelService } from 'src/app/services/level.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-delete-modal',
@@ -10,10 +11,9 @@ import { LevelService } from 'src/app/services/level.service';
 })
 export class DeleteModalComponent {
   constructor(
-    private levelService: LevelService,
     private dialogRef: MatDialogRef<DeleteModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { levelId: number },
-    private router: Router
+    private store: Store
   ) {}
 
   onClose() {
@@ -21,11 +21,7 @@ export class DeleteModalComponent {
   }
 
   onDelete() {
-    this.levelService
-      .deleteLevel(this.data.levelId)
-      .subscribe((res: string) => {
-        console.log(res);
-        this.router.navigate(['/']);
-      });
+    this.store.dispatch(LevelActions.removeLevel({ id: this.data.levelId }));
+    this.dialogRef.close();
   }
 }
