@@ -20,18 +20,16 @@ export class QuizEffects {
     )
   );
 
-  addQuiz$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(QuizActions.addQuiz),
-        exhaustMap((action) =>
-          this.quizService
-            .addQuiz(action.quiz)
-            .pipe(
-              map((addedQuiz: Quiz) => QuizActions.addQuiz({ quiz: addedQuiz }))
-            )
+  addQuiz$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(QuizActions.addQuiz),
+      exhaustMap((action) =>
+        this.quizService.addQuiz(action.quiz).pipe(
+          map((addedQuiz: Quiz) => {
+            return QuizActions.loadQuizzes({ quizzes: [addedQuiz] });
+          })
         )
-      ),
-    { dispatch: false }
+      )
+    )
   );
 }
