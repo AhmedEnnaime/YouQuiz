@@ -28,6 +28,7 @@ export class LevelsComponent implements OnInit {
       enterAnimationDuration: '400ms',
       exitAnimationDuration: '400ms',
       autoFocus: false,
+      data: { level: undefined },
     });
   }
 

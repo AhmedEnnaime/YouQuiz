@@ -8,7 +8,7 @@
         {{ level?.maxScore }} Points
     </div>
     <div class="flex gap-4 ml-auto">
-        <mat-icon class="cursor-pointer mat-icon-blue">update</mat-icon>
+        <mat-icon class="cursor-pointer mat-icon-blue" (click)="openUpdateDialog()">update</mat-icon>
         <mat-icon class="cursor-pointer mat-icon-red" (click)="openDialog()">delete</mat-icon>
     </div>
 </div>

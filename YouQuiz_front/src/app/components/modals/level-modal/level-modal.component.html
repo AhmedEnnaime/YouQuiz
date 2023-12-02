@@ -1,6 +1,9 @@
 <form class="flex flex-col h-fit justify-center items-center gap-5" [formGroup]="form">
     <mat-dialog-content>
-        <h2 class="font-Montserrat font-bold text-[30px] w-[200px] inline-block mt-5">Add level</h2>
+        <h2 class="font-Montserrat font-bold text-[30px] w-[200px] inline-block mt-5">{{ data.level !== undefined ?
+            'Update level' : 'Add Level' }}</h2>
+
+
         <mat-form-field class="w-full">
             <mat-label>Description</mat-label>
             <input matInput placeholder="description" formControlName="description">
@@ -15,7 +18,9 @@
         </mat-form-field>
         <mat-dialog-actions align="center">
             <button mat-dialog-close class="bg-[#ce8c12] rounded-md text-white font-bold p-2">Close</button>
-            <button class="bg-[#1267CE] rounded-md text-white font-bold p-2 ml-3" (click)="addLevel()">Create</button>
+            <button class="bg-[#1267CE] rounded-md text-white font-bold p-2 ml-3" (click)="addLevel()">{{ data.level !==
+                undefined ?
+                'Update' : 'Create' }}</button>
         </mat-dialog-actions>
     </mat-dialog-content>
 </form>

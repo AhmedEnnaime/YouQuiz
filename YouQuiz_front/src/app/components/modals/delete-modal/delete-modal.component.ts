@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as LevelActions from '../../../shared/store/actions/level.action';
-import { LevelService } from 'src/app/services/level.service';
 import { Store } from '@ngrx/store';
 
 @Component({
