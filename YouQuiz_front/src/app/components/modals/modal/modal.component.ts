@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { QuizService } from 'src/app/services/quiz.service';
+import { Store } from '@ngrx/store';
+import * as QuizActions from '../../../shared/store/actions/quiz.action';
 import { Quiz } from 'src/app/shared/models/quiz.model';
 
 @Component({
@@ -20,7 +21,7 @@ export class ModalComponent {
   });
 
   constructor(
-    private quizService: QuizService,
+    private store: Store,
     private dialogRef: MatDialogRef<ModalComponent>
   ) {}
 
@@ -34,14 +35,8 @@ export class ModalComponent {
       durationInMinutes: this.form.value.durationInMinutes ?? 0,
       trainer_id: 1,
     };
-    this.quizService.addQuiz(newQuiz).subscribe({
-      next: (addedQuiz) => {
-        console.log('Quiz added:', addedQuiz);
-        this.dialogRef.close();
-      },
-      error: (error) => {
-        console.error('Error adding quiz:', error);
-      },
-    });
+
+    this.store.dispatch(QuizActions.addQuiz({ quiz: newQuiz }));
+    this.dialogRef.close();
   }
 }

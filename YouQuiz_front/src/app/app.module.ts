@@ -47,6 +47,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { LevelsReducer } from './shared/store/reducers/level.reducer';
 import { LevelEffects } from './shared/store/effects/level.effect';
+import { QuizzesReducer } from './shared/store/reducers/quiz.reducer';
+import { QuizEffects } from './shared/store/effects/quiz.effect';
 
 @NgModule({
   declarations: [
@@ -91,11 +93,11 @@ import { LevelEffects } from './shared/store/effects/level.effect';
     MatRadioModule,
     MatIconModule,
     StoreModule,
-    StoreModule.forRoot({ levels: LevelsReducer }),
+    StoreModule.forRoot({ levels: LevelsReducer, quizzes: QuizzesReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
-    EffectsModule.forRoot([LevelEffects]),
+    EffectsModule.forRoot([LevelEffects, QuizEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
