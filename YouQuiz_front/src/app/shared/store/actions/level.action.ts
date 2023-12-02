@@ -15,3 +15,8 @@ export const removeLevel = createAction(
   '[Levels] Remove level',
   props<{ id: number }>()
 );
+
+export const updateLevel = createAction(
+  '[Levels] Update level',
+  props<{ level: Level; id: number }>()
+);

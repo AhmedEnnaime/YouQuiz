@@ -47,4 +47,19 @@ export class LevelEffects {
       )
     )
   );
+
+  updateLevel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LevelActions.updateLevel),
+      exhaustMap((action) =>
+        this.levelService
+          .updateLevel(action.level, action.id)
+          .pipe(
+            map(() =>
+              LevelActions.updateLevel({ level: action.level, id: action.id })
+            )
+          )
+      )
+    )
+  );
 }

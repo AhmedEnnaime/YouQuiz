@@ -1,6 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { Level } from '../../models/level.model';
-import { addLevel, loadLevels, removeLevel } from '../actions/level.action';
+import {
+  addLevel,
+  loadLevels,
+  removeLevel,
+  updateLevel,
+} from '../actions/level.action';
 
 export interface LevelState {
   levels: Level[];
@@ -20,5 +25,11 @@ export const LevelsReducer = createReducer(
   on(removeLevel, (state, { id }) => ({
     ...state,
     levels: state.levels.filter((level) => level.id !== id),
+  })),
+  on(updateLevel, (state, { level, id }) => ({
+    ...state,
+    levels: state.levels.map((existingLevel) =>
+      existingLevel.id === id ? { ...existingLevel, ...level } : existingLevel
+    ),
   }))
 );

@@ -36,4 +36,10 @@ export class LevelService {
       .post<Level>(`${this.baseUrl}/levels`, level, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
+
+  updateLevel(level: Level, id: number): Observable<Level> {
+    return this.http
+      .put<Level>(`${this.baseUrl}/levels/${id}`, level, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
 }
