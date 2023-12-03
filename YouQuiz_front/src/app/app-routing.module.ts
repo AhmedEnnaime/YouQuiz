@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './shared/main-layout/main-layout.component'
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { QuizzesComponent } from './components/pages/quizzes/quizzes.component';
+import { QuestionsComponent } from './components/pages/questions/questions.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
     path: 'quizzes',
     component: MainLayoutComponent,
     children: [{ path: '', component: QuizzesComponent }],
+  },
+  {
+    path: 'questions',
+    component: MainLayoutComponent,
+    children: [{ path: '', component: QuestionsComponent }],
   },
   {
     path: '**',

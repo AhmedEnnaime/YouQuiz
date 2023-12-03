@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Quiz } from 'src/app/shared/models/quiz.model';
 
 @Component({
@@ -9,6 +10,12 @@ import { Quiz } from 'src/app/shared/models/quiz.model';
 export class QuizCardComponent implements OnInit {
   @Input() props?: any;
   quiz?: Quiz;
+
+  constructor(private router: Router) {}
+
+  goToQuestionsPage() {
+    this.router.navigate(['/questions']);
+  }
 
   ngOnInit(): void {
     this.quiz = {

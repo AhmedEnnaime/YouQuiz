@@ -11,4 +11,5 @@ public class ResponseDto {
     private Long id;
     @NotBlank(message = "the response require a non empty string")
     private String response;
+    private double point;
 }

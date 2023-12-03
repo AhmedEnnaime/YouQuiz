@@ -49,6 +49,12 @@ import { LevelsReducer } from './shared/store/reducers/level.reducer';
 import { LevelEffects } from './shared/store/effects/level.effect';
 import { QuizzesReducer } from './shared/store/reducers/quiz.reducer';
 import { QuizEffects } from './shared/store/effects/quiz.effect';
+import { QuestionsComponent } from './components/pages/questions/questions.component';
+import { QuestionCardComponent } from './components/pages/questions/question-card/question-card.component';
+import { ResponsesComponent } from './components/responses/responses.component';
+import { QuizSideComponent } from './components/pages/questions/quiz-side/quiz-side.component';
+import { ResponseCardComponent } from './components/responses/response-card/response-card.component';
+import { QuestionsListComponent } from './components/pages/questions/questions-list/questions-list.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +84,12 @@ import { QuizEffects } from './shared/store/effects/quiz.effect';
     LevelCardComponent,
     DeleteModalComponent,
     LevelModalComponent,
+    QuestionsComponent,
+    QuestionCardComponent,
+    ResponsesComponent,
+    ResponseCardComponent,
+    QuizSideComponent,
+    QuestionsListComponent,
   ],
   imports: [
     BrowserModule,
