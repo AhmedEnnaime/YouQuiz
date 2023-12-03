@@ -23,11 +23,11 @@ public class TempoQuiz implements Serializable {
     @Column
     private Integer time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("quiz_id")
     private Quiz quiz;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("question_id")
     private Question question;
 }

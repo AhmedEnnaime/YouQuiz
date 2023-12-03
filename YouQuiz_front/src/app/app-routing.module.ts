@@ -18,7 +18,7 @@ const routes: Routes = [
     children: [{ path: '', component: QuizzesComponent }],
   },
   {
-    path: 'questions',
+    path: 'questions/:id',
     component: MainLayoutComponent,
     children: [{ path: '', component: QuestionsComponent }],
   },

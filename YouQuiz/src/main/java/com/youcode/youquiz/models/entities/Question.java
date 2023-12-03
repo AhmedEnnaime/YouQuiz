@@ -40,14 +40,14 @@ public class Question implements Serializable {
     @Min(value = 0, message = "total score can't be less than 0")
     private Double totalScore;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<TempoQuiz> tempoQuizzes;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id")
     private Level level;
 

@@ -5,6 +5,7 @@ import com.youcode.youquiz.models.dto.TempoQuizDto;
 import com.youcode.youquiz.models.entities.Question;
 import com.youcode.youquiz.models.entities.Quiz;
 import com.youcode.youquiz.models.entities.TempoQuiz;
+import com.youcode.youquiz.payload.TempoQuizDtoResponse;
 import com.youcode.youquiz.repositories.QuestionRepository;
 import com.youcode.youquiz.repositories.QuizRepository;
 import com.youcode.youquiz.repositories.TempoQuizRepository;
@@ -13,6 +14,9 @@ import com.youcode.youquiz.utils.TempoID;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TempoQuizServiceImpl implements TempoQuizService {
@@ -66,5 +70,18 @@ public class TempoQuizServiceImpl implements TempoQuizService {
         tempoQuiz.setTime(tempoQuizDto.getTime());
         tempoQuizDto.setQuestion_id(questionID);
         return modelMapper.map(tempoQuizRepository.save(tempoQuiz), TempoQuizDto.class);
+    }
+
+    @Override
+    public List<TempoQuizDtoResponse> findTempoByQuiz(Long quizId) {
+        List<TempoQuiz> tempoQuizzes = tempoQuizRepository.findByQuiz_Id(quizId);
+        List<TempoQuizDtoResponse> tempoQuizResponses = new ArrayList<>();
+
+        for (TempoQuiz tempoQuiz : tempoQuizzes) {
+            TempoQuizDtoResponse tempoQuizDtoResponse = modelMapper.map(tempoQuiz, TempoQuizDtoResponse.class);
+            tempoQuizResponses.add(tempoQuizDtoResponse);
+        }
+
+        return tempoQuizResponses;
     }
 }

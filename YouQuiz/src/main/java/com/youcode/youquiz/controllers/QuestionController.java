@@ -3,6 +3,7 @@ package com.youcode.youquiz.controllers;
 import com.youcode.youquiz.models.dto.*;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.payload.SubjectDtoResponse;
+import com.youcode.youquiz.payload.TempoQuizDtoResponse;
 import com.youcode.youquiz.services.LevelService;
 import com.youcode.youquiz.services.QuestionService;
 import com.youcode.youquiz.services.SubjectService;
@@ -101,4 +102,11 @@ public class QuestionController {
         TempoQuizDto updatedTempoQuiz = tempoQuizService.update(questionID, tempoQuizDto);
         return ResponseEntity.ok(updatedTempoQuiz);
     }
+
+    @GetMapping("/tempos/{quizId}")
+    public ResponseEntity<List<TempoQuizDtoResponse>> getTempoForQuiz(@PathVariable Long quizId) {
+        List<TempoQuizDtoResponse> tempoQuizResponses = tempoQuizService.findTempoByQuiz(quizId);
+        return ResponseEntity.ok(tempoQuizResponses);
+    }
+
 }

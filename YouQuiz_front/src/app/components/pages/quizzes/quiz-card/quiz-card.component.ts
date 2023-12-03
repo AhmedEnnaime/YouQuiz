@@ -14,7 +14,7 @@ export class QuizCardComponent implements OnInit {
   constructor(private router: Router) {}
 
   goToQuestionsPage() {
-    this.router.navigate(['/questions']);
+    this.router.navigate(['/questions', this.quiz?.id]);
   }
 
   ngOnInit(): void {

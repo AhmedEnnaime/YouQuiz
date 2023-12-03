@@ -1,0 +1,8 @@
+
+o	java:S116"URename this field "subject_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êüš‘øÿÿÿÿ
+h	java:S116"SRename this field "level_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈÆ¯Ç
+M
+java:S1128
+"2Remove this unused import 'java.util.Collections'.(¢³ïÓþÿÿÿÿ
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
