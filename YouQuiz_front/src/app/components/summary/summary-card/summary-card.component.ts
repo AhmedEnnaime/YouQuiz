@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SummaryCardProps } from 'src/app/core/interfaces/ISummaryCardProps';
 
 @Component({

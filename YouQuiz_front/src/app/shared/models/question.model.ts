@@ -4,13 +4,13 @@ import { Subject } from './subject.model';
 import { Media } from './media.model';
 
 export class Question {
-  private id?: number;
-  private questionText: string;
-  private questionType: QuestionType;
-  private totalScore: number;
-  private subject: Subject;
-  private level: Level;
-  private medias: Media[];
+  public id?: number;
+  public questionText: string;
+  public questionType: QuestionType;
+  public totalScore: number;
+  public subject: Subject;
+  public level: Level;
+  public medias: Media[];
 
   constructor(
     id: number,

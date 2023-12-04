@@ -57,6 +57,8 @@ import { SubjectsComponent } from './components/subjects/subjects.component';
 import { SubjectCardComponent } from './components/subjects/subject-card/subject-card.component';
 import { SubjectsReducer } from './shared/store/reducers/subject.reducer';
 import { SubjectEffects } from './shared/store/effects/subject.effect';
+import { TemposReducer } from './shared/store/reducers/tempo.reducer';
+import { TempoEffects } from './shared/store/effects/tempo.effect';
 
 @NgModule({
   declarations: [
@@ -111,11 +113,17 @@ import { SubjectEffects } from './shared/store/effects/subject.effect';
       levels: LevelsReducer,
       quizzes: QuizzesReducer,
       subjects: SubjectsReducer,
+      tempos: TemposReducer,
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
-    EffectsModule.forRoot([LevelEffects, QuizEffects, SubjectEffects]),
+    EffectsModule.forRoot([
+      LevelEffects,
+      QuizEffects,
+      SubjectEffects,
+      TempoEffects,
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent],

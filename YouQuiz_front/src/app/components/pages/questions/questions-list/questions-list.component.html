@@ -1,7 +1,11 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div class="bg-white shadow overflow-hidden sm:rounded-md">
-    <ul role="list" class="divide-y divide-gray-200">
+<div class="flex justify-between mb-8">
+    <h1 class="font-bold text-3xl">Questions({{ tempos.length }})</h1>
+</div>
 
-
-    </ul>
+<div class="bg-white shadow w-full overflow-hidden sm:rounded-md">
+    <div class="flex flex-col gap-4">
+        <div *ngFor="let tempo of tempos">
+            <app-question-card [props]="tempo"></app-question-card>
+        </div>
+    </div>
 </div>

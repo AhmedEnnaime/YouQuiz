@@ -4,6 +4,7 @@ import {
   faClock,
   faChalkboardTeacher,
   faClipboard,
+  faPen,
 } from '@fortawesome/free-solid-svg-icons';
 import { QuizService } from 'src/app/services/quiz.service';
 import { Quiz } from 'src/app/shared/models/quiz.model';
@@ -19,6 +20,7 @@ export class QuizSideComponent implements OnInit {
   clock = faClock;
   trainerIcon = faChalkboardTeacher;
   scoreIcon = faClipboard;
+  penIcon = faPen;
   constructor(
     private route: ActivatedRoute,
     private quizService: QuizService
@@ -28,7 +30,6 @@ export class QuizSideComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const idString = params.get('id');
       this.quizID = idString !== null ? +idString : 0;
-      console.log('Quiz ID:', this.quizID);
     });
 
     this.quizService.getQuizByID(this.quizID ?? 0).subscribe((quiz) => {
