@@ -33,4 +33,10 @@ export class QuizService {
       .delete<string>(`${this.baseUrl}/quizzes/${id}`, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
+
+  getQuizByID(id: number): Observable<Quiz> {
+    return this.http
+      .get<Quiz>(`${this.baseUrl}/quizzes/${id}`, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
 }

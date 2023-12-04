@@ -6,8 +6,6 @@ import { SummaryCardProps } from 'src/app/core/interfaces/ISummaryCardProps';
   templateUrl: './summary-card.component.html',
   styleUrls: ['./summary-card.component.css'],
 })
-export class SummaryCardComponent implements OnInit {
+export class SummaryCardComponent {
   @Input() props?: SummaryCardProps;
-
-  ngOnInit(): void {}
 }

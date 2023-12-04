@@ -1,16 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  faExclamationCircle,
-  faChartSimple,
-} from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subject } from 'src/app/shared/models/subject.model';
 import { loadSubjects } from 'src/app/shared/store/actions/subject.action';
-
-const icons = {
-  faExclamationCircle,
-  faChartSimple,
-};
 
 @Component({
   selector: 'app-subjects',
@@ -18,8 +9,6 @@ const icons = {
   styleUrls: ['./subjects.component.css'],
 })
 export class SubjectsComponent implements OnInit {
-  icons: any = icons;
-
   subjects: Subject[] = [];
 
   constructor(private store: Store<{ subjects: { subjects: Subject[] } }>) {
