@@ -1,9 +1,9 @@
 export class Subject {
-  private id?: number;
-  private title: string;
-  private parent_id: number;
-  private parent?: Subject;
-  private childs?: Subject[];
+  public id?: number;
+  public title: string;
+  public parent_id?: number;
+  public parent?: Subject;
+  public childs?: Subject[];
 
   constructor(
     id: number,

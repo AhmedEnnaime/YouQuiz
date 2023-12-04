@@ -31,7 +31,6 @@ export class SummaryComponent implements OnInit {
     });
     this.subjectService.getSubjects().subscribe((subjects) => {
       this.subjects = subjects;
-      console.log(subjects.length);
     });
   }
 }

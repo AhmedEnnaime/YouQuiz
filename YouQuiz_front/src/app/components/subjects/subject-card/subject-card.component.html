@@ -1,9 +1,6 @@
 <div class="bg-white border-solid border-2  border-gray-200 rounded-xl px-6 py-6">
-    <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-full">
-        <fa-icon [icon]="props?.icon"></fa-icon>
-    </div>
     <h6 class="text-lg">
-        {{ props?.instruction }}
+        {{ subject?.title }}
     </h6>
     <div>
         <div class="flex flex-row justify-center items-center">
@@ -12,7 +9,7 @@
                 </div>
             </div>
             <div class="w-2/6 ml-2 flex items-center">
-                <span>{{ props?.current }}</span>/<span>{{ props?.total }}</span>
+                <span>{{ subject?.childs?.length }}</span>
             </div>
         </div>
     </div>

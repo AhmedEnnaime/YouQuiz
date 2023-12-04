@@ -26,7 +26,7 @@ export class LevelModalComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.level !== undefined) {
       this.form.patchValue({
-        description: this.data.level.description || '',
+        description: this.data.level.description ?? '',
         maxScore: this.data.level.maxScore || 0,
         minScore: this.data.level.minScore || 0,
       });

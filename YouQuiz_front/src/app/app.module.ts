@@ -17,8 +17,6 @@ import { MainLayoutComponent } from './shared/main-layout/main-layout.component'
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { SummaryCardComponent } from './components/summary/summary-card/summary-card.component';
-import { TodayQuizComponent } from './components/today-quiz/today-quiz.component';
-import { TodayQuizCardComponent } from './components/today-quiz/today-quiz-card/today-quiz-card.component';
 import { AssignedQuizzesComponent } from './components/assigned-quizzes/assigned-quizzes.component';
 import { AssignedQuizCardComponent } from './components/assigned-quizzes/assigned-quiz-card/assigned-quiz-card.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -55,6 +53,10 @@ import { ResponsesComponent } from './components/responses/responses.component';
 import { QuizSideComponent } from './components/pages/questions/quiz-side/quiz-side.component';
 import { ResponseCardComponent } from './components/responses/response-card/response-card.component';
 import { QuestionsListComponent } from './components/pages/questions/questions-list/questions-list.component';
+import { SubjectsComponent } from './components/subjects/subjects.component';
+import { SubjectCardComponent } from './components/subjects/subject-card/subject-card.component';
+import { SubjectsReducer } from './shared/store/reducers/subject.reducer';
+import { SubjectEffects } from './shared/store/effects/subject.effect';
 
 @NgModule({
   declarations: [
@@ -68,8 +70,6 @@ import { QuestionsListComponent } from './components/pages/questions/questions-l
     ProfileComponent,
     SummaryComponent,
     SummaryCardComponent,
-    TodayQuizComponent,
-    TodayQuizCardComponent,
     AssignedQuizzesComponent,
     AssignedQuizCardComponent,
     UpcomingQuizzesComponent,
@@ -90,6 +90,8 @@ import { QuestionsListComponent } from './components/pages/questions/questions-l
     ResponseCardComponent,
     QuizSideComponent,
     QuestionsListComponent,
+    SubjectsComponent,
+    SubjectCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,11 +107,15 @@ import { QuestionsListComponent } from './components/pages/questions/questions-l
     MatRadioModule,
     MatIconModule,
     StoreModule,
-    StoreModule.forRoot({ levels: LevelsReducer, quizzes: QuizzesReducer }),
+    StoreModule.forRoot({
+      levels: LevelsReducer,
+      quizzes: QuizzesReducer,
+      subjects: SubjectsReducer,
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
-    EffectsModule.forRoot([LevelEffects, QuizEffects]),
+    EffectsModule.forRoot([LevelEffects, QuizEffects, SubjectEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
