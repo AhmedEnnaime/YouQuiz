@@ -4,8 +4,6 @@ import { Store } from '@ngrx/store';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
 import { loadTempos } from 'src/app/shared/store/actions/tempo.action';
-import { loadValidations } from 'src/app/shared/store/actions/validation.action';
-import { selectValidations } from 'src/app/shared/store/selectors/validation.selector';
 
 @Component({
   selector: 'app-questions-list',

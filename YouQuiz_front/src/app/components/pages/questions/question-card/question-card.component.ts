@@ -2,10 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
-import {
-  loadValidations,
-  loadValidationsSuccess,
-} from 'src/app/shared/store/actions/validation.action';
+import { loadValidations } from 'src/app/shared/store/actions/validation.action';
 import { selectValidations } from 'src/app/shared/store/selectors/validation.selector';
 
 @Component({
@@ -16,7 +13,6 @@ import { selectValidations } from 'src/app/shared/store/selectors/validation.sel
 export class QuestionCardComponent implements OnInit {
   @Input() props?: any;
   tempo?: ITempoQuiz;
-  // @Input() propsValidation?: any;
   validations?: IValidation[];
 
   isOpen: boolean = false;
@@ -51,7 +47,5 @@ export class QuestionCardComponent implements OnInit {
     this.tempo = {
       ...this.props,
     };
-
-    console.log(this.validations);
   }
 }
