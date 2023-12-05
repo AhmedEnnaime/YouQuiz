@@ -16,4 +16,6 @@ public interface ValidationService {
     ValidationDtoResponse findByID(Long id);
 
     List<ValidationDtoResponse> getAll();
+
+    List<ValidationDtoResponse> getResponsesForQuestion(Long questionId);
 }

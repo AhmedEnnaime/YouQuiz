@@ -1,10 +1,24 @@
-<div class="flex flex-row-reverse justify-between w-full overflow-hidden bg-white rounded-lg shadow-lg">
+<div class="relative inline-block w-full">
 
-    <div class="w-1/5 bg-cover relative" style="background-image: url('../../../../../assets/img/img_placeholder.jpg')">
-        <p class="absolute bottom-2 right-2">{{ props.time }} s</p>
+    <div (click)="toggleDropdown()"
+        class="flex cursor-pointer flex-row-reverse justify-between w-full overflow-hidden bg-white rounded-lg shadow-lg">
+
+        <div class="w-1/5 bg-cover relative"
+            style="background-image: url('../../../../../assets/img/img_placeholder.jpg')">
+            <p class="absolute bottom-2 right-2">{{ props.time }} s</p>
+        </div>
+        <div class="p-4 md:p-4">
+            <h1 class="text-xl font-bold text-gray-800">{{ props.question.subject.title }}</h1>
+            <p class="mt-2 text-sm text-gray-600">{{ props.question.questionText }}</p>
+        </div>
     </div>
-    <div class="w-2/3 p-4 md:p-4">
-        <h1 class="text-xl font-bold text-gray-800">{{ props.question.subject.title }}</h1>
-        <p class="mt-2 text-sm text-gray-600">{{ props.question.questionText }}</p>
+    <div *ngIf="isOpen" (click)="closeDropdown()"
+        class="right-0 z-20 w-full mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-lg">
+        <div class="py-2">
+            <!-- List of responses here -->
+            <p>YAAAA REBI YKHDEM</p>
+        </div>
+        <a href="#" class="block py-2 font-bold text-center text-white bg-gray-800 hover:underline">See
+            all notifications</a>
     </div>
 </div>

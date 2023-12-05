@@ -9,4 +9,14 @@ import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 export class QuestionCardComponent {
   @Input() props?: any;
   tempo?: ITempoQuiz;
+
+  isOpen: boolean = false;
+
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
+  }
+
+  closeDropdown() {
+    this.isOpen = false;
+  }
 }

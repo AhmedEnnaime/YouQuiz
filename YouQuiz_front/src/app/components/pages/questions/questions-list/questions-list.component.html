@@ -1,11 +1,15 @@
 <div class="flex justify-between mb-8">
     <h1 class="font-bold text-3xl">Questions({{ tempos.length }})</h1>
 </div>
-
-<div class="bg-white shadow w-full overflow-hidden sm:rounded-md">
-    <div class="flex flex-col gap-4">
-        <div *ngFor="let tempo of tempos">
-            <app-question-card [props]="tempo"></app-question-card>
-        </div>
+<div class="w-full overflow-hidden sm:rounded-md">
+    <div class="flex flex-col gap-4 p-4">
+        <ng-container *ngIf="tempos.length > 0; else noQuestions">
+            <div *ngFor="let tempo of tempos">
+                <app-question-card [props]="tempo"></app-question-card>
+            </div>
+        </ng-container>
+        <ng-template #noQuestions>
+            <img src="../../../../../assets/img/noQuestions.svg" alt="No questions available" />
+        </ng-template>
     </div>
 </div>

@@ -101,4 +101,18 @@ public class ValidationServiceImpl implements ValidationService {
                 .toList();
     }
 
+   @Override
+    public List<ValidationDtoResponse> getResponsesForQuestion(Long questionId) {
+        List<Validation> validations = validationRepository.findByQuestionId(questionId);
+        return validations.stream()
+                .map(validation -> {
+                    ValidationDtoResponse dtoResponse = modelMapper.map(validation, ValidationDtoResponse.class);
+                    dtoResponse.setQuestion(modelMapper.map(validation.getQuestion(), QuestionDtoResponse.class));
+                    dtoResponse.setResponse(modelMapper.map(validation.getResponse(), ResponseDto.class));
+                    return dtoResponse;
+                })
+                .toList();
+    }
+
+
 }

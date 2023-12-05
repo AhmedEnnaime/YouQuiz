@@ -50,4 +50,10 @@ public class ValidationController {
         ValidationDto updatedValidation = validationService.update(id, validationDto);
         return ResponseEntity.status(HttpStatus.OK).body(updatedValidation);
     }
+
+    @GetMapping("/responses/{questionId}")
+    public ResponseEntity<List<ValidationDtoResponse>> getResponsesForQuestion(@PathVariable Long questionId) {
+        List<ValidationDtoResponse> validationDtoResponses = validationService.getResponsesForQuestion(questionId);
+        return ResponseEntity.ok(validationDtoResponses);
+    }
 }
