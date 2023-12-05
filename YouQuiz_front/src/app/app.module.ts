@@ -59,6 +59,8 @@ import { SubjectsReducer } from './shared/store/reducers/subject.reducer';
 import { SubjectEffects } from './shared/store/effects/subject.effect';
 import { TemposReducer } from './shared/store/reducers/tempo.reducer';
 import { TempoEffects } from './shared/store/effects/tempo.effect';
+import { ValidationReducer } from './shared/store/reducers/validation.reducer';
+import { ValidationEffects } from './shared/store/effects/validation.effect';
 
 @NgModule({
   declarations: [
@@ -114,6 +116,7 @@ import { TempoEffects } from './shared/store/effects/tempo.effect';
       quizzes: QuizzesReducer,
       subjects: SubjectsReducer,
       tempos: TemposReducer,
+      validations: ValidationReducer,
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -123,6 +126,7 @@ import { TempoEffects } from './shared/store/effects/tempo.effect';
       QuizEffects,
       SubjectEffects,
       TempoEffects,
+      ValidationEffects,
     ]),
   ],
   providers: [],

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
+import { IValidation } from 'src/app/shared/models/IValidation';
 import { loadTempos } from 'src/app/shared/store/actions/tempo.action';
+import { loadValidations } from 'src/app/shared/store/actions/validation.action';
+import { selectValidations } from 'src/app/shared/store/selectors/validation.selector';
 
 @Component({
   selector: 'app-questions-list',
@@ -12,6 +15,7 @@ import { loadTempos } from 'src/app/shared/store/actions/tempo.action';
 export class QuestionsListComponent implements OnInit {
   tempos: ITempoQuiz[] = [];
   quizID?: number;
+  validations?: IValidation[];
 
   constructor(
     private store: Store<{ tempos: { tempos: ITempoQuiz[] } }>,

@@ -1,6 +1,6 @@
 export class Response {
-  private id?: number;
-  private response: string;
+  public id?: number;
+  public response: string;
 
   constructor(id: number, response: string) {
     this.id = id;

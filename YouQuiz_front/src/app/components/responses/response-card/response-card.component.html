@@ -1,1 +1,25 @@
-<p>response-card works!</p>
+<div class="flex items-center justify-between min-h-40px p-8 border-t border-gray-200">
+    <div class="flex items-center">
+        <div class="mr-4">
+            <span class="iconIcon-sc-xvsbpg-0 ejCBnJ stylesShadowIcon-sc-1s2mtot-2 RQJKo"
+                data-functional-selector="icon"
+                style="display: inline-block; vertical-align: middle; width: 30px; height: 30px;">
+                <svg viewBox="0 0 32 32" focusable="false" stroke="none" stroke-width="0"
+                    aria-labelledby="label-1166cd87-596b-4198-a7fc-02792cefef9e" aria-hidden="true"
+                    class="icon__Svg-sc-xvsbpg-1 ipIYNE">
+                    <title id="label-1166cd87-596b-4198-a7fc-02792cefef9e">Icon</title>
+                    <path d="M27,24.559972 L5,24.559972 L16,7 L27,24.559972 Z" style="fill: rgb(197, 0, 40);"></path>
+                </svg>
+            </span>
+        </div>
+        <span class="text-lg font-semibold text-gray-800">{{ validation?.response?.response }}</span>
+    </div>
+    <div class="flex items-center">
+        <ng-container *ngIf="validation!.points > 0; else zeroPointsSVG">
+            <fa-icon class="text-2xl text-green-500" [icon]="correctIcon"></fa-icon>
+        </ng-container>
+        <ng-template #zeroPointsSVG>
+            <fa-icon class="text-2xl text-red-500" [icon]="falseIcon"></fa-icon>
+        </ng-template>
+    </div>
+</div>
