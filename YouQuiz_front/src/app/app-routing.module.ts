@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { QuizzesComponent } from './components/pages/quizzes/quizzes.component';
 import { QuestionsComponent } from './components/pages/questions/questions.component';
+import { SallonComponent } from './components/pages/sallon/sallon.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
     path: 'questions/:id',
     component: MainLayoutComponent,
     children: [{ path: '', component: QuestionsComponent }],
+  },
+  {
+    path: 'sallon/:id',
+    component: MainLayoutComponent,
+    children: [{ path: '', component: SallonComponent }],
   },
   {
     path: '**',

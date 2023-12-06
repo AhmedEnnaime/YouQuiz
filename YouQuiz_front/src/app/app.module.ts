@@ -61,6 +61,12 @@ import { TemposReducer } from './shared/store/reducers/tempo.reducer';
 import { TempoEffects } from './shared/store/effects/tempo.effect';
 import { ValidationReducer } from './shared/store/reducers/validation.reducer';
 import { ValidationEffects } from './shared/store/effects/validation.effect';
+import { SallonComponent } from './components/pages/sallon/sallon.component';
+import { LeftSideBarComponent } from './components/pages/sallon/left-side-bar/left-side-bar.component';
+import { CenterComponent } from './components/pages/sallon/center/center.component';
+import { ResponsesOptionsComponent } from './components/pages/sallon/center/responses-options/responses-options.component';
+import { ResponseOptionCardComponent } from './components/pages/sallon/center/responses-options/response-option-card/response-option-card.component';
+import { QuestionTypeButtonComponent } from './components/pages/sallon/left-side-bar/question-type-button/question-type-button.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +102,12 @@ import { ValidationEffects } from './shared/store/effects/validation.effect';
     QuestionsListComponent,
     SubjectsComponent,
     SubjectCardComponent,
+    SallonComponent,
+    LeftSideBarComponent,
+    CenterComponent,
+    ResponsesOptionsComponent,
+    ResponseOptionCardComponent,
+    QuestionTypeButtonComponent,
   ],
   imports: [
     BrowserModule,

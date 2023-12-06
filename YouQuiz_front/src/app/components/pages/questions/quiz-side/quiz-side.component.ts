@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   faClock,
   faChalkboardTeacher,
@@ -23,8 +23,13 @@ export class QuizSideComponent implements OnInit {
   penIcon = faPen;
   constructor(
     private route: ActivatedRoute,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private router: Router
   ) {}
+
+  goToSallonPage() {
+    this.router.navigate(['/sallon', this.quizID]);
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
