@@ -1,4 +1,4 @@
-<aside class="flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
+<aside class="flex flex-col w-full h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
     <div class="flex flex-col gap-8">
         <div class="flex flex-col gap-4">
             <h1 class="text-lg font-bold">Question Type</h1>
@@ -6,7 +6,7 @@
         </div>
         <div class="flex flex-col gap-4">
             <h1 class="text-lg font-bold">Question Subject</h1>
-            <app-question-type-button class="w-full"></app-question-type-button>
+            <app-question-type-button [options]="subjects" class="w-full"></app-question-type-button>
         </div>
         <div class="flex flex-col gap-4">
             <h1 class="text-lg font-bold">Question Level</h1>
