@@ -1,5 +1,8 @@
 <div class="flex">
-    <app-left-side-bar class="w-1/5"></app-left-side-bar>
-    <app-center style="background-image: url('../../../../../assets/img/bg_sallon.jpg');"
-        class="w-full bg-no-repeat bg-cover"></app-center>
+    <app-left-side-bar [tempos]="tempos" (selectedQuestion)="onQuestionSelected($event)"
+        class="w-1/6"></app-left-side-bar>
+    <app-center [tempos]="tempos" [selectedQuestion]="selectedQuestion" [validations]="validations"
+        style="background-image: url('../../../../../assets/img/bg_sallon.jpg');"
+        class="w-2/3 bg-no-repeat bg-cover"></app-center>
+    <app-right-side></app-right-side>
 </div>

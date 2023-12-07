@@ -1,0 +1,6 @@
+<div class="bg-gray-100 overflow-hidden shadow w-52 h-32 rounded-lg hover:border-2 hover:border-gray-400 cursor-grab"
+    [ngClass]="{'border-gray-400': isSelected, 'border-2': isSelected}">
+    <div class="px-4 py-5 sm:p-6">
+        <h1 class="text-lg text-center">Question {{ questionNum !== undefined ? questionNum + 1 : 'N/A' }}</h1>
+    </div>
+</div>

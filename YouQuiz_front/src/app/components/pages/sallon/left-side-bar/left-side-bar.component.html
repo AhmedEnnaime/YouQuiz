@@ -1,22 +1,13 @@
 <aside class="flex flex-col w-full h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
-    <div class="flex flex-col gap-8">
-        <div class="flex flex-col gap-4">
-            <h1 class="text-lg font-bold">Question Type</h1>
-            <app-question-type-button class="w-full"></app-question-type-button>
-        </div>
-        <div class="flex flex-col gap-4">
-            <h1 class="text-lg font-bold">Question Subject</h1>
-            <app-question-type-button [options]="subjects" class="w-full"></app-question-type-button>
-        </div>
-        <div class="flex flex-col gap-4">
-            <h1 class="text-lg font-bold">Question Level</h1>
-            <app-question-type-button [options]="levels" class="w-full"></app-question-type-button>
-        </div>
-        <div class="flex flex-col gap-4">
-            <h1 class="text-lg font-bold">Question Points</h1>
-            <input placeholder="Enter the points of this question" class="w-full border-2 border-black rounded-md p-2"
-                type="text">
-        </div>
+    <div class="flex flex-col gap-4">
+        <ng-container *ngIf="tempos.length > 0; else noQuestions">
+            <div *ngFor="let tempo of tempos; index as i">
+                <app-quiz-question-card [questionNum]="i" [isSelected]="i === selectedQuestionIndex"
+                    (click)="selectQuestion(i)"></app-quiz-question-card>
+            </div>
+        </ng-container>
+        <ng-template #noQuestions>
+            <img src="../../../../../assets/img/noQuestions.svg" alt="No questions available" />
+        </ng-template>
     </div>
-
 </aside>

@@ -66,7 +66,9 @@ import { LeftSideBarComponent } from './components/pages/sallon/left-side-bar/le
 import { CenterComponent } from './components/pages/sallon/center/center.component';
 import { ResponsesOptionsComponent } from './components/pages/sallon/center/responses-options/responses-options.component';
 import { ResponseOptionCardComponent } from './components/pages/sallon/center/responses-options/response-option-card/response-option-card.component';
-import { QuestionTypeButtonComponent } from './components/pages/sallon/left-side-bar/question-type-button/question-type-button.component';
+import { QuestionTypeButtonComponent } from './components/pages/sallon/right-side/question-type-button/question-type-button.component';
+import { RightSideComponent } from './components/pages/sallon/right-side/right-side.component';
+import { QuizQuestionCardComponent } from './components/pages/sallon/left-side-bar/quiz-question-card/quiz-question-card.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { QuestionTypeButtonComponent } from './components/pages/sallon/left-side
     ResponsesOptionsComponent,
     ResponseOptionCardComponent,
     QuestionTypeButtonComponent,
+    RightSideComponent,
+    QuizQuestionCardComponent,
   ],
   imports: [
     BrowserModule,
