@@ -1,8 +1,3 @@
-
-# YouQuiz
-
-YouQuiz is an innovative e-learning platform designed to provide a comprehensive set of features catering to both instructors and students.
-
 ## Environment Variables
 
 To run this project, you will need to define the following environments variable in the docker compose file.
@@ -18,18 +13,6 @@ To run this project, you will need to define the following environments variable
 `POSTGRES_USER`
 
 `POSTGRES_PASSWORD`
-
-## Tech Stack
-
-**Client:** Angular, TailwindCSS
-
-**Server:** Springboot, Docker, Hibernate, Spring data JPA, Jenkins, Sonarqube, Prometheus, Grafana
-
-**Unit Testing:** Junit 5, Mockito
-
-## Application Architecture
-
-![App architecture](./assets/architecture.png)
 
 ## Class Diagram
 
