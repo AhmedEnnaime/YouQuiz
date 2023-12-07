@@ -1,6 +1,7 @@
 <div class="flex flex-col justify-center items-center p-2 mt-6">
     <input type="text" class="w-[80%] h-[60px] text-center rounded-sm inputShadow text-[20px] outline-none"
-        placeholder="start typing your question" value="{{ selectedQuestion?.question?.questionText }}" />
+        placeholder="start typing your question" [value]="selectedQuestion?.question?.questionText" />
+
     <label for="fileInput" class="cursor-pointer mt-8">
         <input id="fileInput" type="file" class="hidden" />
         <div
@@ -14,7 +15,17 @@
         </div>
     </label>
 
-    <div *ngIf="validations" class="w-full mt-4">
-        <app-responses-options [validations]="validations"></app-responses-options>
+    <div class="w-full mt-4">
+        <app-responses-options *ngIf="validations?.length !== 0; else emptyState"
+            [validations]="validations"></app-responses-options>
     </div>
 </div>
+
+<ng-template #emptyState>
+    <app-responses-options [validations]="[
+        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 },
+        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 },
+        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 },
+        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 }
+    ]"></app-responses-options>
+</ng-template>

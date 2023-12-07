@@ -7,7 +7,9 @@
             </div>
         </ng-container>
         <ng-template #noQuestions>
-            <img src="../../../../../assets/img/noQuestions.svg" alt="No questions available" />
+            <div *ngIf="tempos.length === 0">
+                <app-quiz-question-card [questionNum]="0" [isSelected]="false"></app-quiz-question-card>
+            </div>
         </ng-template>
     </div>
 </aside>

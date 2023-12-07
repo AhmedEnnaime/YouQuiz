@@ -1,13 +1,5 @@
 <div class="w-full grid grid-cols-2 gap-4">
     <div *ngFor="let validation of validations">
-        <div
-            class="flex justify-between items-center relative mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-6 py-12 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
-            <input value="{{ validation.response.response }}" type="text" placeholder="Add answer 1"
-                class="flex-1 mr-4 outline-none" />
-            <div class="round absolute right-16 top-10">
-                <input [checked]="validation.points > 0" type="checkbox" [id]="'checkbox' + validation.response.id" />
-                <label class="" [for]="'checkbox' + (validation.response.id)"></label>
-            </div>
-        </div>
+        <app-response-option-card [validation]="validation"></app-response-option-card>
     </div>
 </div>

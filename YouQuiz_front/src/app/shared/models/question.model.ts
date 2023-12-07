@@ -8,9 +8,9 @@ export class Question {
   public questionText: string;
   public questionType: QuestionType;
   public totalScore: number;
-  public subject: Subject;
-  public level: Level;
-  public medias: Media[];
+  public subject?: Subject;
+  public level?: Level;
+  public medias?: Media[];
 
   constructor(
     id: number,
