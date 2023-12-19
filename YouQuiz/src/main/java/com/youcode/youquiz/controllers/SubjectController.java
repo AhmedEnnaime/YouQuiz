@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -28,9 +30,12 @@ public class SubjectController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSubject(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteSubject(@PathVariable Long id) {
         subjectService.delete(id);
-        return new ResponseEntity<>("Subject deleted successfully", HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Subject deleted successfully.");
+        response.put("deletedElementIdentifier", id.toString());
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

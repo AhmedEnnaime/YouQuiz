@@ -24,4 +24,10 @@ export class SubjectService {
       .get<Subject[]>(`${this.baseUrl}/subjects`, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
+
+  addSubject(subject: Subject): Observable<Subject> {
+    return this.http
+      .post<Subject>(`${this.baseUrl}/subjects`, subject, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
 }

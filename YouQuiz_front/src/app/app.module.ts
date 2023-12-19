@@ -53,8 +53,6 @@ import { ResponseCardComponent } from './components/responses/response-card/resp
 import { QuestionsListComponent } from './components/pages/questions/questions-list/questions-list.component';
 import { SubjectsComponent } from './components/subjects/subjects.component';
 import { SubjectCardComponent } from './components/subjects/subject-card/subject-card.component';
-import { SubjectsReducer } from './shared/store/reducers/subject.reducer';
-import { SubjectEffects } from './shared/store/effects/subject.effect';
 import { TemposReducer } from './shared/store/reducers/tempo.reducer';
 import { TempoEffects } from './shared/store/effects/tempo.effect';
 import { ValidationReducer } from './shared/store/reducers/validation.reducer';
@@ -69,6 +67,8 @@ import { RightSideComponent } from './components/pages/sallon/right-side/right-s
 import { QuizQuestionCardComponent } from './components/pages/sallon/left-side-bar/quiz-question-card/quiz-question-card.component';
 import { LevelEffect } from './shared/store/level/level.effect';
 import { LevelStateModule } from './shared/store/level/level.state.module';
+import { SubjectStateModule } from './shared/store/subject/subject.state.module';
+import { SubjectEffect } from './shared/store/subject/subject.effect';
 
 @NgModule({
   declarations: [
@@ -129,7 +129,6 @@ import { LevelStateModule } from './shared/store/level/level.state.module';
     StoreModule,
     StoreModule.forRoot({
       quizzes: QuizzesReducer,
-      subjects: SubjectsReducer,
       tempos: TemposReducer,
       validations: ValidationReducer,
     }),
@@ -137,11 +136,12 @@ import { LevelStateModule } from './shared/store/level/level.state.module';
     EffectsModule.forRoot([
       LevelEffect,
       QuizEffects,
-      SubjectEffects,
+      SubjectEffect,
       TempoEffects,
       ValidationEffects,
     ]),
     LevelStateModule,
+    SubjectStateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

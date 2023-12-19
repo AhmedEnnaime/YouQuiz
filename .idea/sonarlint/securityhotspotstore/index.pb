@@ -81,3 +81,5 @@ t
 DYouQuiz/src/main/java/com/youcode/youquiz/services/LevelService.java,5/1/51043b3b99ddabfc8c9315c7ebb2f5cec7da88b5
 z
 JYouQuiz/src/main/java/com/youcode/youquiz/controllers/LevelController.java,8/6/864c78961eb747d8a09490537f5434e862a60058
+|
+LYouQuiz/src/main/java/com/youcode/youquiz/controllers/SubjectController.java,6/8/682457c03d659016f740a1594ab519c3e508d8da

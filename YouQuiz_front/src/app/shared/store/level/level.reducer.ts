@@ -13,7 +13,7 @@ export interface LevelState {
 export const initialState: LevelState = {
   collection: [],
   selectedLevelID: null,
-  loading: true,
+  loading: false,
   errors: {},
 };
 
@@ -27,10 +27,15 @@ export const LevelReducer = createReducer(
   on(levelPageActions.selectLevel, (state, action) => ({
     ...state,
     selectedLevelID: action.levelID,
+    loading: true,
   })),
   on(levelPageActions.unselectLevel, (state, action) => ({
     ...state,
     selectedLevelID: null,
+  })),
+  on(levelApiActions.levelsLoadedSuccessfully, (state, action) => ({
+    ...state,
+    collection: action.levels,
   })),
   on(levelApiActions.levelAddedSuccessfully, (state, action) => ({
     collection: createLevel(state.collection, action.addedLevel),

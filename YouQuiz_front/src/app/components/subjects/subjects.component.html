@@ -5,6 +5,7 @@
     </div>
 
     <div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-2">
-        <app-subject-card *ngFor="let subject of subjects" [props]="subject" class="w-full"></app-subject-card>
+        <app-subject-card *ngFor="let subject of subjects | async" [subject]="subject"
+            class="w-full"></app-subject-card>
     </div>
 </div>

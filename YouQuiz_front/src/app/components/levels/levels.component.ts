@@ -30,6 +30,5 @@ export class LevelsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(levelPageActions.enter());
-    this.levels.subscribe((data) => console.log('Levels:', data));
   }
 }

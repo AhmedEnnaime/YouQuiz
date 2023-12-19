@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Subject } from 'src/app/shared/models/subject.model';
-import { loadSubjects } from 'src/app/shared/store/actions/subject.action';
+import * as subjectPageActions from '../../shared/store/subject/actions/subject-page.actions';
+import { selectSubjects } from 'src/app/shared/store/subject/subject.selector';
 
 @Component({
   selector: 'app-subjects',
@@ -9,17 +11,13 @@ import { loadSubjects } from 'src/app/shared/store/actions/subject.action';
   styleUrls: ['./subjects.component.css'],
 })
 export class SubjectsComponent implements OnInit {
-  subjects: Subject[] = [];
+  subjects: Observable<Subject[]>;
 
-  constructor(private store: Store<{ subjects: { subjects: Subject[] } }>) {
-    store
-      .select('subjects')
-      .subscribe((subjectsState: { subjects: Subject[] }) => {
-        this.subjects = subjectsState.subjects;
-      });
+  constructor(private store: Store) {
+    this.subjects = store.select(selectSubjects);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadSubjects({ subjects: this.subjects }));
+    this.store.dispatch(subjectPageActions.enter());
   }
 }

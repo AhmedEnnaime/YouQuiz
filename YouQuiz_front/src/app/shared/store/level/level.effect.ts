@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LevelService } from 'src/app/services/level.service';
 import * as levelPageActions from './actions/level-page.actions';
 import * as levelApiActions from './actions/level.api.actions';
-import { concatMap, exhaustMap, map, mergeMap, tap } from 'rxjs';
+import { concatMap, exhaustMap, map, mergeMap } from 'rxjs';
 
 @Injectable()
 export class LevelEffect {
@@ -13,10 +13,13 @@ export class LevelEffect {
     this.actions$.pipe(
       ofType(levelPageActions.enter),
       exhaustMap(() =>
-        this.levelService.getLevels().pipe(
-          tap((levels) => console.log('Levels loaded:', levels)),
-          map((levels) => levelApiActions.levelsLoadedSuccessfully({ levels }))
-        )
+        this.levelService
+          .getLevels()
+          .pipe(
+            map((levels) =>
+              levelApiActions.levelsLoadedSuccessfully({ levels })
+            )
+          )
       )
     )
   );
