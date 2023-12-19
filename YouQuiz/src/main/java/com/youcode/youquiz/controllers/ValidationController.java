@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -40,9 +42,12 @@ public class ValidationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ValidationDtoResponse> deleteValidation(@PathVariable Long id) {
-        ValidationDtoResponse validationDtoResponse = validationService.findByID(id);
-        return ResponseEntity.status(HttpStatus.OK).body(validationDtoResponse);
+    public ResponseEntity<Map<String,String>> deleteValidation(@PathVariable Long id) {
+        validationService.delete(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Validation deleted successfully.");
+        response.put("deletedElementIdentifier", id.toString());
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

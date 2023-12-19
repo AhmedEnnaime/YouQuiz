@@ -2,15 +2,27 @@
     <div class="flex flex-col gap-8">
         <div class="flex flex-col gap-4">
             <h1 class="text-lg font-bold">Question Type</h1>
-            <app-question-type-button class="w-full"></app-question-type-button>
+            <select
+                class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
+                <option value="">Question Type</option>
+                <option *ngFor="let type of questionTypes" value="{{type}}">{{type}}</option>
+            </select>
         </div>
         <div class="flex flex-col gap-4">
             <h1 class="text-lg font-bold">Question Subject</h1>
-            <!-- <app-question-type-button [options]="subjects" class="w-full"></app-question-type-button> -->
+            <select
+                class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
+                <option value="">Question Subject</option>
+                <option *ngFor="let subject of subjects | async" value="{{subject.id}}">{{subject.title}}</option>
+            </select>
         </div>
         <div class="flex flex-col gap-4">
             <h1 class="text-lg font-bold">Question Level</h1>
-            <app-question-type-button [options]="levels" class="w-full"></app-question-type-button>
+            <select
+                class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
+                <option value="">Question Level</option>
+                <option *ngFor="let level of levels | async" value="{{level.id}}">{{level.description}}</option>
+            </select>
         </div>
         <div class="flex flex-col gap-4">
             <h1 class="text-lg font-bold">Question Points</h1>

@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "api/quizzes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,9 +39,12 @@ public class QuizController {
         return ResponseEntity.ok(quiz);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteQuiz(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteQuiz(@PathVariable Long id) {
         quizService.delete(id);
-        return new ResponseEntity<>("Quiz deleted successfully", HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Quiz deleted successfully.");
+        response.put("deletedElementIdentifier", id.toString());
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     }
     @PutMapping("/{id}")
     public ResponseEntity<QuizDto> updateQuiz(@PathVariable Long id, @Valid @RequestBody QuizDto quizDto) {

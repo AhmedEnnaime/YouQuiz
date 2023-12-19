@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Level } from 'src/app/shared/models/level.model';
 import { Subject } from 'src/app/shared/models/subject.model';
-import { loadLevels } from 'src/app/shared/store/actions/level.action';
-import { loadSubjects } from 'src/app/shared/store/actions/subject.action';
+import { selectLevels } from 'src/app/shared/store/level/level.selector';
+import { selectSubjects } from 'src/app/shared/store/subject/subject.selector';
+import * as levelPageActions from '../../../../shared/store/level/actions/level-page.actions';
+import * as subjectPageActions from '../../../../shared/store/subject/actions/subject-page.actions';
+import { QuestionType } from 'src/app/core/enums/QuestionType';
 
 @Component({
   selector: 'app-right-side',
@@ -11,28 +15,19 @@ import { loadSubjects } from 'src/app/shared/store/actions/subject.action';
   styleUrls: ['./right-side.component.css'],
 })
 export class RightSideComponent implements OnInit {
-  levels: Level[] = [];
-  subjects: Subject[] = [];
+  levels: Observable<Level[]>;
+  subjects: Observable<Subject[]>;
+  questionTypes: string[] = Object.keys(QuestionType).filter((v) =>
+    isNaN(Number(v))
+  );
 
-  constructor(
-    private storeLevel: Store<{ levels: { levels: Level[] } }>,
-    private storeSubject: Store<{ subjects: { subjects: Subject[] } }>
-  ) {
-    storeLevel
-      .select('levels')
-      .subscribe((levelsState: { levels: Level[] }) => {
-        this.levels = levelsState.levels;
-      });
-    storeSubject
-      .select('subjects')
-      .subscribe((subjectsState: { subjects: Subject[] }) => {
-        this.subjects = subjectsState.subjects;
-      });
+  constructor(private store: Store) {
+    this.levels = store.select(selectLevels);
+    this.subjects = store.select(selectSubjects);
   }
 
   ngOnInit(): void {
-    this.storeLevel.dispatch(loadLevels({ levels: this.levels }));
-    this.storeSubject.dispatch(loadSubjects({ subjects: this.subjects }));
-    console.log(this.levels);
+    this.store.dispatch(levelPageActions.enter());
+    this.store.dispatch(subjectPageActions.enter());
   }
 }

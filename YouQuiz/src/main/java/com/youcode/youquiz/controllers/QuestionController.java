@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -42,9 +44,12 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteQuestion(@PathVariable Long id) {
+    public ResponseEntity<Map<String,String>> deleteQuestion(@PathVariable Long id) {
         questionService.delete(id);
-        return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Question deleted successfully.");
+        response.put("deletedElementIdentifier", id.toString());
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
     @GetMapping
@@ -92,9 +97,12 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{questionID}/tempo/{quizID}")
-    public ResponseEntity<String> detachQuestionFromQuiz(@PathVariable Long questionID, @PathVariable Long quizID) {
+    public ResponseEntity<Map<String,String>> detachQuestionFromQuiz(@PathVariable Long questionID, @PathVariable Long quizID) {
         tempoQuizService.delete(questionID, quizID);
-        return new ResponseEntity<>("Question detached successfully from quiz", HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Quiz detached from quiz successfully.");
+        response.put("deletedElementIdentifier", questionID.toString());
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
     @PatchMapping("/{questionID}")
