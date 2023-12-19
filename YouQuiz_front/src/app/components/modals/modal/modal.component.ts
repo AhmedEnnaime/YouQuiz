@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import * as QuizActions from '../../../shared/store/actions/quiz.action';
+import * as quizPageActions from '../../../shared/store/quiz/actions/quiz-page.actions';
 import { Quiz } from 'src/app/shared/models/quiz.model';
 
 @Component({
@@ -26,7 +26,7 @@ export class ModalComponent {
   ) {}
 
   addQuiz() {
-    const newQuiz: Quiz = {
+    const quiz: Quiz = {
       score: this.form.value.score ?? 0,
       showAnswers: this.form.value.showAnswers ?? false,
       showFinalResults: this.form.value.showFinalResults ?? false,
@@ -36,7 +36,7 @@ export class ModalComponent {
       trainer_id: 1,
     };
 
-    this.store.dispatch(QuizActions.addQuiz({ quiz: newQuiz }));
+    this.store.dispatch(quizPageActions.addQuiz({ quiz }));
     this.dialogRef.close();
   }
 }

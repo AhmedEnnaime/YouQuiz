@@ -7,19 +7,12 @@ import { Quiz } from 'src/app/shared/models/quiz.model';
   templateUrl: './quiz-card.component.html',
   styleUrls: ['./quiz-card.component.css'],
 })
-export class QuizCardComponent implements OnInit {
-  @Input() props?: any;
-  quiz?: Quiz;
+export class QuizCardComponent {
+  @Input() quiz?: Quiz;
 
   constructor(private router: Router) {}
 
   goToQuestionsPage() {
     this.router.navigate(['/questions', this.quiz?.id]);
-  }
-
-  ngOnInit(): void {
-    this.quiz = {
-      ...this.props,
-    };
   }
 }

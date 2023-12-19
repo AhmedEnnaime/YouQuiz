@@ -4,30 +4,30 @@
 
     <div class="px-6 py-4">
         <div class="flex justify-between">
-            <h1 class="text-xl font-semibold text-gray-800">{{ quiz?.trainer?.speciality }}</h1>
+            <h1 class="text-xl font-semibold text-gray-800">{{ (quiz | async)?.trainer?.speciality }}</h1>
             <fa-icon class="cursor-pointer" [icon]="penIcon" (click)="goToSallonPage()"></fa-icon>
         </div>
 
 
-        <p class="py-2 text-gray-700">{{ quiz?.remark }}</p>
+        <p class="py-2 text-gray-700">{{ (quiz | async)?.remark }}</p>
 
         <div class="flex items-center mt-4 text-gray-700">
             <fa-icon [icon]="scoreIcon"></fa-icon>
 
-            <h1 class="px-2 text-sm">{{ quiz?.score }}</h1>
+            <h1 class="px-2 text-sm">{{ (quiz | async)?.score }}</h1>
         </div>
 
         <div class="flex items-center mt-4 text-gray-700">
             <fa-icon [icon]="clock"></fa-icon>
 
-            <h1 class="px-2 text-sm">{{ quiz?.durationInMinutes }} min</h1>
+            <h1 class="px-2 text-sm">{{ (quiz | async)?.durationInMinutes }} min</h1>
         </div>
 
         <div class="flex items-center mt-4 text-gray-700">
             <fa-icon [icon]="trainerIcon"></fa-icon>
 
-            <h1 class="px-2 text-sm">{{ quiz?.trainer?.firstName }} {{
-                quiz?.trainer?.lastName }}</h1>
+            <h1 class="px-2 text-sm">{{ (quiz | async)?.trainer?.firstName }} {{
+                (quiz | async)?.trainer?.lastName }}</h1>
         </div>
     </div>
 </div>

@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Quiz } from 'src/app/shared/models/quiz.model';
 import { ModalComponent } from '../../modals/modal/modal.component';
 import { Store } from '@ngrx/store';
-import { loadQuizzes } from 'src/app/shared/store/actions/quiz.action';
+import * as quizPageActions from '../../../shared/store/quiz/actions/quiz-page.actions';
+import { Observable } from 'rxjs';
+import { selectQuizzes } from 'src/app/shared/store/quiz/quiz.selector';
 
 @Component({
   selector: 'app-quizzes',
@@ -11,15 +13,10 @@ import { loadQuizzes } from 'src/app/shared/store/actions/quiz.action';
   styleUrls: ['./quizzes.component.css'],
 })
 export class QuizzesComponent implements OnInit {
-  quizzes: Quiz[] = [];
+  quizzes: Observable<Quiz[]>;
 
-  constructor(
-    private store: Store<{ quizzes: { quizzes: Quiz[] } }>,
-    public dialog: MatDialog
-  ) {
-    store.select('quizzes').subscribe((quizzesState: { quizzes: Quiz[] }) => {
-      this.quizzes = quizzesState.quizzes;
-    });
+  constructor(private store: Store, public dialog: MatDialog) {
+    this.quizzes = store.select(selectQuizzes);
   }
 
   openDialog() {
@@ -31,6 +28,6 @@ export class QuizzesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadQuizzes({ quizzes: this.quizzes }));
+    this.store.dispatch(quizPageActions.enter());
   }
 }

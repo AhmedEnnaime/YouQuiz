@@ -43,8 +43,6 @@ import { LevelModalComponent } from './components/modals/level-modal/level-modal
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { QuizzesReducer } from './shared/store/reducers/quiz.reducer';
-import { QuizEffects } from './shared/store/effects/quiz.effect';
 import { QuestionsComponent } from './components/pages/questions/questions.component';
 import { QuestionCardComponent } from './components/pages/questions/question-card/question-card.component';
 import { ResponsesComponent } from './components/responses/responses.component';
@@ -68,6 +66,8 @@ import { LevelEffect } from './shared/store/level/level.effect';
 import { LevelStateModule } from './shared/store/level/level.state.module';
 import { SubjectStateModule } from './shared/store/subject/subject.state.module';
 import { SubjectEffect } from './shared/store/subject/subject.effect';
+import { QuizEffect } from './shared/store/quiz/quiz.effect';
+import { QuizStateModule } from './shared/store/quiz/quiz.state.module';
 
 @NgModule({
   declarations: [
@@ -126,20 +126,20 @@ import { SubjectEffect } from './shared/store/subject/subject.effect';
     MatIconModule,
     StoreModule,
     StoreModule.forRoot({
-      quizzes: QuizzesReducer,
       tempos: TemposReducer,
       validations: ValidationReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([
       LevelEffect,
-      QuizEffects,
+      QuizEffect,
       SubjectEffect,
       TempoEffects,
       ValidationEffects,
     ]),
     LevelStateModule,
     SubjectStateModule,
+    QuizStateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

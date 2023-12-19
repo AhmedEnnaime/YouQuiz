@@ -6,8 +6,11 @@ import {
   faClipboard,
   faPen,
 } from '@fortawesome/free-solid-svg-icons';
-import { QuizService } from 'src/app/services/quiz.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Quiz } from 'src/app/shared/models/quiz.model';
+import { selectSelectedQuiz } from 'src/app/shared/store/quiz/quiz.selector';
+import * as quizPageActions from '../../../../shared/store/quiz/actions/quiz-page.actions';
 
 @Component({
   selector: 'app-quiz-side',
@@ -16,16 +19,18 @@ import { Quiz } from 'src/app/shared/models/quiz.model';
 })
 export class QuizSideComponent implements OnInit {
   quizID?: number;
-  quiz?: Quiz;
+  quiz: Observable<Quiz | null>;
   clock = faClock;
   trainerIcon = faChalkboardTeacher;
   scoreIcon = faClipboard;
   penIcon = faPen;
   constructor(
+    private store: Store,
     private route: ActivatedRoute,
-    private quizService: QuizService,
     private router: Router
-  ) {}
+  ) {
+    this.quiz = this.store.select(selectSelectedQuiz);
+  }
 
   goToSallonPage() {
     this.router.navigate(['/sallon', this.quizID]);
@@ -37,8 +42,8 @@ export class QuizSideComponent implements OnInit {
       this.quizID = idString !== null ? +idString : 0;
     });
 
-    this.quizService.getQuizByID(this.quizID ?? 0).subscribe((quiz) => {
-      this.quiz = quiz;
-    });
+    this.store.dispatch(
+      quizPageActions.selectQuiz({ quizID: this.quizID as number })
+    );
   }
 }
