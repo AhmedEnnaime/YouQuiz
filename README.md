@@ -4,7 +4,7 @@ YouQuiz is an innovative e-learning platform designed to provide a comprehensive
 
 ## Tech Stack
 
-**Client:** Angular, TailwindCSS
+**Client:** Angular, NgRx, TailwindCSS
 
 **Server:** Springboot, Docker, Hibernate, Spring data JPA, Jenkins, Sonarqube, Prometheus, Grafana
 

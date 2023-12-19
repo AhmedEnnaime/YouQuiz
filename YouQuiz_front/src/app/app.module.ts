@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -43,8 +43,6 @@ import { LevelModalComponent } from './components/modals/level-modal/level-modal
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { LevelsReducer } from './shared/store/reducers/level.reducer';
-import { LevelEffects } from './shared/store/effects/level.effect';
 import { QuizzesReducer } from './shared/store/reducers/quiz.reducer';
 import { QuizEffects } from './shared/store/effects/quiz.effect';
 import { QuestionsComponent } from './components/pages/questions/questions.component';
@@ -69,6 +67,8 @@ import { ResponseOptionCardComponent } from './components/pages/sallon/center/re
 import { QuestionTypeButtonComponent } from './components/pages/sallon/right-side/question-type-button/question-type-button.component';
 import { RightSideComponent } from './components/pages/sallon/right-side/right-side.component';
 import { QuizQuestionCardComponent } from './components/pages/sallon/left-side-bar/quiz-question-card/quiz-question-card.component';
+import { LevelEffect } from './shared/store/level/level.effect';
+import { LevelStateModule } from './shared/store/level/level.state.module';
 
 @NgModule({
   declarations: [
@@ -128,22 +128,20 @@ import { QuizQuestionCardComponent } from './components/pages/sallon/left-side-b
     MatIconModule,
     StoreModule,
     StoreModule.forRoot({
-      levels: LevelsReducer,
       quizzes: QuizzesReducer,
       subjects: SubjectsReducer,
       tempos: TemposReducer,
       validations: ValidationReducer,
     }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([
-      LevelEffects,
+      LevelEffect,
       QuizEffects,
       SubjectEffects,
       TempoEffects,
       ValidationEffects,
     ]),
+    LevelStateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

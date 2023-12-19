@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Level } from 'src/app/shared/models/level.model';
-import * as LevelActions from '../../../shared/store/actions/level.action';
 import { Store } from '@ngrx/store';
+import * as levelPageActions from '../../../shared/store/level/actions/level-page.actions';
 
 @Component({
   selector: 'app-level-modal',
@@ -34,16 +34,16 @@ export class LevelModalComponent implements OnInit {
   }
 
   addLevel() {
-    const newLevel: Level = {
+    const level: Level = {
       description: this.form.value.description ?? '',
       maxScore: this.form.value.maxScore ?? 0,
       minScore: this.form.value.minScore ?? 0,
     };
     if (this.data.level !== undefined) {
-      const id: number = this.data.level.id ?? 0;
-      this.store.dispatch(LevelActions.updateLevel({ level: newLevel, id }));
+      const levelID: number = this.data.level.id ?? 0;
+      this.store.dispatch(levelPageActions.updateLevel({ level, levelID }));
     } else {
-      this.store.dispatch(LevelActions.addLevel({ level: newLevel }));
+      this.store.dispatch(levelPageActions.addLevel({ level }));
     }
 
     this.dialogRef.close();

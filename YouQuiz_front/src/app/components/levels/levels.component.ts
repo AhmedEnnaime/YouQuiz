@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Level } from 'src/app/shared/models/level.model';
 import { LevelModalComponent } from '../modals/level-modal/level-modal.component';
 import { Store } from '@ngrx/store';
-import { loadLevels } from 'src/app/shared/store/actions/level.action';
+import * as levelPageActions from '../../shared/store/level/actions/level-page.actions';
+import { Observable } from 'rxjs';
+import { selectLevels } from 'src/app/shared/store/level/level.selector';
 
 @Component({
   selector: 'app-levels',
@@ -11,15 +13,10 @@ import { loadLevels } from 'src/app/shared/store/actions/level.action';
   styleUrls: ['./levels.component.css'],
 })
 export class LevelsComponent implements OnInit {
-  levels: Level[] = [];
+  levels: Observable<Level[]>;
 
-  constructor(
-    private store: Store<{ levels: { levels: Level[] } }>,
-    public dialog: MatDialog
-  ) {
-    store.select('levels').subscribe((levelsState: { levels: Level[] }) => {
-      this.levels = levelsState.levels;
-    });
+  constructor(private store: Store, public dialog: MatDialog) {
+    this.levels = store.select(selectLevels);
   }
 
   openDialog() {
@@ -32,6 +29,7 @@ export class LevelsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadLevels({ levels: this.levels }));
+    this.store.dispatch(levelPageActions.enter());
+    this.levels.subscribe((data) => console.log('Levels:', data));
   }
 }

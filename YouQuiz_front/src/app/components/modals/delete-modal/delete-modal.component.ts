@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import * as LevelActions from '../../../shared/store/actions/level.action';
+import * as levelPageActions from '../../../shared/store/level/actions/level-page.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -20,7 +20,9 @@ export class DeleteModalComponent {
   }
 
   onDelete() {
-    this.store.dispatch(LevelActions.removeLevel({ id: this.data.levelId }));
+    this.store.dispatch(
+      levelPageActions.deleteLevel({ levelID: this.data.levelId })
+    );
     this.dialogRef.close();
   }
 }

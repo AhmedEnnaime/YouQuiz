@@ -25,9 +25,14 @@ export class LevelService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteLevel(id: number): Observable<string> {
+  deleteLevel(
+    id: number | undefined
+  ): Observable<{ message: string; deletedElementIdentifier: number }> {
     return this.http
-      .delete<string>(`${this.baseUrl}/levels/${id}`, this.httpOptions)
+      .delete<{ message: string; deletedElementIdentifier: number }>(
+        `${this.baseUrl}/levels/${id}`,
+        this.httpOptions
+      )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 

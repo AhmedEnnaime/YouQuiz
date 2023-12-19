@@ -11,10 +11,7 @@ public class YouQuizApplication {
 
     @Bean
     public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
-        return modelMapper;
+        return new ModelMapper();
     }
     public static void main(String[] args) {
         SpringApplication.run(YouQuizApplication.class, args);

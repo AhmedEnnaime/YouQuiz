@@ -75,3 +75,9 @@ y
 IYouQuiz/src/main/java/com/youcode/youquiz/services/ValidationService.java,e/b/eb344dd816b8dbf3d96d8c5bbcf39a1e74475f52
 q
 AYouQuiz/src/main/java/com/youcode/youquiz/YouQuizApplication.java,2/1/21df99b99522a0584e65e757976909b95b63d185
+€
+PYouQuiz/src/main/java/com/youcode/youquiz/configuration/ValidationException.java,f/b/fb56ac3944090294b012ec39d060488bb8c49cd9
+t
+DYouQuiz/src/main/java/com/youcode/youquiz/services/LevelService.java,5/1/51043b3b99ddabfc8c9315c7ebb2f5cec7da88b5
+z
+JYouQuiz/src/main/java/com/youcode/youquiz/controllers/LevelController.java,8/6/864c78961eb747d8a09490537f5434e862a60058

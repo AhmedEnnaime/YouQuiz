@@ -10,8 +10,7 @@ import { LevelModalComponent } from '../../modals/level-modal/level-modal.compon
   styleUrls: ['./level-card.component.css'],
 })
 export class LevelCardComponent implements OnInit {
-  @Input() props?: any;
-  level?: Level;
+  @Input() level?: Level;
 
   constructor(public dialog: MatDialog) {}
   openDialog() {
@@ -32,9 +31,5 @@ export class LevelCardComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.level = {
-      ...this.props,
-    };
-  }
+  ngOnInit(): void {}
 }
