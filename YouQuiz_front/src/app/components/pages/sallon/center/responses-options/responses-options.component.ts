@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IValidation } from 'src/app/shared/models/IValidation';
 
 @Component({
@@ -7,5 +8,5 @@ import { IValidation } from 'src/app/shared/models/IValidation';
   styleUrls: ['./responses-options.component.css'],
 })
 export class ResponsesOptionsComponent {
-  @Input() validations: IValidation[] = [];
+  @Input() validations?: Observable<IValidation[]>;
 }

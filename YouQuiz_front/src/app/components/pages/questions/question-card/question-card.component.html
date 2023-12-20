@@ -5,11 +5,11 @@
 
         <div class="w-1/5 bg-cover relative"
             style="background-image: url('../../../../../assets/img/img_placeholder.jpg')">
-            <p class="absolute bottom-2 right-2">{{ props?.time }} s</p>
+            <p class="absolute bottom-2 right-2">{{ tempo?.time }} s</p>
         </div>
         <div class="p-4 md:p-4">
-            <h1 class="text-xl font-bold text-gray-800">{{ props?.question?.subject?.title }}</h1>
-            <p class="mt-2 text-sm text-gray-600">{{ props?.question?.questionText }}</p>
+            <h1 class="text-xl font-bold text-gray-800">{{ tempo?.question?.subject?.title }}</h1>
+            <p class="mt-2 text-sm text-gray-600">{{ tempo?.question?.questionText }}</p>
         </div>
     </div>
     <div *ngIf="isOpen" (click)="closeDropdown()"

@@ -16,16 +16,6 @@
     </label>
 
     <div class="w-full mt-4">
-        <app-responses-options *ngIf="validations?.length !== 0; else emptyState"
-            [validations]="validations"></app-responses-options>
+        <app-responses-options [validations]="validations"></app-responses-options>
     </div>
 </div>
-
-<ng-template #emptyState>
-    <app-responses-options [validations]="[
-        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 },
-        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 },
-        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 },
-        { question: { questionText: '', questionType: 0, totalScore: 0 }, response: { response: '' }, points: 0 }
-    ]"></app-responses-options>
-</ng-template>

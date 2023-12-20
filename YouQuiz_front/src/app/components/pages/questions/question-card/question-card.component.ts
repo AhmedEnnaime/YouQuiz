@@ -1,33 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
-import { loadValidations } from 'src/app/shared/store/actions/validation.action';
-import { selectValidations } from 'src/app/shared/store/selectors/validation.selector';
+import { selectValidations } from 'src/app/shared/store/validations/validation.selector';
+import * as validationPageActions from '../../../../shared/store/validations/actions/validation-page.actions';
 
 @Component({
   selector: 'app-question-card',
   templateUrl: './question-card.component.html',
   styleUrls: ['./question-card.component.css'],
 })
-export class QuestionCardComponent implements OnInit {
-  @Input() props?: any;
-  tempo?: ITempoQuiz;
-  validations?: IValidation[];
+export class QuestionCardComponent {
+  @Input() tempo?: ITempoQuiz;
+  validations?: Observable<IValidation[]>;
 
   isOpen: boolean = false;
 
-  constructor(
-    private store: Store<{ validations: { validations: IValidation[] } }>
-  ) {}
+  constructor(private store: Store) {}
 
   loadQuestionsValidation() {
-    this.store.select(selectValidations).subscribe((validations) => {
-      this.validations = validations;
-    });
+    this.validations = this.store.select(selectValidations);
     this.store.dispatch(
-      loadValidations({
-        questionID: this.tempo?.question?.id ?? 0,
+      validationPageActions.getResponsesByQuestion({
+        questionID: this.tempo?.question?.id as number,
       })
     );
   }
@@ -41,11 +37,5 @@ export class QuestionCardComponent implements OnInit {
 
   closeDropdown() {
     this.isOpen = false;
-  }
-
-  ngOnInit(): void {
-    this.tempo = {
-      ...this.props,
-    };
   }
 }

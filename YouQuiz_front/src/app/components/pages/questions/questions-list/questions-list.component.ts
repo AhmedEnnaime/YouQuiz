@@ -16,7 +16,6 @@ import { ITempoID } from 'src/app/shared/models/ITempoID';
 export class QuestionsListComponent implements OnInit {
   tempos: Observable<ITempoQuiz[]>;
   quizID?: number;
-  validations?: IValidation[];
   tempoID: ITempoID = { quizID: undefined, questionID: undefined };
 
   constructor(private store: Store, private route: ActivatedRoute) {

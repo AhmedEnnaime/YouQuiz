@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { ITempoID } from 'src/app/shared/models/ITempoID';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
-import { loadValidations } from 'src/app/shared/store/actions/validation.action';
-import { selectValidations } from 'src/app/shared/store/selectors/validation.selector';
 import { selectTempos } from 'src/app/shared/store/tempo/tempo.selector';
 import * as tempoPageActions from '../../../shared/store/tempo/actions/tempo-page.actions';
+import { selectValidations } from 'src/app/shared/store/validations/validation.selector';
+import * as validationPageActions from '../../../shared/store/validations/actions/validation-page.actions';
 
 @Component({
   selector: 'app-sallon',
@@ -17,18 +17,12 @@ import * as tempoPageActions from '../../../shared/store/tempo/actions/tempo-pag
 })
 export class SallonComponent {
   tempos: Observable<ITempoQuiz[]>;
-  validations: IValidation[] = [];
+  validations: Observable<IValidation[]>;
   quizID?: number;
   selectedQuestion: ITempoQuiz | null = null;
   tempoID?: ITempoID;
 
-  constructor(
-    private store: Store,
-    private validationStore: Store<{
-      validations: { validations: IValidation[] };
-    }>,
-    private route: ActivatedRoute
-  ) {
+  constructor(private store: Store, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params) => {
       const idString = params.get('id');
       this.tempoID = {
@@ -43,9 +37,7 @@ export class SallonComponent {
         this.loadValidations(this.selectedQuestion.question?.id ?? 0);
       }
     });
-    this.validationStore.select(selectValidations).subscribe((validations) => {
-      this.validations = validations;
-    });
+    this.validations = store.select(selectValidations);
   }
 
   ngOnInit(): void {
@@ -62,6 +54,8 @@ export class SallonComponent {
   }
 
   private loadValidations(questionID: number): void {
-    this.validationStore.dispatch(loadValidations({ questionID }));
+    this.store.dispatch(
+      validationPageActions.getResponsesByQuestion({ questionID })
+    );
   }
 }

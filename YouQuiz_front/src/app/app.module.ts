@@ -51,8 +51,6 @@ import { ResponseCardComponent } from './components/responses/response-card/resp
 import { QuestionsListComponent } from './components/pages/questions/questions-list/questions-list.component';
 import { SubjectsComponent } from './components/subjects/subjects.component';
 import { SubjectCardComponent } from './components/subjects/subject-card/subject-card.component';
-import { ValidationReducer } from './shared/store/reducers/validation.reducer';
-import { ValidationEffects } from './shared/store/effects/validation.effect';
 import { SallonComponent } from './components/pages/sallon/sallon.component';
 import { LeftSideBarComponent } from './components/pages/sallon/left-side-bar/left-side-bar.component';
 import { CenterComponent } from './components/pages/sallon/center/center.component';
@@ -68,6 +66,8 @@ import { QuizEffect } from './shared/store/quiz/quiz.effect';
 import { QuizStateModule } from './shared/store/quiz/quiz.state.module';
 import { TempoEffect } from './shared/store/tempo/tempo.effect';
 import { TempoStateModule } from './shared/store/tempo/tempo.state.module';
+import { ValidationStateModule } from './shared/store/validations/validation.state.module';
+import { ValidationEffect } from './shared/store/validations/validation.effect';
 
 @NgModule({
   declarations: [
@@ -125,21 +125,20 @@ import { TempoStateModule } from './shared/store/tempo/tempo.state.module';
     MatRadioModule,
     MatIconModule,
     StoreModule,
-    StoreModule.forRoot({
-      validations: ValidationReducer,
-    }),
+    StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([
       LevelEffect,
       QuizEffect,
       SubjectEffect,
       TempoEffect,
-      ValidationEffects,
+      ValidationEffect,
     ]),
     LevelStateModule,
     SubjectStateModule,
     QuizStateModule,
     TempoStateModule,
+    ValidationStateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
