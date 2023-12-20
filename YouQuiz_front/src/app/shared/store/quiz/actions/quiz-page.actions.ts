@@ -3,6 +3,11 @@ import { Quiz } from 'src/app/shared/models/quiz.model';
 
 export const enter = createAction('[Quiz page] enter');
 
+export const findQuiz = createAction(
+  '[Quiz page] find quiz',
+  props<{ quizID: number }>()
+);
+
 export const selectQuiz = createAction(
   '[Quiz page] select quiz',
   props<{ quizID: number }>()

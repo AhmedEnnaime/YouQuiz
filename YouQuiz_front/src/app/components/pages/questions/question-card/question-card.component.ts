@@ -27,7 +27,7 @@ export class QuestionCardComponent implements OnInit {
     });
     this.store.dispatch(
       loadValidations({
-        questionID: this.tempo?.question.id ?? 0,
+        questionID: this.tempo?.question?.id ?? 0,
       })
     );
   }

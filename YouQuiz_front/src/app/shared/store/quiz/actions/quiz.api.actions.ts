@@ -40,3 +40,13 @@ export const quizDeletedFailure = createAction(
   '[Quiz api] quiz deleted failure',
   props<{ errors: {} }>()
 );
+
+export const quizFoundedSuccessfully = createAction(
+  '[Quiz api] quiz founded successfully',
+  props<{ quiz: Quiz }>()
+);
+
+export const quizFoundedFailure = createAction(
+  '[Quiz api] quiz founded failure',
+  props<{ errors: {} }>()
+);

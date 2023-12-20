@@ -34,4 +34,9 @@ export const selectLoadingState = createSelector(
   getLoadingState
 );
 
+export const selectFoundedQuiz = createSelector(
+  selectQuizState,
+  (state) => state.collection[0]
+);
+
 export const selectErrorState = createSelector(selectQuizState, getErrors);

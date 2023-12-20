@@ -31,7 +31,7 @@ export class SallonComponent {
         this.tempos = temposState.tempos;
         if (this.tempos.length > 0 && this.selectedQuestion === null) {
           this.selectedQuestion = this.tempos[0];
-          this.loadValidations(this.selectedQuestion.question.id ?? 0);
+          this.loadValidations(this.selectedQuestion.question?.id ?? 0);
         }
       });
     this.validationStore.select(selectValidations).subscribe((validations) => {
@@ -51,7 +51,7 @@ export class SallonComponent {
 
   onQuestionSelected(index: number): void {
     this.selectedQuestion = this.tempos[index];
-    this.loadValidations(this.selectedQuestion.question.id ?? 0);
+    this.loadValidations(this.selectedQuestion.question?.id ?? 0);
   }
 
   private loadValidations(questionID: number): void {

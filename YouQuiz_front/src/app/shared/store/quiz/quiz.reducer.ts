@@ -60,12 +60,18 @@ export const QuizReducer = createReducer(
     quizApiActions.quizAddedFailure,
     quizApiActions.quizUpdatedFailure,
     quizApiActions.quizDeletedFailure,
+    quizApiActions.quizFoundedFailure,
     (state, action) => ({
       ...state,
       loading: false,
       errors: action.errors,
     })
-  )
+  ),
+  on(quizApiActions.quizFoundedSuccessfully, (state, action) => ({
+    ...state,
+    collection: [action.quiz],
+    loading: false,
+  }))
 );
 
 const createQuiz = (quizzes: Quiz[], newQuiz: Quiz) => [...quizzes, newQuiz];

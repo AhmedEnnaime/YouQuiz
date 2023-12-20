@@ -38,4 +38,15 @@ export class QuizEffect {
       )
     )
   );
+
+  findQuiz$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(quizPageActions.findQuiz),
+      exhaustMap((action) =>
+        this.quizService
+          .getQuizByID(action.quizID)
+          .pipe(map((quiz) => quizApiActions.quizFoundedSuccessfully({ quiz })))
+      )
+    )
+  );
 }
