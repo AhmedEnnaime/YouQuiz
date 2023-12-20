@@ -27,4 +27,31 @@ export class ValidationService {
       )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
+
+  createValidation(validation: IValidation): Observable<IValidation> {
+    return this.http
+      .post<IValidation>(
+        `${this.baseUrl}/validations`,
+        validation,
+        this.httpOptions
+      )
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  updateValidation(id: number): Observable<IValidation> {
+    return this.http
+      .put<IValidation>(`${this.baseUrl}/validations/${id}`, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  deleteValidation(
+    id: number | undefined
+  ): Observable<{ message: string; deletedElementIdentifier: number }> {
+    return this.http
+      .delete<{
+        message: string;
+        deletedElementIdentifier: number;
+      }>(`${this.baseUrl}/validations/${id}`, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
 }

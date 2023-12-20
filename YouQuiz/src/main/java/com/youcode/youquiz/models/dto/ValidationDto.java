@@ -1,7 +1,5 @@
 package com.youcode.youquiz.models.dto;
 
-import com.youcode.youquiz.models.entities.Question;
-import com.youcode.youquiz.models.entities.Response;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;

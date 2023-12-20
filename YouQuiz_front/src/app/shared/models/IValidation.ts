@@ -2,7 +2,10 @@ import { Question } from './question.model';
 import { Response } from './response.model';
 
 export interface IValidation {
-  question: Question;
-  response: Response;
+  id?: number;
+  question?: Question;
+  response?: Response;
   points: number;
+  question_id?: number;
+  response_id?: number;
 }
