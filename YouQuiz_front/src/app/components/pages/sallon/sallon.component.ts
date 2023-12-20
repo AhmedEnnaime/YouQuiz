@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ITempoID } from 'src/app/shared/models/ITempoID';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
-import { loadTempos } from 'src/app/shared/store/actions/tempo.action';
 import { loadValidations } from 'src/app/shared/store/actions/validation.action';
 import { selectValidations } from 'src/app/shared/store/selectors/validation.selector';
+import { selectTempos } from 'src/app/shared/store/tempo/tempo.selector';
+import * as tempoPageActions from '../../../shared/store/tempo/actions/tempo-page.actions';
 
 @Component({
   selector: 'app-sallon',
@@ -13,45 +16,49 @@ import { selectValidations } from 'src/app/shared/store/selectors/validation.sel
   styleUrls: ['./sallon.component.css'],
 })
 export class SallonComponent {
-  tempos: ITempoQuiz[] = [];
+  tempos: Observable<ITempoQuiz[]>;
   validations: IValidation[] = [];
   quizID?: number;
   selectedQuestion: ITempoQuiz | null = null;
+  tempoID?: ITempoID;
 
   constructor(
-    private store: Store<{ tempos: { tempos: ITempoQuiz[] } }>,
+    private store: Store,
     private validationStore: Store<{
       validations: { validations: IValidation[] };
     }>,
     private route: ActivatedRoute
   ) {
-    store
-      .select('tempos')
-      .subscribe((temposState: { tempos: ITempoQuiz[] }) => {
-        this.tempos = temposState.tempos;
-        if (this.tempos.length > 0 && this.selectedQuestion === null) {
-          this.selectedQuestion = this.tempos[0];
-          this.loadValidations(this.selectedQuestion.question?.id ?? 0);
-        }
-      });
+    this.route.paramMap.subscribe((params) => {
+      const idString = params.get('id');
+      this.tempoID = {
+        quizID: idString !== null ? +idString : 0,
+        questionID: undefined,
+      };
+    });
+    this.tempos = store.select(selectTempos);
+    this.tempos.subscribe((temposList) => {
+      if (temposList.length > 0 && this.selectedQuestion === null) {
+        this.selectedQuestion = temposList[0];
+        this.loadValidations(this.selectedQuestion.question?.id ?? 0);
+      }
+    });
     this.validationStore.select(selectValidations).subscribe((validations) => {
       this.validations = validations;
     });
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const idString = params.get('id');
-      this.quizID = idString !== null ? +idString : 0;
-    });
     this.store.dispatch(
-      loadTempos({ tempos: this.tempos, quizID: this.quizID ?? 0 })
+      tempoPageActions.enter({ tempoID: this.tempoID as ITempoID })
     );
   }
 
   onQuestionSelected(index: number): void {
-    this.selectedQuestion = this.tempos[index];
-    this.loadValidations(this.selectedQuestion.question?.id ?? 0);
+    this.tempos.subscribe((temposList) => {
+      this.selectedQuestion = temposList[index];
+      this.loadValidations(this.selectedQuestion?.question?.id ?? 0);
+    });
   }
 
   private loadValidations(questionID: number): void {

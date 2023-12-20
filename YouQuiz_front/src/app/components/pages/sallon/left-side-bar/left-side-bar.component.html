@@ -1,13 +1,13 @@
 <aside class="flex flex-col w-full h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
     <div class="flex flex-col gap-4">
-        <ng-container *ngIf="tempos.length > 0; else noQuestions">
-            <div *ngFor="let tempo of tempos; index as i">
+        <ng-container *ngIf="(tempos | async)!.length > 0; else noQuestions">
+            <div *ngFor="let tempo of tempos | async; index as i">
                 <app-quiz-question-card [questionNum]="i" [isSelected]="i === selectedQuestionIndex"
                     (click)="selectQuestion(i)"></app-quiz-question-card>
             </div>
         </ng-container>
         <ng-template #noQuestions>
-            <div *ngIf="tempos.length === 0">
+            <div *ngIf="(tempos | async)!.length === 0">
                 <app-quiz-question-card [questionNum]="0" [isSelected]="false"></app-quiz-question-card>
             </div>
         </ng-template>

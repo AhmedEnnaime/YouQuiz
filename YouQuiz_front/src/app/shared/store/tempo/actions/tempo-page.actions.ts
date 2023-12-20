@@ -1,11 +1,15 @@
 import { createAction, props } from '@ngrx/store';
+import { ITempoID } from 'src/app/shared/models/ITempoID';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 
-export const enter = createAction('[Tempo page] enter');
+export const enter = createAction(
+  '[Tempo page] enter',
+  props<{ tempoID: ITempoID }>()
+);
 
 export const selectTempo = createAction(
   '[Tempo page] select tempo',
-  props<{ questionID: number; quizID: number }>()
+  props<{ tempoID: ITempoID }>()
 );
 
 export const unselectTempo = createAction('[Tempo page] unselect tempo');
@@ -22,5 +26,5 @@ export const updateTempo = createAction(
 
 export const deleteTempo = createAction(
   '[Tempo page] delete tempo',
-  props<{ questionID: number | undefined; quizID: number | undefined }>()
+  props<{ tempoID: ITempoID | undefined }>()
 );

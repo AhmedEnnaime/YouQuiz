@@ -51,8 +51,6 @@ import { ResponseCardComponent } from './components/responses/response-card/resp
 import { QuestionsListComponent } from './components/pages/questions/questions-list/questions-list.component';
 import { SubjectsComponent } from './components/subjects/subjects.component';
 import { SubjectCardComponent } from './components/subjects/subject-card/subject-card.component';
-import { TemposReducer } from './shared/store/reducers/tempo.reducer';
-import { TempoEffects } from './shared/store/effects/tempo.effect';
 import { ValidationReducer } from './shared/store/reducers/validation.reducer';
 import { ValidationEffects } from './shared/store/effects/validation.effect';
 import { SallonComponent } from './components/pages/sallon/sallon.component';
@@ -68,6 +66,8 @@ import { SubjectStateModule } from './shared/store/subject/subject.state.module'
 import { SubjectEffect } from './shared/store/subject/subject.effect';
 import { QuizEffect } from './shared/store/quiz/quiz.effect';
 import { QuizStateModule } from './shared/store/quiz/quiz.state.module';
+import { TempoEffect } from './shared/store/tempo/tempo.effect';
+import { TempoStateModule } from './shared/store/tempo/tempo.state.module';
 
 @NgModule({
   declarations: [
@@ -126,7 +126,6 @@ import { QuizStateModule } from './shared/store/quiz/quiz.state.module';
     MatIconModule,
     StoreModule,
     StoreModule.forRoot({
-      tempos: TemposReducer,
       validations: ValidationReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
@@ -134,12 +133,13 @@ import { QuizStateModule } from './shared/store/quiz/quiz.state.module';
       LevelEffect,
       QuizEffect,
       SubjectEffect,
-      TempoEffects,
+      TempoEffect,
       ValidationEffects,
     ]),
     LevelStateModule,
     SubjectStateModule,
     QuizStateModule,
+    TempoStateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,7 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
-import { loadTempos } from 'src/app/shared/store/actions/tempo.action';
+import * as tempoPageActions from '../../../../shared/store/tempo/actions/tempo-page.actions';
+import { Observable } from 'rxjs';
+import { selectTempos } from 'src/app/shared/store/tempo/tempo.selector';
+import { ITempoID } from 'src/app/shared/models/ITempoID';
 
 @Component({
   selector: 'app-questions-list',
@@ -11,28 +14,23 @@ import { loadTempos } from 'src/app/shared/store/actions/tempo.action';
   styleUrls: ['./questions-list.component.css'],
 })
 export class QuestionsListComponent implements OnInit {
-  tempos: ITempoQuiz[] = [];
+  tempos: Observable<ITempoQuiz[]>;
   quizID?: number;
   validations?: IValidation[];
+  tempoID: ITempoID = { quizID: undefined, questionID: undefined };
 
-  constructor(
-    private store: Store<{ tempos: { tempos: ITempoQuiz[] } }>,
-    private route: ActivatedRoute
-  ) {
-    store
-      .select('tempos')
-      .subscribe((temposState: { tempos: ITempoQuiz[] }) => {
-        this.tempos = temposState.tempos;
-      });
+  constructor(private store: Store, private route: ActivatedRoute) {
+    this.route.paramMap.subscribe((params) => {
+      const idString = params.get('id');
+      this.tempoID = {
+        quizID: idString !== null ? +idString : 0,
+        questionID: undefined,
+      };
+    });
+    this.tempos = store.select(selectTempos);
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const idString = params.get('id');
-      this.quizID = idString !== null ? +idString : 0;
-    });
-    this.store.dispatch(
-      loadTempos({ tempos: this.tempos, quizID: this.quizID ?? 0 })
-    );
+    this.store.dispatch(tempoPageActions.enter({ tempoID: this.tempoID }));
   }
 }

@@ -100,7 +100,7 @@ public class QuestionController {
     public ResponseEntity<Map<String,String>> detachQuestionFromQuiz(@PathVariable Long questionID, @PathVariable Long quizID) {
         tempoQuizService.delete(questionID, quizID);
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Quiz detached from quiz successfully.");
+        response.put("message", "Question detached from quiz successfully.");
         response.put("deletedElementIdentifier", questionID.toString());
         return new ResponseEntity<>(response ,HttpStatus.OK);
     }

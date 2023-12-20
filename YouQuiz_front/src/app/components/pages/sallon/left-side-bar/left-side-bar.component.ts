@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 
 @Component({
@@ -7,7 +8,7 @@ import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
   styleUrls: ['./left-side-bar.component.css'],
 })
 export class LeftSideBarComponent {
-  @Input() tempos: ITempoQuiz[] = [];
+  @Input() tempos?: Observable<ITempoQuiz[]>;
   selectedQuestionIndex: number = 0;
   @Output() selectedQuestion = new EventEmitter<number>();
 

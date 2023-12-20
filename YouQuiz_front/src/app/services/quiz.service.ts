@@ -28,9 +28,14 @@ export class QuizService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteQuiz(id: number): Observable<string> {
+  deleteQuiz(
+    id: number
+  ): Observable<{ message: string; deletedElementIdentifier: number }> {
     return this.http
-      .delete<string>(`${this.baseUrl}/quizzes/${id}`, this.httpOptions)
+      .delete<{ message: string; deletedElementIdentifier: number }>(
+        `${this.baseUrl}/quizzes/${id}`,
+        this.httpOptions
+      )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
