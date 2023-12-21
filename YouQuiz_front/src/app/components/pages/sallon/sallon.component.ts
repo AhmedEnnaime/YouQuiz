@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -21,6 +21,7 @@ export class SallonComponent {
   quizID?: number;
   selectedQuestion: ITempoQuiz | null = null;
   tempoID?: ITempoID;
+  @Output() selectedQuestionChange = new EventEmitter<ITempoQuiz>();
 
   constructor(private store: Store, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params) => {
@@ -50,6 +51,7 @@ export class SallonComponent {
     this.tempos.subscribe((temposList) => {
       this.selectedQuestion = temposList[index];
       this.loadValidations(this.selectedQuestion?.question?.id ?? 0);
+      this.selectedQuestionChange.emit(this.selectedQuestion);
     });
   }
 

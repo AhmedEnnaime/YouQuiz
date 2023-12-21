@@ -11,6 +11,8 @@ export class Question {
   public subject?: Subject;
   public level?: Level;
   public medias?: Media[];
+  private level_id?: number;
+  private subject_id?: number;
 
   constructor(
     id: number,
@@ -19,7 +21,9 @@ export class Question {
     totalScore: number,
     subject: Subject,
     level: Level,
-    medias: Media[]
+    medias: Media[],
+    level_id: number,
+    subject_id: number
   ) {
     this.id = id;
     this.questionText = questionText;
@@ -28,5 +32,7 @@ export class Question {
     this.subject = subject;
     this.level = level;
     this.medias = medias;
+    this.level_id = level_id;
+    this.subject_id = subject_id;
   }
 }
