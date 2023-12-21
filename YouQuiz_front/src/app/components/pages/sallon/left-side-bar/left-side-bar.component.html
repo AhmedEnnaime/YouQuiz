@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4">
         <ng-container *ngIf="(tempos | async)!.length > 0; else noQuestions">
             <div *ngFor="let tempo of tempos | async; index as i">
-                <app-quiz-question-card [questionNum]="i" [isSelected]="i === selectedQuestionIndex"
+                <app-quiz-question-card [tempo]="tempo" [questionNum]="i" [isSelected]="i === selectedQuestionIndex"
                     (click)="selectQuestion(i)"></app-quiz-question-card>
             </div>
         </ng-container>

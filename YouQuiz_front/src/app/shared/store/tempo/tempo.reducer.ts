@@ -81,4 +81,4 @@ const updateTempo = (tempos: ITempoQuiz[], updatedTempo: ITempoQuiz) =>
       : tempo
   );
 const deleteTempo = (tempos: ITempoQuiz[], tempoID: ITempoID) =>
-  tempos.filter((tempo) => tempo.id != tempoID);
+  tempos.filter((tempo) => JSON.stringify(tempo.id) != JSON.stringify(tempoID));

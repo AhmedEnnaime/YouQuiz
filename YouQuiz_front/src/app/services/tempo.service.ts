@@ -31,11 +31,11 @@ export class TempoService {
 
   detachQuestionFromQuiz(
     tempoID: ITempoID | undefined
-  ): Observable<{ message: string; deletedElementIdentifier: number }> {
+  ): Observable<{ message: string; deletedElementIdentifier: ITempoID }> {
     return this.http
       .delete<{
         message: string;
-        deletedElementIdentifier: number;
+        deletedElementIdentifier: ITempoID;
       }>(
         `${this.baseUrl}/questions/${tempoID?.questionID}/tempo/${tempoID?.quizID}`,
         this.httpOptions

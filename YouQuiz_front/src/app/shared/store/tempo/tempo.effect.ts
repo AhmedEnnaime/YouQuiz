@@ -32,7 +32,7 @@ export class TempoEffect {
           map((response) =>
             tempoApiActions.tempoDeletedSuccessfully({
               message: response.message,
-              tempoID: null,
+              tempoID: response.deletedElementIdentifier,
             })
           )
         )

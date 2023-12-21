@@ -55,11 +55,12 @@ public class TempoQuizServiceImpl implements TempoQuizService {
     }
 
     @Override
-    public void delete(Long questionID, Long quizID) {
+    public TempoID delete(Long questionID, Long quizID) {
         TempoID tempoID = new TempoID(quizID, questionID);
         TempoQuiz tempoQuiz = tempoQuizRepository.findById(tempoID)
                 .orElseThrow(() -> new ResourceNotFoundException("The tempo quiz with id " + tempoID + " is not found"));
         tempoQuizRepository.delete(tempoQuiz);
+        return tempoID;
     }
 
     @Override

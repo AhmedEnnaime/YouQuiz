@@ -8,6 +8,8 @@ import com.youcode.youquiz.services.LevelService;
 import com.youcode.youquiz.services.QuestionService;
 import com.youcode.youquiz.services.SubjectService;
 import com.youcode.youquiz.services.TempoQuizService;
+import com.youcode.youquiz.utils.TempoID;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -97,11 +99,11 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{questionID}/tempo/{quizID}")
-    public ResponseEntity<Map<String,String>> detachQuestionFromQuiz(@PathVariable Long questionID, @PathVariable Long quizID) {
-        tempoQuizService.delete(questionID, quizID);
-        Map<String, String> response = new HashMap<>();
+    public ResponseEntity<Map<String,Object>> detachQuestionFromQuiz(@PathVariable("questionID") final Long questionID, @PathVariable("quizID") final Long quizID) {
+        TempoID deletedIdentifier = tempoQuizService.delete(questionID, quizID);
+        Map<String, Object> response = new HashMap<>();
         response.put("message", "Question detached from quiz successfully.");
-        response.put("deletedElementIdentifier", questionID.toString());
+        response.put("deletedElementIdentifier", deletedIdentifier);
         return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
