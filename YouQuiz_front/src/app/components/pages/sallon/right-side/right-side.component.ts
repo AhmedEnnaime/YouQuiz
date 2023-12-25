@@ -17,14 +17,14 @@ import * as levelPageActions from '../../../../shared/store/level/actions/level-
 import * as subjectPageActions from '../../../../shared/store/subject/actions/subject-page.actions';
 import { QuestionType } from 'src/app/core/enums/QuestionType';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-right-side',
   templateUrl: './right-side.component.html',
   styleUrls: ['./right-side.component.css'],
 })
-export class RightSideComponent implements OnInit {
+export class RightSideComponent implements OnInit, OnChanges {
   levels: Observable<Level[]>;
   subjects: Observable<Subject[]>;
   @Input() selectedQuestion: ITempoQuiz | null = null;
@@ -32,42 +32,41 @@ export class RightSideComponent implements OnInit {
     isNaN(Number(v))
   );
   @Input() tempos?: Observable<ITempoQuiz[]>;
+  @Output() formChange = new EventEmitter<FormGroup>();
+  form!: FormGroup;
 
-  form = new FormGroup({
-    questionType: new FormControl<string>(
-      (this.selectedQuestion?.question?.questionType.toString() as string) ?? ''
-    ),
-    level_id: new FormControl<number>(
-      this.selectedQuestion?.question?.level?.id ?? 0
-    ),
-    subject_id: new FormControl<number>(
-      this.selectedQuestion?.question?.subject?.id ?? 0
-    ),
-    totalScore: new FormControl<number>(
-      this.selectedQuestion?.question?.totalScore ?? 0
-    ),
-  });
-
-  constructor(private store: Store) {
+  constructor(private store: Store, private fb: FormBuilder) {
     this.levels = store.select(selectLevels);
     this.subjects = store.select(selectSubjects);
+  }
+
+  setQuestionForm(): void {
+    this.form = this.fb.group({
+      questionType: [
+        this.selectedQuestion?.question?.questionType.toString() as string,
+      ],
+      level_id: [this.selectedQuestion?.question?.level?.id ?? 0],
+      subject_id: [this.selectedQuestion?.question?.subject?.id ?? 0],
+      totalScore: [this.selectedQuestion?.question?.totalScore ?? 0],
+    });
   }
 
   ngOnInit(): void {
     this.store.dispatch(levelPageActions.enter());
     this.store.dispatch(subjectPageActions.enter());
+    this.setQuestionForm();
+  }
+
+  updateForm(): void {
+    this.setQuestionForm();
+    this.formChange.emit(this.form);
+
+    console.log(this.form?.getRawValue());
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedQuestion']) {
       this.updateForm();
     }
-  }
-  updateForm(): void {
-    this.form.patchValue({
-      level_id: this.selectedQuestion?.question?.level?.id,
-      subject_id: this.selectedQuestion?.question?.subject?.id,
-      totalScore: this.selectedQuestion?.question?.totalScore || 0,
-    });
   }
 }

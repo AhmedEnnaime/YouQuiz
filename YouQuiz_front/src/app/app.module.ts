@@ -68,6 +68,8 @@ import { TempoEffect } from './shared/store/tempo/tempo.effect';
 import { TempoStateModule } from './shared/store/tempo/tempo.state.module';
 import { ValidationStateModule } from './shared/store/validations/validation.state.module';
 import { ValidationEffect } from './shared/store/validations/validation.effect';
+import { QuestionEffect } from './shared/store/question/question.effect';
+import { QuestionStateModule } from './shared/store/question/question.state.module';
 
 @NgModule({
   declarations: [
@@ -134,12 +136,14 @@ import { ValidationEffect } from './shared/store/validations/validation.effect';
       SubjectEffect,
       TempoEffect,
       ValidationEffect,
+      QuestionEffect,
     ]),
     LevelStateModule,
     SubjectStateModule,
     QuizStateModule,
     TempoStateModule,
     ValidationStateModule,
+    QuestionStateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

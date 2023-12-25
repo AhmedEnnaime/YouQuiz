@@ -29,10 +29,17 @@ export class QuestionService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  updateQuestion(questionID: number): Observable<Question> {
+  addQuestion(question: Question): Observable<Question> {
+    return this.http
+      .post<Question>(`${this.baseUrl}/questions`, question, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  updateQuestion(question: Question, questionID: number): Observable<Question> {
     return this.http
       .patch<Question>(
         `${this.baseUrl}/questions/${questionID}`,
+        question,
         this.httpOptions
       )
       .pipe(catchError((error) => this.configService.handleError(error)));

@@ -9,6 +9,7 @@ import { selectTempos } from 'src/app/shared/store/tempo/tempo.selector';
 import * as tempoPageActions from '../../../shared/store/tempo/actions/tempo-page.actions';
 import { selectValidations } from 'src/app/shared/store/validations/validation.selector';
 import * as validationPageActions from '../../../shared/store/validations/actions/validation-page.actions';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sallon',
@@ -23,8 +24,13 @@ export class SallonComponent {
   tempoID?: ITempoID;
   selectedQuestionText?: string | null;
   @Output() selectedQuestionChange = new EventEmitter<ITempoQuiz>();
+  questionForm?: FormGroup;
 
-  constructor(private store: Store, private route: ActivatedRoute) {
+  constructor(
+    private store: Store,
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) {
     this.route.paramMap.subscribe((params) => {
       const idString = params.get('id');
       this.tempoID = {
@@ -56,7 +62,14 @@ export class SallonComponent {
     });
   }
   onQuestionTextChange(selectedQuestionText: string | null): void {
-    console.log(selectedQuestionText);
+    // console.log(selectedQuestionText);
+    this.questionForm = this.fb.group({
+      questionText: [selectedQuestionText],
+    });
+  }
+
+  onFormChange(updatedForm: FormGroup): void {
+    this.questionForm?.patchValue(updatedForm.value);
   }
 
   private loadValidations(questionID: number): void {

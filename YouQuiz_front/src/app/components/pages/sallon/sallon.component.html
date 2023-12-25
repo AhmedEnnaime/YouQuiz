@@ -5,5 +5,7 @@
         (selectedQuestionTextChange)="onQuestionTextChange($event)"
         style="background-image: url('../../../../../assets/img/bg_sallon.jpg');" class="w-2/3 bg-no-repeat bg-cover">
     </app-center>
-    <app-right-side [tempos]="tempos" [selectedQuestion]="selectedQuestion"></app-right-side>
+    <app-right-side [tempos]="tempos" [selectedQuestion]="selectedQuestion"
+        (formChange)="onFormChange($event)"></app-right-side>
+
 </div>
