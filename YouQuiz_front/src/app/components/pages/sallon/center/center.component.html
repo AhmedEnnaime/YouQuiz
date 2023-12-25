@@ -1,6 +1,7 @@
 <div class="flex flex-col justify-center items-center p-2 mt-6">
     <input type="text" class="w-[80%] text-center rounded-sm inputShadow text-[20px] outline-none p-4 break-all h-fit"
-        placeholder="start typing your question" [value]="selectedQuestion?.question?.questionText" />
+        placeholder="start typing your question" [value]="selectedQuestion?.question?.questionText"
+        (input)="onSelectedQuestionChange()" [(ngModel)]="questionText" />
 
     <label for="fileInput" class="cursor-pointer mt-8">
         <input id="fileInput" type="file" class="hidden" />

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
@@ -12,38 +12,15 @@ export class CenterComponent implements OnInit {
   @Input() tempos?: Observable<ITempoQuiz[]>;
   @Input() selectedQuestion: ITempoQuiz | null = null;
   @Input() validations?: Observable<IValidation[]>;
+  @Output() selectedQuestionTextChange = new EventEmitter<string | null>();
+  questionText: string | null | undefined = '';
 
-  // emptyValidations: IValidation[] = [
-  //   {
-  //     question: { questionText: '', questionType: 0, totalScore: 0 },
-  //     response: { response: '' },
-  //     points: 0,
-  //   },
-  //   {
-  //     question: { questionText: '', questionType: 0, totalScore: 0 },
-  //     response: { response: '' },
-  //     points: 0,
-  //   },
-  //   {
-  //     question: { questionText: '', questionType: 0, totalScore: 0 },
-  //     response: { response: '' },
-  //     points: 0,
-  //   },
-  //   {
-  //     question: { questionText: '', questionType: 0, totalScore: 0 },
-  //     response: { response: '' },
-  //     points: 0,
-  //   },
-  // ];
+  onSelectedQuestionChange(): void {
+    const textValue = this.questionText || null;
+    this.selectedQuestionTextChange.emit(textValue);
+  }
 
   ngOnInit(): void {
-    // this.validations?.subscribe((validationsList) => {
-    //   if (validationsList.length == 0) {
-    //     this.validations = new Observable((observer) => {
-    //       observer.next(this.emptyValidations);
-    //       observer.complete();
-    //     });
-    //   }
-    // });
+    this.questionText = this.selectedQuestion?.question?.questionText;
   }
 }

@@ -21,6 +21,7 @@ export class SallonComponent {
   quizID?: number;
   selectedQuestion: ITempoQuiz | null = null;
   tempoID?: ITempoID;
+  selectedQuestionText?: string | null;
   @Output() selectedQuestionChange = new EventEmitter<ITempoQuiz>();
 
   constructor(private store: Store, private route: ActivatedRoute) {
@@ -53,6 +54,9 @@ export class SallonComponent {
       this.loadValidations(this.selectedQuestion?.question?.id ?? 0);
       this.selectedQuestionChange.emit(this.selectedQuestion);
     });
+  }
+  onQuestionTextChange(selectedQuestionText: string | null): void {
+    console.log(selectedQuestionText);
   }
 
   private loadValidations(questionID: number): void {

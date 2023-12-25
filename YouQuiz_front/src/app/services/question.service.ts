@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '../config/config.service';
 import { Observable, catchError } from 'rxjs';
 import { ITempoQuiz } from '../shared/models/ITempoQuiz';
+import { Question } from '../shared/models/question.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,15 @@ export class QuestionService {
     return this.http
       .get<ITempoQuiz[]>(
         `${this.baseUrl}/questions/tempos/${quizID}`,
+        this.httpOptions
+      )
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  updateQuestion(questionID: number): Observable<Question> {
+    return this.http
+      .patch<Question>(
+        `${this.baseUrl}/questions/${questionID}`,
         this.httpOptions
       )
       .pipe(catchError((error) => this.configService.handleError(error)));

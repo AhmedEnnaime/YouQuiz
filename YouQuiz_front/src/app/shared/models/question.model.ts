@@ -5,7 +5,7 @@ import { Media } from './media.model';
 
 export class Question {
   public id?: number;
-  public questionText: string;
+  public questionText: string | null;
   public questionType: QuestionType;
   public totalScore: number;
   public subject?: Subject;
@@ -19,11 +19,11 @@ export class Question {
     questionText: string,
     questionType: QuestionType,
     totalScore: number,
-    subject: Subject,
-    level: Level,
-    medias: Media[],
-    level_id: number,
-    subject_id: number
+    subject?: Subject,
+    level?: Level,
+    medias?: Media[],
+    level_id?: number,
+    subject_id?: number
   ) {
     this.id = id;
     this.questionText = questionText;

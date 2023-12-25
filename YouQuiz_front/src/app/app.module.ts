@@ -31,7 +31,7 @@ import { ModalComponent } from './components/modals/modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -120,6 +120,7 @@ import { ValidationEffect } from './shared/store/validations/validation.effect';
     MatDialogModule,
     MatButtonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,

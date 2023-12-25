@@ -66,7 +66,7 @@ public class QuestionController {
         return ResponseEntity.status(HttpStatus.OK).body(questionDtoResponse);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<QuestionDto> updateQuestion(@PathVariable Long id, @Valid @RequestBody QuestionDto questionDto) {
         QuestionDto updatedQuestion = questionService.update(id, questionDto);
         return ResponseEntity.status(HttpStatus.OK).body(updatedQuestion);
@@ -107,7 +107,7 @@ public class QuestionController {
         return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
-    @PatchMapping("/{questionID}")
+    @PatchMapping("/time/{questionID}")
     public ResponseEntity<TempoQuizDto> updateTimeOfQuestionInQuiz(@PathVariable Long questionID, @Valid @RequestBody TempoQuizDto tempoQuizDto) {
         TempoQuizDto updatedTempoQuiz = tempoQuizService.update(questionID, tempoQuizDto);
         return ResponseEntity.ok(updatedTempoQuiz);

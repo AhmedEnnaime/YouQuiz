@@ -1,4 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Level } from 'src/app/shared/models/level.model';
@@ -25,20 +33,41 @@ export class RightSideComponent implements OnInit {
   );
   @Input() tempos?: Observable<ITempoQuiz[]>;
 
+  form = new FormGroup({
+    questionType: new FormControl<string>(
+      (this.selectedQuestion?.question?.questionType.toString() as string) ?? ''
+    ),
+    level_id: new FormControl<number>(
+      this.selectedQuestion?.question?.level?.id ?? 0
+    ),
+    subject_id: new FormControl<number>(
+      this.selectedQuestion?.question?.subject?.id ?? 0
+    ),
+    totalScore: new FormControl<number>(
+      this.selectedQuestion?.question?.totalScore ?? 0
+    ),
+  });
+
   constructor(private store: Store) {
     this.levels = store.select(selectLevels);
     this.subjects = store.select(selectSubjects);
   }
 
-  form = new FormGroup({
-    questionType: new FormControl<QuestionType>(QuestionType.SINGLE),
-    level_id: new FormControl<number>(0),
-    subject_id: new FormControl<number>(0),
-    totalScore: new FormControl<number>(0),
-  });
-
   ngOnInit(): void {
     this.store.dispatch(levelPageActions.enter());
     this.store.dispatch(subjectPageActions.enter());
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedQuestion']) {
+      this.updateForm();
+    }
+  }
+  updateForm(): void {
+    this.form.patchValue({
+      level_id: this.selectedQuestion?.question?.level?.id,
+      subject_id: this.selectedQuestion?.question?.subject?.id,
+      totalScore: this.selectedQuestion?.question?.totalScore || 0,
+    });
   }
 }

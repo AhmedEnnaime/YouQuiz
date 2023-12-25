@@ -7,15 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collections;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 public class QuestionDto {
 
     private Long id;
-    @NotBlank(message = "question content should not be empty")
     private String questionText;
     @NotNull(message = "question type is required")
     private QuestionType questionType;

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -86,10 +87,10 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionDto update(Long id, QuestionDto questionDto) {
         Question existingQuestion = questionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("The question with ID " + id + " does not exist"));
-
-        existingQuestion.setQuestionText(questionDto.getQuestionText());
-        existingQuestion.setQuestionType(questionDto.getQuestionType());
-        existingQuestion.setTotalScore(questionDto.getTotalScore());
+        
+        Optional.ofNullable(questionDto.getQuestionText()).ifPresent(existingQuestion::setQuestionText);
+        Optional.ofNullable(questionDto.getQuestionType()).ifPresent(existingQuestion::setQuestionType);    
+        Optional.ofNullable(questionDto.getTotalScore()).ifPresent(existingQuestion::setTotalScore);    
 
         if (questionDto.getLevel_id() != null) {
             Level level = levelRepository.findById(questionDto.getLevel_id())
