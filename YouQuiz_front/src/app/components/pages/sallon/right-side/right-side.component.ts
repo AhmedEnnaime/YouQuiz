@@ -25,19 +25,20 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./right-side.component.css'],
 })
 export class RightSideComponent implements OnInit, OnChanges {
-  levels: Observable<Level[]>;
-  subjects: Observable<Subject[]>;
-  @Input() selectedQuestion: ITempoQuiz | null = null;
+  levels?: Observable<Level[]>;
+  subjects?: Observable<Subject[]>;
+  @Input() selectedQuestion?: ITempoQuiz | null;
   questionTypes: string[] = Object.keys(QuestionType).filter((v) =>
     isNaN(Number(v))
   );
   @Input() tempos?: Observable<ITempoQuiz[]>;
   @Output() formChange = new EventEmitter<FormGroup>();
   form!: FormGroup;
+  @Input() previousSelectedQuestion?: ITempoQuiz | null;
 
   constructor(private store: Store, private fb: FormBuilder) {
-    this.levels = store.select(selectLevels);
-    this.subjects = store.select(selectSubjects);
+    this.store.dispatch(levelPageActions.enter());
+    this.store.dispatch(subjectPageActions.enter());
   }
 
   setQuestionForm(): void {
@@ -45,23 +46,25 @@ export class RightSideComponent implements OnInit, OnChanges {
       questionType: [
         this.selectedQuestion?.question?.questionType.toString() as string,
       ],
-      level_id: [this.selectedQuestion?.question?.level?.id ?? 0],
-      subject_id: [this.selectedQuestion?.question?.subject?.id ?? 0],
-      totalScore: [this.selectedQuestion?.question?.totalScore ?? 0],
+      level_id: [this.selectedQuestion?.question?.level?.id],
+      subject_id: [this.selectedQuestion?.question?.subject?.id],
+      totalScore: [this.selectedQuestion?.question?.totalScore],
     });
-  }
-
-  ngOnInit(): void {
-    this.store.dispatch(levelPageActions.enter());
-    this.store.dispatch(subjectPageActions.enter());
-    this.setQuestionForm();
   }
 
   updateForm(): void {
     this.setQuestionForm();
     this.formChange.emit(this.form);
 
-    console.log(this.form?.getRawValue());
+    // console.log(this.form?.getRawValue());
+  }
+
+  ngOnInit(): void {
+    this.levels = this.store.select(selectLevels);
+    this.subjects = this.store.select(selectSubjects);
+    this.updateForm();
+
+    // console.log(this.form?.getRawValue());
   }
 
   ngOnChanges(changes: SimpleChanges): void {

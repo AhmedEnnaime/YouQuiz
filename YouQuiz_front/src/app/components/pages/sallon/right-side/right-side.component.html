@@ -4,7 +4,7 @@
         <div class="flex flex-col gap-8">
             <div class="flex flex-col gap-4">
                 <h1 class="text-lg font-bold">Question Type</h1>
-                <select (change)="updateForm()" formControlName="questionType"
+                <select formControlName="questionType"
                     class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
                     <option *ngIf="!selectedQuestion" value="" selected>Question Type</option>
                     <option *ngFor="let type of questionTypes" [value]="type"
@@ -16,7 +16,7 @@
             </div>
             <div class="flex flex-col gap-4">
                 <h1 class="text-lg font-bold">Question Subject</h1>
-                <select (change)="updateForm()" formControlName="subject_id"
+                <select formControlName="subject_id"
                     class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
                     <option *ngIf="!selectedQuestion" value="" selected>Question Subject</option>
                     <option *ngFor="let subject of subjects | async" value="{{ subject.id }}"
@@ -28,7 +28,7 @@
 
             <div class="flex flex-col gap-4">
                 <h1 class="text-lg font-bold">Question Level</h1>
-                <select (change)="updateForm()" formControlName="level_id"
+                <select formControlName="level_id"
                     class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
                     <option *ngIf="!selectedQuestion?.question" value="" selected>Select a Level</option>
                     <option *ngFor="let level of levels | async" [value]="level.id"
@@ -40,9 +40,16 @@
 
             <div class="flex flex-col gap-4">
                 <h1 class="text-lg font-bold">Question Points</h1>
-                <input (change)="updateForm()" placeholder="Enter the points of this question"
+                <input placeholder="Enter the points of this question" formControlName="totalScore"
                     class="w-full border-2 border-black rounded-md p-2" type="text"
-                    value="{{ selectedQuestion?.question?.totalScore ?? 0 }}">
+                    value="{{ selectedQuestion?.question?.totalScore }}">
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <h1 class="text-lg font-bold">Question time</h1>
+                <input placeholder="Enter the time of this question in seconds"
+                    class="w-full border-2 border-black rounded-md p-2" type="text"
+                    value="{{ selectedQuestion?.time }}">
             </div>
         </div>
 

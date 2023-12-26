@@ -10,10 +10,11 @@ import { IValidation } from 'src/app/shared/models/IValidation';
 })
 export class CenterComponent implements OnInit {
   @Input() tempos?: Observable<ITempoQuiz[]>;
-  @Input() selectedQuestion: ITempoQuiz | null = null;
+  @Input() selectedQuestion?: ITempoQuiz | null;
   @Input() validations?: Observable<IValidation[]>;
   @Output() selectedQuestionTextChange = new EventEmitter<string | null>();
-  questionText: string | null | undefined = '';
+  questionText: string | null | undefined =
+    this.selectedQuestion?.question?.questionText;
 
   onSelectedQuestionChange(): void {
     const textValue = this.questionText || null;
@@ -21,6 +22,6 @@ export class CenterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionText = this.selectedQuestion?.question?.questionText;
+    this.onSelectedQuestionChange();
   }
 }

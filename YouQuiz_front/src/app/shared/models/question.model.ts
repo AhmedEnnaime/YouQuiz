@@ -11,8 +11,8 @@ export class Question {
   public subject?: Subject;
   public level?: Level;
   public medias?: Media[];
-  private level_id?: number;
-  private subject_id?: number;
+  public level_id?: number;
+  public subject_id?: number;
 
   constructor(
     id: number,
