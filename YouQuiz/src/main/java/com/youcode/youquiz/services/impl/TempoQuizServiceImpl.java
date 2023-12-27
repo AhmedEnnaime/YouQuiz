@@ -1,14 +1,13 @@
 package com.youcode.youquiz.services.impl;
 
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
+import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.dto.TempoQuizDto;
-import com.youcode.youquiz.models.entities.Question;
-import com.youcode.youquiz.models.entities.Quiz;
-import com.youcode.youquiz.models.entities.TempoQuiz;
+import com.youcode.youquiz.models.entities.*;
+import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.payload.TempoQuizDtoResponse;
-import com.youcode.youquiz.repositories.QuestionRepository;
-import com.youcode.youquiz.repositories.QuizRepository;
-import com.youcode.youquiz.repositories.TempoQuizRepository;
+import com.youcode.youquiz.payload.TempoUpdateDto;
+import com.youcode.youquiz.repositories.*;
 import com.youcode.youquiz.services.TempoQuizService;
 import com.youcode.youquiz.utils.TempoID;
 import org.modelmapper.ModelMapper;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TempoQuizServiceImpl implements TempoQuizService {
@@ -29,6 +29,12 @@ public class TempoQuizServiceImpl implements TempoQuizService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
+
+    @Autowired
+    private LevelRepository levelRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -64,14 +70,31 @@ public class TempoQuizServiceImpl implements TempoQuizService {
     }
 
     @Override
-    public TempoQuizDto update(Long questionID, TempoQuizDto tempoQuizDto) {
-        TempoID tempoID = new TempoID(tempoQuizDto.getQuiz_id(), questionID);
+    public TempoUpdateDto update(Long questionID, Long quizID, TempoUpdateDto tempoQuizDto) {
+        TempoID tempoID = new TempoID(quizID, questionID);
         TempoQuiz tempoQuiz = tempoQuizRepository.findById(tempoID)
                 .orElseThrow(() -> new ResourceNotFoundException("The tempo quiz with id " + tempoID + " is not found"));
-        tempoQuiz.setTime(tempoQuizDto.getTime());
-        tempoQuizDto.setQuestion_id(questionID);
-        return modelMapper.map(tempoQuizRepository.save(tempoQuiz), TempoQuizDto.class);
+
+        Optional.ofNullable(tempoQuizDto.getTime()).ifPresent(tempoQuiz::setTime);
+
+        QuestionDto questionDto = tempoQuizDto.getQuestion();
+        if (questionDto != null) {
+            Question question = tempoQuiz.getQuestion();
+            Optional.ofNullable(questionDto.getTotalScore()).ifPresent(question::setTotalScore);
+            Optional.ofNullable(questionDto.getQuestionType()).ifPresent(question::setQuestionType);
+            Optional.ofNullable(questionDto.getQuestionText()).ifPresent(question::setQuestionText);
+            Subject subject = subjectRepository.findById(questionDto.getSubject_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("The subject with id " + questionDto.getSubject_id() + " is not found"));
+            question.setSubject(subject);
+            Level level = levelRepository.findById(questionDto.getLevel_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("The level with id " + questionDto.getSubject_id() + " is not found"));
+            question.setLevel(level);
+            tempoQuiz.setQuestion(questionRepository.save(question));
+        }
+
+        return modelMapper.map(tempoQuizRepository.save(tempoQuiz), TempoUpdateDto.class);
     }
+
 
     @Override
     public List<TempoQuizDtoResponse> findTempoByQuiz(Long quizId) {

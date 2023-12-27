@@ -1,11 +1,12 @@
 package com.youcode.youquiz.payload;
 
 import com.youcode.youquiz.models.dto.TrainerDto;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class QuizDtoResponse {
 
     private Long id;

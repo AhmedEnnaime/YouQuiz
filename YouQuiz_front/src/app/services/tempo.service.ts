@@ -42,4 +42,18 @@ export class TempoService {
       )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
+
+  updateTempo(
+    tempo: ITempoQuiz,
+    questionID: number,
+    quizID: number
+  ): Observable<ITempoQuiz> {
+    return this.http
+      .put<ITempoQuiz>(
+        `${this.baseUrl}/questions/time/${questionID}/quiz/${quizID}`,
+        tempo,
+        this.httpOptions
+      )
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
 }

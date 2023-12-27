@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TempoService } from 'src/app/services/tempo.service';
 import * as tempoPageActions from './actions/tempo-page.actions';
 import * as tempoApiActions from './actions/tempo.api.actions';
-import { exhaustMap, map, mergeMap } from 'rxjs';
+import { concatMap, exhaustMap, map, mergeMap } from 'rxjs';
 
 @Injectable()
 export class TempoEffect {
@@ -36,6 +36,21 @@ export class TempoEffect {
             })
           )
         )
+      )
+    )
+  );
+
+  updateTempo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tempoPageActions.updateTempo),
+      concatMap((action) =>
+        this.tempoService
+          .updateTempo(action.tempo, action.questionID, action.quizID)
+          .pipe(
+            map((updatedTempo) =>
+              tempoApiActions.tempoUpdatedSuccessfully({ updatedTempo })
+            )
+          )
       )
     )
   );

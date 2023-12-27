@@ -21,7 +21,7 @@ export const addTempo = createAction(
 
 export const updateTempo = createAction(
   '[Tempo page] update tempo',
-  props<{ tempo: ITempoQuiz }>()
+  props<{ questionID: number; quizID: number; tempo: ITempoQuiz }>()
 );
 
 export const deleteTempo = createAction(

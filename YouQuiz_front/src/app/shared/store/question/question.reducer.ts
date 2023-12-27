@@ -46,9 +46,13 @@ const addQuestion = (questions: Question[], newQuestion: Question) => [
   ...questions,
   newQuestion,
 ];
-const updateQuestion = (questions: Question[], updatedQuestion: Question) =>
-  questions.map((question) =>
-    question.id === updatedQuestion.id
+const updateQuestion = (questions: Question[], updatedQuestion: Question) => {
+  console.log(questions);
+  return questions.map((question) => {
+    console.log('question id ' + question.id);
+    console.log('updated question id ' + updatedQuestion.id);
+    return question.id == updatedQuestion.id
       ? Object.assign({}, question, updatedQuestion)
-      : question
-  );
+      : question;
+  });
+};

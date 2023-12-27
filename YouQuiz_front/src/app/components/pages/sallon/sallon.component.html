@@ -1,11 +1,16 @@
-<div class="flex">
+<div class="flex overflow-hidden max-h-[80%]">
     <app-left-side-bar [tempos]="tempos" (selectedQuestion)="onQuestionSelected($event)"
         class="w-1/6"></app-left-side-bar>
     <app-center [tempos]="tempos" [selectedQuestion]="selectedQuestion" [validations]="validations"
         (selectedQuestionTextChange)="onQuestionTextChange($event)"
         style="background-image: url('../../../../../assets/img/bg_sallon.jpg');" class="w-2/3 bg-no-repeat bg-cover">
     </app-center>
-    <app-right-side [tempos]="tempos" [selectedQuestion]="selectedQuestion" (formChange)="onFormChange($event)"
-        [previousSelectedQuestion]="previousSelectedQuestion"></app-right-side>
+    <app-right-side [tempos]="tempos" [selectedQuestion]="selectedQuestion"
+        (formChange)="onFormChange($event)"></app-right-side>
+
+    <button (click)="handleSubmit()"
+        class=" absolute bottom-8 right-10 rounded-md bg-[#1466CE] p-2 font-semibold text-white">{{
+        selectedQuestion
+        ? 'Update' : "Save" }}</button>
 
 </div>

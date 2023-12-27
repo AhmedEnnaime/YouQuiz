@@ -2,11 +2,12 @@ package com.youcode.youquiz.models.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class TempoQuizDto {
 
     private Long question_id;

@@ -1,0 +1,9 @@
+
+`
+java:S1192+"KDefine a constant instead of duplicating this literal " not found" 3 times.(Òä‡t
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ
+h
+java:S6204G"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹

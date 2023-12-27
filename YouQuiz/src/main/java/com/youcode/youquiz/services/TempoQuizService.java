@@ -2,6 +2,7 @@ package com.youcode.youquiz.services;
 
 import com.youcode.youquiz.models.dto.TempoQuizDto;
 import com.youcode.youquiz.payload.TempoQuizDtoResponse;
+import com.youcode.youquiz.payload.TempoUpdateDto;
 import com.youcode.youquiz.utils.TempoID;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface TempoQuizService {
 
     TempoID delete(Long questionID, Long quizID);
 
-    TempoQuizDto update(Long id, TempoQuizDto tempoQuizDto);
+    TempoUpdateDto update(Long id, Long quizID, TempoUpdateDto tempoQuizDto);
 
     List<TempoQuizDtoResponse> findTempoByQuiz(Long quizID);
 }

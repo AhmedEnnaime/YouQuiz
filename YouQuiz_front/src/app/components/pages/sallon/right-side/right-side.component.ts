@@ -34,7 +34,6 @@ export class RightSideComponent implements OnInit, OnChanges {
   @Input() tempos?: Observable<ITempoQuiz[]>;
   @Output() formChange = new EventEmitter<FormGroup>();
   form!: FormGroup;
-  @Input() previousSelectedQuestion?: ITempoQuiz | null;
 
   constructor(private store: Store, private fb: FormBuilder) {
     this.store.dispatch(levelPageActions.enter());

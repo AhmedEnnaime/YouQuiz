@@ -1,11 +1,12 @@
 package com.youcode.youquiz.models.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class SubjectDto {
 
     private Long id;

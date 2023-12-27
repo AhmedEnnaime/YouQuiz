@@ -4,6 +4,7 @@ import com.youcode.youquiz.models.dto.*;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.payload.SubjectDtoResponse;
 import com.youcode.youquiz.payload.TempoQuizDtoResponse;
+import com.youcode.youquiz.payload.TempoUpdateDto;
 import com.youcode.youquiz.services.LevelService;
 import com.youcode.youquiz.services.QuestionService;
 import com.youcode.youquiz.services.SubjectService;
@@ -107,9 +108,9 @@ public class QuestionController {
         return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
-    @PatchMapping("/time/{questionID}")
-    public ResponseEntity<TempoQuizDto> updateTimeOfQuestionInQuiz(@PathVariable Long questionID, @Valid @RequestBody TempoQuizDto tempoQuizDto) {
-        TempoQuizDto updatedTempoQuiz = tempoQuizService.update(questionID, tempoQuizDto);
+    @PatchMapping("/tempo/{questionID}/quiz/{quizID}")
+    public ResponseEntity<TempoUpdateDto> updateTempo(@PathVariable Long questionID, @PathVariable Long quizID, @Valid @RequestBody TempoUpdateDto tempoQuizDto) {
+        TempoUpdateDto updatedTempoQuiz = tempoQuizService.update(questionID, quizID, tempoQuizDto);
         return ResponseEntity.ok(updatedTempoQuiz);
     }
 

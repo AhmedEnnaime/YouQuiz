@@ -11,7 +11,7 @@ export const questionAddedFailure = createAction(
   props<{ errors: {} }>()
 );
 export const questionUpdatedSuccessfully = createAction(
-  '[Question api] question added failure',
+  '[Question api] question updated successfully',
   props<{ updatedQuestion: Question }>()
 );
 

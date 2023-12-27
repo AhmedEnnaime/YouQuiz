@@ -30,7 +30,6 @@ export class SallonComponent implements OnChanges {
   validations: Observable<IValidation[]>;
   quizID?: number;
   selectedQuestion: ITempoQuiz | null = null;
-  previousSelectedQuestion: ITempoQuiz | null = null;
   tempoID?: ITempoID;
   selectedQuestionText?: string | null;
   @Output() selectedQuestionChange = new EventEmitter<ITempoQuiz>();
@@ -53,7 +52,6 @@ export class SallonComponent implements OnChanges {
     this.tempos.subscribe((temposList) => {
       if (temposList.length > 0 && this.selectedQuestion === null) {
         this.selectedQuestion = temposList[0];
-        this.previousSelectedQuestion = temposList[0];
         this.loadValidations(this.selectedQuestion.question?.id ?? 0);
       }
     });
@@ -63,25 +61,17 @@ export class SallonComponent implements OnChanges {
   onQuestionSelected(index: number): void {
     this.tempos.subscribe((temposList) => {
       this.selectedQuestion = temposList[index];
-      this.previousSelectedQuestion = temposList[index - 1];
       this.loadValidations(this.selectedQuestion?.question?.id ?? 0);
       this.selectedQuestionChange.emit(this.selectedQuestion);
     });
   }
   onQuestionTextChange(selectedQuestionText: string | null): void {
-    // console.log(selectedQuestionText);
-
     this.questionText = selectedQuestionText;
-    console.log(this.questionForm?.getRawValue());
-
     this.questionForm?.valueChanges.subscribe((latestValues) => {
-      console.log('6756');
-
       this.question = {
         questionText: this.questionText as string,
         ...latestValues,
       };
-      console.log(this.question);
     });
   }
 
@@ -93,7 +83,7 @@ export class SallonComponent implements OnChanges {
         questionText: this.questionText as string,
         ...newValues,
       };
-      console.log(this.question);
+      // console.log(this.question);
     });
     // this.question = {
     //   questionText: this.questionText as string,
@@ -109,19 +99,30 @@ export class SallonComponent implements OnChanges {
     this.store.dispatch(
       questionPageActions.updateQuestion({
         question: this.question as Question,
-        questionID: 0,
+        questionID: this.selectedQuestion?.question?.id as number,
       })
     );
   }
+
+  saveQuestion(): void {
+    console.log('Save');
+  }
+
+  handleSubmit() {
+    if (this.selectedQuestion) {
+      this.updateQuestion();
+    } else {
+      this.saveQuestion();
+    }
+  }
+
   private loadValidations(questionID: number): void {
     this.store.dispatch(
       validationPageActions.getResponsesByQuestion({ questionID })
     );
   }
 
-  ngOnInit(): void {
-    console.log('previous ' + this.previousSelectedQuestion);
-  }
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedQuestion']) {
       console.log(this.question);
