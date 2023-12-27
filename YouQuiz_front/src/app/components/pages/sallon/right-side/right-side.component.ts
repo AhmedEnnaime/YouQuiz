@@ -48,22 +48,19 @@ export class RightSideComponent implements OnInit, OnChanges {
       level_id: [this.selectedQuestion?.question?.level?.id],
       subject_id: [this.selectedQuestion?.question?.subject?.id],
       totalScore: [this.selectedQuestion?.question?.totalScore],
+      time: [this.selectedQuestion?.time],
     });
   }
 
   updateForm(): void {
     this.setQuestionForm();
     this.formChange.emit(this.form);
-
-    // console.log(this.form?.getRawValue());
   }
 
   ngOnInit(): void {
     this.levels = this.store.select(selectLevels);
     this.subjects = this.store.select(selectSubjects);
     this.updateForm();
-
-    // console.log(this.form?.getRawValue());
   }
 
   ngOnChanges(changes: SimpleChanges): void {

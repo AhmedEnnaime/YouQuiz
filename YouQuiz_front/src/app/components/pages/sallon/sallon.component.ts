@@ -3,7 +3,6 @@ import {
   EventEmitter,
   OnChanges,
   Output,
-  SimpleChange,
   SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +15,6 @@ import { selectTempos } from 'src/app/shared/store/tempo/tempo.selector';
 import * as tempoPageActions from '../../../shared/store/tempo/actions/tempo-page.actions';
 import { selectValidations } from 'src/app/shared/store/validations/validation.selector';
 import * as validationPageActions from '../../../shared/store/validations/actions/validation-page.actions';
-import * as questionPageActions from '../../../shared/store/question/actions/question-page.actions';
 import { FormGroup } from '@angular/forms';
 import { Question } from 'src/app/shared/models/question.model';
 
@@ -36,12 +34,13 @@ export class SallonComponent implements OnChanges {
   question?: Question;
   questionText?: string | null;
   questionForm?: FormGroup;
+  tempo?: ITempoQuiz;
 
   constructor(private store: Store, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params) => {
-      const idString = params.get('id');
+      this.quizID = parseInt(params.get('id') as string);
       this.tempoID = {
-        quizID: idString !== null ? +idString : 0,
+        quizID: this.quizID !== null ? +this.quizID : 0,
         questionID: undefined,
       };
     });
@@ -76,32 +75,35 @@ export class SallonComponent implements OnChanges {
   }
 
   onFormChange(updatedForm: FormGroup): void {
-    console.log(updatedForm.getRawValue());
+    // console.log(updatedForm.getRawValue());
     this.questionForm = updatedForm;
     updatedForm.valueChanges.subscribe((newValues) => {
-      this.question = {
-        questionText: this.questionText as string,
-        ...newValues,
+      console.log(newValues);
+
+      this.tempo = {
+        question: {
+          questionText: this.questionText as string,
+          questionType: newValues.questionType,
+          totalScore: newValues.totalScore,
+          subject_id: newValues.subject_id,
+          level_id: newValues.level_id,
+        },
+        time: newValues.time,
+        quiz: null,
       };
-      // console.log(this.question);
     });
-    // this.question = {
-    //   questionText: this.questionText as string,
-    //   questionType: updatedForm.value.questionType,
-    //   subject_id: updatedForm.value.subject_id,
-    //   level_id: updatedForm.value.level_id,
-    //   totalScore: updatedForm.value.totalScore,
-    // };
-    // console.log(this.question);
   }
 
   updateQuestion(): void {
-    this.store.dispatch(
-      questionPageActions.updateQuestion({
-        question: this.question as Question,
-        questionID: this.selectedQuestion?.question?.id as number,
-      })
-    );
+    console.log(this.tempo);
+
+    // this.store.dispatch(
+    //   tempoPageActions.updateTempo({
+    //     questionID: this.selectedQuestion?.question?.id as number,
+    //     quizID: this.quizID as number,
+    //     tempo: this.tempo as ITempoQuiz,
+    //   })
+    // );
   }
 
   saveQuestion(): void {
