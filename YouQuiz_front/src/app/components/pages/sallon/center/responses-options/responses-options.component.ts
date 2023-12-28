@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { IValidation } from 'src/app/shared/models/IValidation';
 
 @Component({
@@ -7,6 +7,22 @@ import { IValidation } from 'src/app/shared/models/IValidation';
   templateUrl: './responses-options.component.html',
   styleUrls: ['./responses-options.component.css'],
 })
-export class ResponsesOptionsComponent {
+export class ResponsesOptionsComponent implements OnInit {
   @Input() validations?: Observable<IValidation[]>;
+
+  ngOnInit(): void {
+    // this.validations?.subscribe((validationsList) => {
+    //   console.log(validationsList);
+    //   if (!validationsList || validationsList.length === 0) {
+    //     console.log('HERE');
+    //     const defaultValidations = [
+    //       { points: 0 },
+    //       { points: 0 },
+    //       { points: 0 },
+    //       { points: 0 },
+    //     ];
+    //     this.validations = of(defaultValidations);
+    //   }
+    // });
+  }
 }

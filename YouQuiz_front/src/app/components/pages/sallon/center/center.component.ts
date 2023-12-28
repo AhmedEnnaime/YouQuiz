@@ -17,7 +17,7 @@ export class CenterComponent implements OnInit {
     this.selectedQuestion?.question?.questionText;
 
   onSelectedQuestionChange(): void {
-    const textValue = this.questionText || null;
+    const textValue = this.questionText ?? null;
     this.selectedQuestionTextChange.emit(textValue);
   }
 

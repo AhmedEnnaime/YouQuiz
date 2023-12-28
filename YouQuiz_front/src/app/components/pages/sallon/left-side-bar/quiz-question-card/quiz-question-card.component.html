@@ -1,5 +1,5 @@
 <div class="flex gap-x-2 items-center">
-    <mat-icon class="cursor-pointer" (click)="deleteQuestion()">delete</mat-icon>
+    <mat-icon class="cursor-pointer" (click)="sendDetachedQuestion(tempo?.question?.id, questionNum)">delete</mat-icon>
     <div class="bg-gray-100 overflow-hidden shadow w-52 h-32 rounded-lg hover:border-2 hover:border-gray-400 cursor-grab"
         [ngClass]="{'border-gray-400': isSelected, 'border-2': isSelected}">
         <div class="px-4 py-5 sm:p-6">

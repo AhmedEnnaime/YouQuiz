@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
-import * as tempoPageActions from '../../../../../shared/store/tempo/actions/tempo-page.actions';
 import { ITempoID } from 'src/app/shared/models/ITempoID';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-question-card',
@@ -12,36 +10,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class QuizQuestionCardComponent {
   @Input() questionNum?: number;
+  @Input() temposLength: number = 0;
   @Input() isSelected: boolean = false;
   @Input() tempo?: ITempoQuiz;
-  tempoID?: ITempoID;
   @Output() deleteEmptyQuestion = new EventEmitter<void>();
+  @Output() detachedQuestion = new EventEmitter<{
+    questionID: number | undefined;
+    index: number | undefined;
+  }>();
 
-  constructor(private store: Store, private route: ActivatedRoute) {}
+  constructor() {}
 
-  detachQuestionFromQuiz(): void {
-    this.route.paramMap.subscribe((params) => {
-      const idString = params.get('id');
-      this.tempoID = {
-        quizID: idString !== null ? +idString : 0,
-        questionID: this.tempo?.question?.id,
-      };
-    });
-
-    this.store.dispatch(
-      tempoPageActions.deleteTempo({ tempoID: this.tempoID })
-    );
-  }
-
-  deleteEmptyQuestionClicked(): void {
-    this.deleteEmptyQuestion.emit();
-  }
-
-  deleteQuestion(): void {
-    if (this.tempo?.question) {
-      this.detachQuestionFromQuiz();
+  sendDetachedQuestion(
+    questionID: number | undefined,
+    index: number | undefined
+  ): void {
+    if ((index as number) < this.temposLength) {
+      this.detachedQuestion.emit({ questionID, index });
     } else {
-      this.deleteEmptyQuestionClicked();
+      this.deleteEmptyQuestion.emit();
     }
   }
 }
