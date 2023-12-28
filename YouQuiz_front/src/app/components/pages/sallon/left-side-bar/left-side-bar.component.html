@@ -3,7 +3,7 @@
         <ng-container *ngIf="(tempos | async)!.length > 0; else noQuestions">
             <div *ngFor="let tempo of tempos | async; index as i">
                 <app-quiz-question-card [tempo]="tempo" [questionNum]="i" [isSelected]="i === selectedQuestionIndex"
-                    (click)="selectQuestion(i)"></app-quiz-question-card>
+                    (click)="selectQuestion(i)" (deleteEmptyQuestion)="deleteEmptyQuestion(i)"></app-quiz-question-card>
             </div>
         </ng-container>
         <ng-template #noQuestions>
@@ -12,4 +12,5 @@
             </div>
         </ng-template>
     </div>
+    <button class="create-btn rounded-md p-2 mt-4" (click)="addEmptyTempo()">Add Question</button>
 </aside>

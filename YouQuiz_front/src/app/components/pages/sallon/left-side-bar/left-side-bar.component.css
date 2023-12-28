@@ -1,0 +1,12 @@
+.create-btn{
+    background-color: #1267CE;
+    color: white;
+    box-shadow: 0 3px 0 0 #104D9A;
+    display: inline-block;
+    transition: all 100ms ease-in;
+  }
+  
+  .create-btn:active{
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 0 #104D9A;
+  }

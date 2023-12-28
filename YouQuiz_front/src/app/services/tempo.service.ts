@@ -49,8 +49,8 @@ export class TempoService {
     quizID: number
   ): Observable<ITempoQuiz> {
     return this.http
-      .put<ITempoQuiz>(
-        `${this.baseUrl}/questions/time/${questionID}/quiz/${quizID}`,
+      .patch<ITempoQuiz>(
+        `${this.baseUrl}/questions/tempo/${questionID}/quiz/${quizID}`,
         tempo,
         this.httpOptions
       )

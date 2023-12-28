@@ -16,7 +16,6 @@ import * as tempoPageActions from '../../../shared/store/tempo/actions/tempo-pag
 import { selectValidations } from 'src/app/shared/store/validations/validation.selector';
 import * as validationPageActions from '../../../shared/store/validations/actions/validation-page.actions';
 import { FormGroup } from '@angular/forms';
-import { Question } from 'src/app/shared/models/question.model';
 
 @Component({
   selector: 'app-sallon',
@@ -31,7 +30,6 @@ export class SallonComponent implements OnChanges {
   tempoID?: ITempoID;
   selectedQuestionText?: string | null;
   @Output() selectedQuestionChange = new EventEmitter<ITempoQuiz>();
-  question?: Question;
   questionText?: string | null;
   questionForm?: FormGroup;
   tempo?: ITempoQuiz;
@@ -67,9 +65,16 @@ export class SallonComponent implements OnChanges {
   onQuestionTextChange(selectedQuestionText: string | null): void {
     this.questionText = selectedQuestionText;
     this.questionForm?.valueChanges.subscribe((latestValues) => {
-      this.question = {
-        questionText: this.questionText as string,
-        ...latestValues,
+      this.tempo = {
+        question: {
+          questionText: this.questionText as string,
+          questionType: latestValues.questionType,
+          totalScore: latestValues.totalScore,
+          subject_id: latestValues.subject_id,
+          level_id: latestValues.level_id,
+        },
+        time: latestValues.time,
+        quiz: null,
       };
     });
   }
@@ -97,13 +102,13 @@ export class SallonComponent implements OnChanges {
   updateQuestion(): void {
     console.log(this.tempo);
 
-    // this.store.dispatch(
-    //   tempoPageActions.updateTempo({
-    //     questionID: this.selectedQuestion?.question?.id as number,
-    //     quizID: this.quizID as number,
-    //     tempo: this.tempo as ITempoQuiz,
-    //   })
-    // );
+    this.store.dispatch(
+      tempoPageActions.updateTempo({
+        questionID: this.selectedQuestion?.question?.id as number,
+        quizID: this.quizID as number,
+        tempo: this.tempo as ITempoQuiz,
+      })
+    );
   }
 
   saveQuestion(): void {
@@ -127,7 +132,7 @@ export class SallonComponent implements OnChanges {
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedQuestion']) {
-      console.log(this.question);
+      console.log(this.tempo);
     }
   }
 }

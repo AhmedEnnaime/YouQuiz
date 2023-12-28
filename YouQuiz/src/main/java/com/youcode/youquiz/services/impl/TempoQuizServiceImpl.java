@@ -76,6 +76,7 @@ public class TempoQuizServiceImpl implements TempoQuizService {
                 .orElseThrow(() -> new ResourceNotFoundException("The tempo quiz with id " + tempoID + " is not found"));
 
         Optional.ofNullable(tempoQuizDto.getTime()).ifPresent(tempoQuiz::setTime);
+        tempoQuiz.setId(tempoID);
 
         QuestionDto questionDto = tempoQuizDto.getQuestion();
         if (questionDto != null) {

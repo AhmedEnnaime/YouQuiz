@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, take } from 'rxjs';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 
 @Component({
@@ -15,5 +15,19 @@ export class LeftSideBarComponent {
   selectQuestion(index: number): void {
     this.selectedQuestionIndex = index;
     this.selectedQuestion.emit(index);
+  }
+
+  addEmptyTempo(): void {
+    this.tempos?.pipe(take(1)).subscribe((tempos) => {
+      const updatedTempos = [...tempos, { time: null }];
+      this.tempos = of(updatedTempos);
+    });
+  }
+
+  deleteEmptyQuestion(index: number): void {
+    this.tempos?.pipe(take(1)).subscribe((tempos) => {
+      const updatedTempos = tempos.filter((_, i) => i !== index);
+      this.tempos = of(updatedTempos);
+    });
   }
 }

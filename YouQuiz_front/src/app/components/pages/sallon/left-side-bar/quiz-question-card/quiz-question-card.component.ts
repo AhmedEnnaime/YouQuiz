@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import * as tempoPageActions from '../../../../../shared/store/tempo/actions/tempo-page.actions';
@@ -15,6 +15,7 @@ export class QuizQuestionCardComponent {
   @Input() isSelected: boolean = false;
   @Input() tempo?: ITempoQuiz;
   tempoID?: ITempoID;
+  @Output() deleteEmptyQuestion = new EventEmitter<void>();
 
   constructor(private store: Store, private route: ActivatedRoute) {}
 
@@ -30,5 +31,17 @@ export class QuizQuestionCardComponent {
     this.store.dispatch(
       tempoPageActions.deleteTempo({ tempoID: this.tempoID })
     );
+  }
+
+  deleteEmptyQuestionClicked(): void {
+    this.deleteEmptyQuestion.emit();
+  }
+
+  deleteQuestion(): void {
+    if (this.tempo?.question) {
+      this.detachQuestionFromQuiz();
+    } else {
+      this.deleteEmptyQuestionClicked();
+    }
   }
 }

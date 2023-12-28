@@ -5,7 +5,7 @@ import { Quiz } from './quiz.model';
 export interface ITempoQuiz {
   question?: Question;
   quiz?: Quiz | null;
-  time: number;
+  time: number | null;
   id?: ITempoID;
   question_id?: number;
   quiz_id?: number;

@@ -76,7 +76,7 @@ const createTempo = (tempos: ITempoQuiz[], newTempo: ITempoQuiz) => [
 ];
 const updateTempo = (tempos: ITempoQuiz[], updatedTempo: ITempoQuiz) =>
   tempos.map((tempo) =>
-    tempo.id === updatedTempo.id
+    JSON.stringify(tempo.id) === JSON.stringify(updatedTempo.id)
       ? Object.assign({}, tempo, updatedTempo)
       : tempo
   );
