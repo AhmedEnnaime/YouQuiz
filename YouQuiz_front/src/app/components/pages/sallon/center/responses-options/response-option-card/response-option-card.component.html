@@ -1,11 +1,13 @@
-<div
+<form [formGroup]="validationForm"
     class="flex justify-between items-center relative mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-6 py-12 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
-    <input type="number" class="border w-[15%] rounded-md p-2" value="{{ validation?.points }}" />
-    <input value="{{ validation?.response?.response }}" type="text" placeholder="Add answer"
+    <input type="number" class="border w-[15%] rounded-md p-2" formControlName="points"
+        value="{{ validation?.points }}" />
+    <input value="{{ validation?.response?.response }}" formControlName="response" type="text" placeholder="Add answer"
         class="flex-1 m-4 outline-none" />
 
+    <button class="rounded-md bg-[#1466CE] p-2 font-semibold text-white mr-12">Save</button>
     <div class="round absolute right-16 top-12">
         <input [checked]="validation!.points > 0" type="checkbox" [id]="'checkbox' + validation?.response?.id" />
         <label class="" [for]="'checkbox' + (validation?.response?.id)"></label>
     </div>
-</div>
+</form>

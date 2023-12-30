@@ -9,7 +9,7 @@ public interface ValidationService {
 
     ValidationDto save(ValidationDto validationDto);
 
-    ValidationDto update(Long id, ValidationDto validationDto);
+    ValidationDtoResponse update(Long id, ValidationDtoResponse validationDto);
 
     void delete(Long id);
 

@@ -80,7 +80,6 @@ export class SallonComponent implements OnChanges {
   }
 
   onFormChange(updatedForm: FormGroup): void {
-    // console.log(updatedForm.getRawValue());
     this.questionForm = updatedForm;
     updatedForm.valueChanges.subscribe((newValues) => {
       console.log(newValues);

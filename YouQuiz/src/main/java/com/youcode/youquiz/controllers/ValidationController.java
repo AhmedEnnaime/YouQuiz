@@ -50,9 +50,9 @@ public class ValidationController {
         return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ValidationDto> updateValidation(@PathVariable Long id, @Valid @RequestBody ValidationDto validationDto) {
-        ValidationDto updatedValidation = validationService.update(id, validationDto);
+    @PatchMapping("/{id}")
+    public ResponseEntity<ValidationDtoResponse> updateValidation(@PathVariable Long id, @Valid @RequestBody ValidationDtoResponse validationDto) {
+        ValidationDtoResponse updatedValidation = validationService.update(id, validationDto);
         return ResponseEntity.status(HttpStatus.OK).body(updatedValidation);
     }
 

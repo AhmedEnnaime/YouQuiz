@@ -9,6 +9,7 @@ import com.youcode.youquiz.models.entities.Response;
 import com.youcode.youquiz.models.entities.Validation;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
 import com.youcode.youquiz.payload.ValidationDtoResponse;
+import com.youcode.youquiz.repositories.ResponseRepository;
 import com.youcode.youquiz.repositories.ValidationRepository;
 import com.youcode.youquiz.services.QuestionService;
 import com.youcode.youquiz.services.ResponseService;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ValidationServiceImpl implements ValidationService {
@@ -33,6 +35,9 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Autowired
     private ResponseService responseService;
+
+    @Autowired
+    private ResponseRepository responseRepository;
 
     @Override
     public ValidationDto save(ValidationDto validationDto) {
@@ -53,26 +58,30 @@ public class ValidationServiceImpl implements ValidationService {
         return modelMapper.map(validation, ValidationDto.class);
     }
 
-
     @Override
-    public ValidationDto update(Long id, ValidationDto validationDto) {
+    public ValidationDtoResponse update(Long id, ValidationDtoResponse validationDto) {
         Validation existingValidation = validationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Validation with this id" + id + " not found"));
-        existingValidation.setPoints(validationDto.getPoints());
+                .orElseThrow(() -> new ResourceNotFoundException("Validation with this id " + id + " not found"));
+        Optional.ofNullable(validationDto.getPoints()).ifPresent(existingValidation::setPoints);
 
-        if (validationDto.getQuestion_id() != null) {
-            QuestionDtoResponse questionDtoResponse = questionService.findByID(validationDto.getQuestion_id());
+        if (validationDto.getQuestion() != null) {
+            QuestionDtoResponse questionDtoResponse = questionService.findByID(validationDto.getQuestion().getId());
             existingValidation.setQuestion(modelMapper.map(questionDtoResponse, Question.class));
         }
 
-        if (validationDto.getResponse_id() != null) {
-            ResponseDto responseDto = responseService.findByID(validationDto.getResponse_id());
-            existingValidation.setResponse(modelMapper.map(responseDto, Response.class));
-        }
+        if (validationDto.getResponse() != null) {
+            ResponseDto newResponseDto = validationDto.getResponse();
+            Response existingResponse = existingValidation.getResponse();
 
+            if (newResponseDto.getResponse() != null && !newResponseDto.getResponse().isBlank()) {
+                existingResponse.setResponse(newResponseDto.getResponse());
+            }
+            existingValidation.setResponse(responseRepository.save(existingResponse));
+        }
         existingValidation = validationRepository.save(existingValidation);
-        return modelMapper.map(existingValidation, ValidationDto.class);
+        return modelMapper.map(existingValidation, ValidationDtoResponse.class);
     }
+
 
     @Override
     public void delete(Long id) {
