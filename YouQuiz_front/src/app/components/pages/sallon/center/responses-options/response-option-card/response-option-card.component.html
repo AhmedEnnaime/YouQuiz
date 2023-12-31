@@ -3,7 +3,8 @@
     <input type="number" class="border w-[15%] rounded-md p-2" formControlName="points" />
     <input formControlName="response" type="text" placeholder="Add answer" class="flex-1 m-4 outline-none" />
 
-    <button class="rounded-md bg-[#1466CE] p-2 font-semibold text-white mr-12">Save</button>
+    <button class="rounded-md bg-[#1466CE] p-2 font-semibold text-white mr-12"
+        (click)="updateValidation()">Save</button>
     <div class="round absolute right-16 top-12">
         <input [checked]="validation!.points > 0" type="checkbox" [id]="'checkbox' + validation?.response?.id" />
         <label class="" [for]="'checkbox' + (validation?.response?.id)"></label>

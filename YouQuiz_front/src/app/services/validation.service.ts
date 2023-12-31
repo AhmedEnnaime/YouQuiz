@@ -40,7 +40,7 @@ export class ValidationService {
 
   updateValidation(id: number): Observable<IValidation> {
     return this.http
-      .put<IValidation>(`${this.baseUrl}/validations/${id}`, this.httpOptions)
+      .patch<IValidation>(`${this.baseUrl}/validations/${id}`, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 

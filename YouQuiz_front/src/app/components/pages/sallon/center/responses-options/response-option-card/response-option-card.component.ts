@@ -1,14 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IValidation } from 'src/app/shared/models/IValidation';
+import * as validationPageActions from '../../../../../../shared/store/validations/actions/validation-page.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-response-option-card',
@@ -19,8 +13,9 @@ export class ResponseOptionCardComponent implements OnInit {
   @Input() validation?: IValidation;
   validationForm!: FormGroup;
   @Output() validationUpdatedForm = new EventEmitter<FormGroup>();
+  validationObject?: IValidation;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private store: Store, private fb: FormBuilder) {}
 
   setValidationForm(): void {
     this.validationForm = this.fb.group({
@@ -33,10 +28,28 @@ export class ResponseOptionCardComponent implements OnInit {
 
   updateValidationForm() {
     this.setValidationForm();
-    this.validationForm.valueChanges.subscribe((newValues) =>
-      console.log(newValues)
+    this.validationForm.valueChanges.subscribe(
+      (newValues) =>
+        (this.validationObject = {
+          id: newValues.validation_id,
+          response: {
+            id: newValues.response_id,
+            response: newValues.response,
+          },
+          points: newValues.points,
+        })
     );
-    this.validationUpdatedForm.emit(this.validationForm);
+  }
+
+  updateValidation(): void {
+    console.log(this.validationObject);
+
+    this.store.dispatch(
+      validationPageActions.updateValidation({
+        validation: this.validationObject as IValidation,
+        validationID: this.validation?.id as number,
+      })
+    );
   }
 
   ngOnInit(): void {

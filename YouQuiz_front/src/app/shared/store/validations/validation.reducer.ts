@@ -78,7 +78,7 @@ const updateValidation = (
   updatedValidation: IValidation
 ) =>
   validations.map((validation) =>
-    validation.id === updatedValidation.id
+    validation.id == updatedValidation.id
       ? Object.assign({}, validation, updatedValidation)
       : validation
   );

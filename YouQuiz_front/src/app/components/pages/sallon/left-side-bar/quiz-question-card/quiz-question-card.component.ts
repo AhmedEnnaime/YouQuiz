@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
-import { ITempoID } from 'src/app/shared/models/ITempoID';
 
 @Component({
   selector: 'app-quiz-question-card',
@@ -18,8 +16,6 @@ export class QuizQuestionCardComponent {
     questionID: number | undefined;
     index: number | undefined;
   }>();
-
-  constructor() {}
 
   sendDetachedQuestion(
     questionID: number | undefined,
