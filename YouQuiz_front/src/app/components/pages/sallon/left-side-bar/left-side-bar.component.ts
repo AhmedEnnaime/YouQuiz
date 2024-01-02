@@ -28,7 +28,6 @@ export class LeftSideBarComponent implements OnInit {
 
   addEmptyTempo(): void {
     this.temposList?.push({ time: null });
-    console.log(this.temposList);
   }
 
   getTemposLength(): number {

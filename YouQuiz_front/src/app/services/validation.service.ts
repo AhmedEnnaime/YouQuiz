@@ -38,9 +38,16 @@ export class ValidationService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  updateValidation(id: number): Observable<IValidation> {
+  updateValidation(
+    id: number,
+    validation: IValidation
+  ): Observable<IValidation> {
     return this.http
-      .patch<IValidation>(`${this.baseUrl}/validations/${id}`, this.httpOptions)
+      .patch<IValidation>(
+        `${this.baseUrl}/validations/${id}`,
+        validation,
+        this.httpOptions
+      )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 

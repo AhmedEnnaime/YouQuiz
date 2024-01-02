@@ -46,13 +46,15 @@ export class ValidationEffect {
     this.actions$.pipe(
       ofType(validationPageActions.updateValidation),
       concatMap((action) =>
-        this.validationService.updateValidation(action.validationID).pipe(
-          map((updatedValidation) =>
-            validationApiActions.validationUpdatedSuccessfully({
-              updatedValidation,
-            })
+        this.validationService
+          .updateValidation(action.validationID, action.validation)
+          .pipe(
+            map((updatedValidation) =>
+              validationApiActions.validationUpdatedSuccessfully({
+                updatedValidation,
+              })
+            )
           )
-        )
       )
     )
   );
@@ -61,16 +63,14 @@ export class ValidationEffect {
     this.actions$.pipe(
       ofType(validationPageActions.deleteValidation),
       mergeMap((action) =>
-        this.validationService
-          .deleteValidation(action.validationID)
-          .pipe(
-            map((response) =>
-              validationApiActions.validationDeletedSuccessfully({
-                message: response.message,
-                validationID: response.deletedElementIdentifier,
-              })
-            )
+        this.validationService.deleteValidation(action.validationID).pipe(
+          map((response) =>
+            validationApiActions.validationDeletedSuccessfully({
+              message: response.message,
+              validationID: response.deletedElementIdentifier,
+            })
           )
+        )
       )
     )
   );

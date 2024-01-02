@@ -42,23 +42,38 @@ public class TempoQuizServiceImpl implements TempoQuizService {
     @Override
     public TempoQuizDto save(TempoQuizDto tempoQuizDto) {
         TempoQuiz tempoQuiz = modelMapper.map(tempoQuizDto, TempoQuiz.class);
+
         Quiz quiz = quizRepository.findById(tempoQuizDto.getQuiz_id())
                 .orElseThrow(() -> new ResourceNotFoundException("The quiz with id " + tempoQuizDto.getQuiz_id() + " is not found"));
         tempoQuiz.setQuiz(quiz);
+
+        TempoQuiz finalTempoQuiz = tempoQuiz;
         Question question = questionRepository.findById(tempoQuizDto.getQuestion_id())
-                .orElseThrow(() -> new ResourceNotFoundException("The question with ID " + tempoQuizDto.getQuestion_id() + " does not exist"));
+                .orElseGet(() -> {
+                    Question newQuestion = new Question();
+                    newQuestion.setQuestionType(finalTempoQuiz.getQuestion().getQuestionType());
+                    newQuestion.setQuestionText(finalTempoQuiz.getQuestion().getQuestionText());
+                    newQuestion.setTotalScore(finalTempoQuiz.getQuestion().getTotalScore());
+                    newQuestion.setSubject(finalTempoQuiz.getQuestion().getSubject());
+                    newQuestion.setLevel(finalTempoQuiz.getQuestion().getLevel());
+                    return questionRepository.save(newQuestion);
+                });
+
         tempoQuiz.setQuestion(question);
+
         TempoID tempoID = new TempoID(tempoQuizDto.getQuiz_id(), tempoQuizDto.getQuestion_id());
         if (tempoQuizRepository.existsById(tempoID)) {
             throw new ResourceNotFoundException("Question already assigned to the quiz");
-        }else {
+        } else {
             tempoQuiz.setId(tempoID);
         }
+
         tempoQuiz.setTime(tempoQuizDto.getTime());
 
         tempoQuiz = tempoQuizRepository.save(tempoQuiz);
         return modelMapper.map(tempoQuiz, TempoQuizDto.class);
     }
+
 
     @Override
     public TempoID delete(Long questionID, Long quizID) {
