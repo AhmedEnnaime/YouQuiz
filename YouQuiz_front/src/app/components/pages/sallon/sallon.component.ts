@@ -88,7 +88,7 @@ export class SallonComponent implements OnChanges {
 
       this.tempo = {
         question: {
-          id: (this.selectedQuestion?.id as number) ?? null,
+          id: newValues.id,
           questionText: this.questionText as string,
           questionType: newValues.questionType,
           totalScore: newValues.totalScore,
@@ -118,11 +118,11 @@ export class SallonComponent implements OnChanges {
   saveQuestion(): void {
     console.log(this.tempo);
 
-    // this.store.dispatch(
-    //   tempoPageActions.addTempo({
-    //     tempo: this.tempo as ITempoQuiz,
-    //   })
-    // );
+    this.store.dispatch(
+      tempoPageActions.addTempo({
+        tempo: this.tempo as ITempoQuiz,
+      })
+    );
   }
 
   handleSubmit() {

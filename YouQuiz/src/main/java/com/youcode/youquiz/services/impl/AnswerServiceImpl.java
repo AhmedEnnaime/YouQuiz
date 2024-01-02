@@ -33,9 +33,6 @@ public class AnswerServiceImpl implements AnswerService {
     @Autowired
     private ValidationRepository validationRepository;
 
-    @Autowired
-    private QuestionRepository questionRepository;
-
     @Override
     public AnswerDto create(AnswerDto answerDto) throws Exception {
         Answer answer = modelMapper.map(answerDto, Answer.class);

@@ -2,7 +2,6 @@ package com.youcode.youquiz.models.entities;
 
 import com.youcode.youquiz.models.enums.Result;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
