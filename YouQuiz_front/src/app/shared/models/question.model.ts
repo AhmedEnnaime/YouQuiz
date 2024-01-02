@@ -4,7 +4,7 @@ import { Subject } from './subject.model';
 import { Media } from './media.model';
 
 export class Question {
-  public id?: number;
+  public id?: number | null;
   public questionText: string | null;
   public questionType: QuestionType;
   public totalScore: number;

@@ -49,14 +49,14 @@ export class LeftSideBarComponent implements OnInit {
   }
 
   detachQuestionFromQuiz(data: {
-    questionID: number | undefined;
+    questionID: number | undefined | null;
     index: number | undefined;
   }): void {
     this.route.paramMap.subscribe((params) => {
       const idString = params.get('id');
       this.tempoID = {
         quizID: idString !== null ? +idString : 0,
-        questionID: data.questionID,
+        questionID: data.questionID as number,
       };
     });
     if (this.selectedQuestionIndex == data.index) {

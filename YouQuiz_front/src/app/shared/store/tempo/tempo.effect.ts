@@ -24,6 +24,21 @@ export class TempoEffect {
     )
   );
 
+  createTempo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tempoPageActions.addTempo),
+      concatMap((action) =>
+        this.tempoService
+          .addTempo(action.tempo)
+          .pipe(
+            map((addedTempo) =>
+              tempoApiActions.tempoAddedSuccessfully({ addedTempo })
+            )
+          )
+      )
+    )
+  );
+
   detachQuestionFromQuiz$ = createEffect(() =>
     this.actions$.pipe(
       ofType(tempoPageActions.deleteTempo),

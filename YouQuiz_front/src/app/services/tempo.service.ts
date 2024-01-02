@@ -20,6 +20,16 @@ export class TempoService {
 
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
+  addTempo(tempo: ITempoQuiz): Observable<ITempoQuiz> {
+    return this.http
+      .post<ITempoQuiz>(
+        `${this.baseUrl}/questions/tempo`,
+        tempo,
+        this.httpOptions
+      )
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
   getQuestionsByQuiz(tempoID: ITempoID): Observable<ITempoQuiz[]> {
     return this.http
       .get<ITempoQuiz[]>(

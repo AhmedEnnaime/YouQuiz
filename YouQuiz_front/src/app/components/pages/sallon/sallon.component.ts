@@ -84,8 +84,6 @@ export class SallonComponent implements OnChanges {
   onFormChange(updatedForm: FormGroup): void {
     this.questionForm = updatedForm;
     updatedForm.valueChanges.subscribe((newValues) => {
-      console.log(newValues.questionID);
-
       this.tempo = {
         question: {
           id: newValues.questionID,
