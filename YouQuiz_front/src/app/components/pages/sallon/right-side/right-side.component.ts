@@ -41,8 +41,14 @@ export class RightSideComponent implements OnInit, OnChanges {
   }
 
   setQuestionForm(): void {
+    console.log(this.selectedQuestion?.id?.questionID);
+
     this.form = this.fb.group({
-      id: [this.selectedQuestion?.id ?? null],
+      questionID: [
+        this.selectedQuestion?.id?.questionID == undefined
+          ? null
+          : this.selectedQuestion.id.questionID,
+      ],
       questionType: [
         this.selectedQuestion?.question?.questionType.toString() as string,
       ],
