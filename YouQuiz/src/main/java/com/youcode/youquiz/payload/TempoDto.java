@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TempoUpdateDto {
+public class TempoDto {
 
     private TempoID id;
     private QuestionDto question;

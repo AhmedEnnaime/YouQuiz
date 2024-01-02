@@ -2,12 +2,12 @@ import { Trainer } from './trainer.model';
 
 export class Quiz {
   public id?: number;
-  public score: number;
-  public showAnswers: boolean;
-  public showFinalResults: boolean;
-  public chanceNum: number;
+  public score?: number;
+  public showAnswers?: boolean;
+  public showFinalResults?: boolean;
+  public chanceNum?: number;
   public remark?: string;
-  public durationInMinutes: number;
+  public durationInMinutes?: number;
   public trainer_id?: number;
   public trainer?: Trainer;
 

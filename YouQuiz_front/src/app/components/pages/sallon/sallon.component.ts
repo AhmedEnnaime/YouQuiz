@@ -74,7 +74,9 @@ export class SallonComponent implements OnChanges {
           level_id: latestValues.level_id,
         },
         time: latestValues.time,
-        quiz: null,
+        quiz: {
+          id: this.quizID,
+        },
       };
     });
   }
@@ -86,6 +88,7 @@ export class SallonComponent implements OnChanges {
 
       this.tempo = {
         question: {
+          id: (this.selectedQuestion?.id as number) ?? null,
           questionText: this.questionText as string,
           questionType: newValues.questionType,
           totalScore: newValues.totalScore,
@@ -93,7 +96,9 @@ export class SallonComponent implements OnChanges {
           level_id: newValues.level_id,
         },
         time: newValues.time,
-        quiz: null,
+        quiz: {
+          id: this.quizID,
+        },
       };
     });
   }
@@ -111,7 +116,13 @@ export class SallonComponent implements OnChanges {
   }
 
   saveQuestion(): void {
-    console.log('Save');
+    console.log(this.tempo);
+
+    // this.store.dispatch(
+    //   tempoPageActions.addTempo({
+    //     tempo: this.tempo as ITempoQuiz,
+    //   })
+    // );
   }
 
   handleSubmit() {

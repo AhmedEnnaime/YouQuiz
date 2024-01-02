@@ -1,10 +1,7 @@
 package com.youcode.youquiz.controllers;
 
 import com.youcode.youquiz.models.dto.*;
-import com.youcode.youquiz.payload.QuestionDtoResponse;
-import com.youcode.youquiz.payload.SubjectDtoResponse;
-import com.youcode.youquiz.payload.TempoQuizDtoResponse;
-import com.youcode.youquiz.payload.TempoUpdateDto;
+import com.youcode.youquiz.payload.*;
 import com.youcode.youquiz.services.LevelService;
 import com.youcode.youquiz.services.QuestionService;
 import com.youcode.youquiz.services.SubjectService;
@@ -94,8 +91,8 @@ public class QuestionController {
     }
 
     @PostMapping("/tempo")
-    public ResponseEntity<TempoQuizDto> assignQuestionToQuiz(@Valid @RequestBody TempoQuizDto tempoQuizDto) {
-        TempoQuizDto createdTempoQuiz = tempoQuizService.save(tempoQuizDto);
+    public ResponseEntity<TempoQuizDtoResponse> assignQuestionToQuiz(@Valid @RequestBody TempoDto tempoQuizDto) {
+        TempoQuizDtoResponse createdTempoQuiz = tempoQuizService.save(tempoQuizDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTempoQuiz);
     }
 
@@ -109,8 +106,8 @@ public class QuestionController {
     }
 
     @PatchMapping("/tempo/{questionID}/quiz/{quizID}")
-    public ResponseEntity<TempoUpdateDto> updateTempo(@PathVariable Long questionID, @PathVariable Long quizID, @Valid @RequestBody TempoUpdateDto tempoQuizDto) {
-        TempoUpdateDto updatedTempoQuiz = tempoQuizService.update(questionID, quizID, tempoQuizDto);
+    public ResponseEntity<TempoDto> updateTempo(@PathVariable Long questionID, @PathVariable Long quizID, @Valid @RequestBody TempoDto tempoQuizDto) {
+        TempoDto updatedTempoQuiz = tempoQuizService.update(questionID, quizID, tempoQuizDto);
         return ResponseEntity.ok(updatedTempoQuiz);
     }
 
