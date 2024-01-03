@@ -10,6 +10,7 @@ import com.youcode.youquiz.models.entities.Response;
 import com.youcode.youquiz.models.entities.Validation;
 import com.youcode.youquiz.models.enums.QuestionType;
 import com.youcode.youquiz.payload.QuestionDtoResponse;
+import com.youcode.youquiz.payload.ValidationDtoResponse;
 import com.youcode.youquiz.repositories.ValidationRepository;
 import com.youcode.youquiz.services.ValidationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +49,7 @@ public class ValidationServiceImplTest {
 
     private Validation validation;
 
-    private ValidationDto validationDto;
+    private ValidationDtoResponse validationDto;
 
     private Question question;
 
@@ -96,10 +97,10 @@ public class ValidationServiceImplTest {
                 .points(10.00)
                 .build();
 
-        validationDto = new ValidationDto();
+        validationDto = new ValidationDtoResponse();
         validationDto.setId(1L);
-        validationDto.setQuestion_id(question.getId());
-        validationDto.setResponse_id(response.getId());
+        validationDto.setQuestion(questionDtoResponse);
+        validationDto.setResponse(responseDto);
         validationDto.setPoints(10.00);
     }
 
@@ -114,7 +115,7 @@ public class ValidationServiceImplTest {
             validationService.save(validationDto);
         });
         assertThat(exception.getMessage()).isEqualTo("Validation already exists for question_id: " +
-                validationDto.getQuestion_id() + " and response_id: " + validationDto.getResponse_id());
+                validationDto.getQuestion().getId() + " and response_id: " + validationDto.getResponse().getId());
         verify(validationRepository, never()).save(any(Validation.class));
     }
 

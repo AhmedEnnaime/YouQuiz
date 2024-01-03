@@ -83,8 +83,6 @@ z
 JYouQuiz/src/main/java/com/youcode/youquiz/controllers/LevelController.java,8/6/864c78961eb747d8a09490537f5434e862a60058
 |
 LYouQuiz/src/main/java/com/youcode/youquiz/controllers/SubjectController.java,6/8/682457c03d659016f740a1594ab519c3e508d8da
-u
-EYouQuiz/src/main/java/com/youcode/youquiz/payload/TempoUpdateDto.java,f/9/f929d84482fdd6da6d520a364cfded374810208f
 …
 UYouQuiz/src/test/java/com/youcode/youquiz/services/impl/TempoQuizServiceImplTest.java,c/5/c592c3da8bcf0abc07232648d11f7cd8c99fd3ea
 y
@@ -101,5 +99,5 @@ DYouQuiz/src/main/java/com/youcode/youquiz/models/dto/SubjectDto.java,b/5/b5763
 OYouQuiz/src/main/java/com/youcode/youquiz/services/impl/SubjectServiceImpl.java,0/e/0e44edb4c25f90a95f662a350aea12d1371c3dcd
 †
 VYouQuiz/src/test/java/com/youcode/youquiz/services/impl/ValidationServiceImplTest.java,2/7/27707e8127379f8735e3778a6dcb5e0b8a00fe40
-v
-FYouQuiz/src/main/java/com/youcode/youquiz/payload/TempoQuizAddDto.java,0/c/0ca62675e171643ab7e5d456247d2e3ec0fde675
+o
+?YouQuiz/src/main/java/com/youcode/youquiz/payload/TempoDto.java,3/8/386bd7ff48d8b3b9c1abf978a57b905e988dfa9c

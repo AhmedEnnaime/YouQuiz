@@ -1,11 +1,6 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { ITempoQuiz } from 'src/app/shared/models/ITempoQuiz';
 import { IValidation } from 'src/app/shared/models/IValidation';
 
 @Component({
@@ -16,6 +11,7 @@ import { IValidation } from 'src/app/shared/models/IValidation';
 export class ResponsesOptionsComponent implements OnInit {
   @Input() validations?: Observable<IValidation[]>;
   validationsList?: IValidation[];
+  @Input() selectedQuestion?: ITempoQuiz;
 
   private handleValidations(): void {
     this.validations?.subscribe((validationsList) => {

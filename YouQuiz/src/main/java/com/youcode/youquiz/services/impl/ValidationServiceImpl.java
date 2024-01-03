@@ -40,23 +40,36 @@ public class ValidationServiceImpl implements ValidationService {
     private ResponseRepository responseRepository;
 
     @Override
-    public ValidationDto save(ValidationDto validationDto) {
-        QuestionDtoResponse question = questionService.findByID(validationDto.getQuestion_id());
-        ResponseDto response = responseService.findByID(validationDto.getResponse_id());
+    public ValidationDtoResponse save(ValidationDtoResponse validationDto) {
+        QuestionDtoResponse question = questionService.findByID(validationDto.getQuestion().getId());
+        ResponseDto response = new ResponseDto();
+        if(validationDto.getResponse().getId() != null) {
+            response = responseService.findByID(validationDto.getResponse().getId());
+        }
 
-        if (validationRepository.existsByQuestionIdAndResponseId(question.getId(), response.getId())) {
-            throw new ValidationExistsException("Validation already exists for question_id: " +
-                    validationDto.getQuestion_id() + " and response_id: " + validationDto.getResponse_id());
+
+        if(response.getId() != null && question.getId() != null && (validationRepository.existsByQuestionIdAndResponseId(question.getId(), response.getId()))) {
+                throw new ValidationExistsException("Validation already exists for question_id: " +
+                        validationDto.getQuestion().getId() + " and response_id: " + validationDto.getResponse().getId());
+
         }
 
         Validation validation = modelMapper.map(validationDto, Validation.class);
         validation.setQuestion(modelMapper.map(question, Question.class));
+
+        if (validationDto.getResponse().getId() == null) {
+            ResponseDto newResponseDto = new ResponseDto();
+            newResponseDto.setResponse(validationDto.getResponse().getResponse());
+            response = responseService.save(newResponseDto);
+        }
+
         validation.setResponse(modelMapper.map(response, Response.class));
 
         validation = validationRepository.save(validation);
 
-        return modelMapper.map(validation, ValidationDto.class);
+        return modelMapper.map(validation, ValidationDtoResponse.class);
     }
+
 
     @Override
     public ValidationDtoResponse update(Long id, ValidationDtoResponse validationDto) {

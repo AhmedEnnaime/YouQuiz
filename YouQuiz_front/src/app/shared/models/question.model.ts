@@ -5,9 +5,9 @@ import { Media } from './media.model';
 
 export class Question {
   public id?: number | null;
-  public questionText: string | null;
-  public questionType: QuestionType;
-  public totalScore: number;
+  public questionText?: string | null;
+  public questionType?: QuestionType;
+  public totalScore?: number;
   public subject?: Subject;
   public level?: Level;
   public medias?: Media[];

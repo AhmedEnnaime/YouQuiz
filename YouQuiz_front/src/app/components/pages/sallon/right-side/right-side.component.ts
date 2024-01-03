@@ -48,7 +48,9 @@ export class RightSideComponent implements OnInit, OnChanges {
           : this.selectedQuestion.id.questionID,
       ],
       questionType: [
-        this.selectedQuestion?.question?.questionType.toString() as string,
+        this.selectedQuestion?.question?.questionType
+          ? (this.selectedQuestion?.question?.questionType.toString() as string)
+          : null,
       ],
       level_id: [this.selectedQuestion?.question?.level?.id],
       subject_id: [this.selectedQuestion?.question?.subject?.id],

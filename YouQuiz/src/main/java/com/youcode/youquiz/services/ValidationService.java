@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ValidationService {
 
-    ValidationDto save(ValidationDto validationDto);
+    ValidationDtoResponse save(ValidationDtoResponse validationDto);
 
     ValidationDtoResponse update(Long id, ValidationDtoResponse validationDto);
 

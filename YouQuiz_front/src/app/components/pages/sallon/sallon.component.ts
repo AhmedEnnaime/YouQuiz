@@ -26,7 +26,7 @@ export class SallonComponent implements OnChanges {
   tempos: Observable<ITempoQuiz[]>;
   validations: Observable<IValidation[]>;
   quizID?: number;
-  selectedQuestion: ITempoQuiz | null = null;
+  selectedQuestion?: ITempoQuiz;
   tempoID?: ITempoID;
   selectedQuestionText?: string | null;
   @Output() selectedQuestionChange = new EventEmitter<ITempoQuiz>();

@@ -24,8 +24,8 @@ public class ValidationController {
     private ValidationService validationService;
 
     @PostMapping
-    public ResponseEntity<ValidationDto> createValidation(@Valid @RequestBody ValidationDto validationDto) {
-        ValidationDto savedValidationDto = validationService.save(validationDto);
+    public ResponseEntity<ValidationDtoResponse> createValidation(@Valid @RequestBody ValidationDtoResponse validationDto) {
+        ValidationDtoResponse savedValidationDto = validationService.save(validationDto);
         return ResponseEntity.ok(savedValidationDto);
     }
 

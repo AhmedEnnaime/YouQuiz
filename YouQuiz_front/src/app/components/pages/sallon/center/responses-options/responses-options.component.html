@@ -1,5 +1,6 @@
 <div class="w-full grid grid-cols-2 gap-4">
     <div *ngFor="let validation of validationsList">
-        <app-response-option-card [validation]="validation"></app-response-option-card>
+        <app-response-option-card [selectedQuestion]="selectedQuestion"
+            [validation]="validation"></app-response-option-card>
     </div>
 </div>

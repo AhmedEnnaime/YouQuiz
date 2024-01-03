@@ -10,7 +10,7 @@ import { IValidation } from 'src/app/shared/models/IValidation';
 })
 export class CenterComponent implements OnInit {
   @Input() tempos?: Observable<ITempoQuiz[]>;
-  @Input() selectedQuestion?: ITempoQuiz | null;
+  @Input() selectedQuestion?: ITempoQuiz;
   @Input() validations?: Observable<IValidation[]>;
   @Output() selectedQuestionTextChange = new EventEmitter<string | null>();
   questionText: string | null | undefined =
