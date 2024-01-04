@@ -1,5 +1,6 @@
 package com.youcode.youquiz.configuration;
 
+import com.youcode.youquiz.exceptions.InvalidTotalScoreException;
 import com.youcode.youquiz.exceptions.MaxAttemptsReachedException;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.exceptions.ValidationExistsException;
@@ -55,6 +56,14 @@ public class ValidationException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ValidationExistsException.class)
     public Map<String, String> handleValidationExistsException(ValidationExistsException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidTotalScoreException.class)
+    public Map<String, String> handleInvalidTotalScoreException(InvalidTotalScoreException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return errors;

@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
+import com.youcode.youquiz.exceptions.InvalidTotalScoreException;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.exceptions.ValidationExistsException;
 import com.youcode.youquiz.models.dto.ResponseDto;
@@ -47,11 +48,13 @@ public class ValidationServiceImpl implements ValidationService {
             response = responseService.findByID(validationDto.getResponse().getId());
         }
 
+        Double existingPointsSum = validationRepository.sumPointsByQuestionId(question.getId()) != null ?
+                validationRepository.sumPointsByQuestionId(question.getId()) : 0.0;
+        Double newPoints = validationDto.getPoints() != null ? validationDto.getPoints() : 0.0;
+        double totalPoints = existingPointsSum + newPoints;
 
-        if(response.getId() != null && question.getId() != null && (validationRepository.existsByQuestionIdAndResponseId(question.getId(), response.getId()))) {
-                throw new ValidationExistsException("Validation already exists for question_id: " +
-                        validationDto.getQuestion().getId() + " and response_id: " + validationDto.getResponse().getId());
-
+        if (totalPoints > question.getTotalScore()) {
+            throw new InvalidTotalScoreException("Sum of validation points exceeds totalScore for question with ID: " + question.getId());
         }
 
         Validation validation = modelMapper.map(validationDto, Validation.class);
@@ -79,6 +82,15 @@ public class ValidationServiceImpl implements ValidationService {
 
         if (validationDto.getQuestion() != null) {
             QuestionDtoResponse questionDtoResponse = questionService.findByID(validationDto.getQuestion().getId());
+            Double existingPointsSum = validationRepository.sumPointsByQuestionId(questionDtoResponse.getId()) != null ?
+                    validationRepository.sumPointsByQuestionId(questionDtoResponse.getId()) : 0.0;
+            Double newPoints = validationDto.getPoints() != null ? validationDto.getPoints() : 0.0;
+            double totalPoints = existingPointsSum + newPoints;
+
+            if (totalPoints > questionDtoResponse.getTotalScore()) {
+                throw new InvalidTotalScoreException("Sum of validation points exceeds totalScore for question with ID: " + questionDtoResponse.getId());
+            }
+
             existingValidation.setQuestion(modelMapper.map(questionDtoResponse, Question.class));
         }
 
@@ -91,10 +103,10 @@ public class ValidationServiceImpl implements ValidationService {
             }
             existingValidation.setResponse(responseRepository.save(existingResponse));
         }
+
         existingValidation = validationRepository.save(existingValidation);
         return modelMapper.map(existingValidation, ValidationDtoResponse.class);
     }
-
 
     @Override
     public void delete(Long id) {

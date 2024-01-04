@@ -101,3 +101,5 @@ OYouQuiz/src/main/java/com/youcode/youquiz/services/impl/SubjectServiceImpl.java
 VYouQuiz/src/test/java/com/youcode/youquiz/services/impl/ValidationServiceImplTest.java,2/7/27707e8127379f8735e3778a6dcb5e0b8a00fe40
 o
 ?YouQuiz/src/main/java/com/youcode/youquiz/payload/TempoDto.java,3/8/386bd7ff48d8b3b9c1abf978a57b905e988dfa9c
+„
+TYouQuiz/src/main/java/com/youcode/youquiz/exceptions/InvalidTotalScoreException.java,c/9/c9e3d87a2d1fc6cffd09e7b414cd77d17f3e5dac
