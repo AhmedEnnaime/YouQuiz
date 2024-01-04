@@ -103,3 +103,5 @@ o
 ?YouQuiz/src/main/java/com/youcode/youquiz/payload/TempoDto.java,3/8/386bd7ff48d8b3b9c1abf978a57b905e988dfa9c
 „
 TYouQuiz/src/main/java/com/youcode/youquiz/exceptions/InvalidTotalScoreException.java,c/9/c9e3d87a2d1fc6cffd09e7b414cd77d17f3e5dac
+ƒ
+SYouQuiz/src/main/java/com/youcode/youquiz/exceptions/InvalidQuizScoreException.java,8/c/8c20bdf62c47c1bd89930565258969876f0b44eb

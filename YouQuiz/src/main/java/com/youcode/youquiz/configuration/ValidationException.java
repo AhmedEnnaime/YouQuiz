@@ -1,9 +1,6 @@
 package com.youcode.youquiz.configuration;
 
-import com.youcode.youquiz.exceptions.InvalidTotalScoreException;
-import com.youcode.youquiz.exceptions.MaxAttemptsReachedException;
-import com.youcode.youquiz.exceptions.ResourceNotFoundException;
-import com.youcode.youquiz.exceptions.ValidationExistsException;
+import com.youcode.youquiz.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -64,6 +61,14 @@ public class ValidationException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidTotalScoreException.class)
     public Map<String, String> handleInvalidTotalScoreException(InvalidTotalScoreException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidQuizScoreException.class)
+    public Map<String, String> handleInvalidQuizScoreException(InvalidQuizScoreException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return errors;

@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
+import com.youcode.youquiz.exceptions.InvalidQuizScoreException;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.QuestionDto;
 import com.youcode.youquiz.models.dto.QuizDto;
@@ -44,10 +45,23 @@ public class TempoQuizServiceImpl implements TempoQuizService {
 
     @Override
     public TempoQuizDtoResponse save(TempoDto tempoQuizDto) {
+        QuizDto quizDto = modelMapper.map(quizService.findByID(tempoQuizDto.getQuiz().getId()), QuizDto.class);
 
-        tempoQuizDto.setQuiz(modelMapper.map(quizService.findByID(tempoQuizDto.getQuiz().getId()), QuizDto.class));
+        Double totalScoreOfQuestionsInQuiz = tempoQuizRepository.sumTotalScoreByQuizId(tempoQuizDto.getQuiz().getId()) != null ?
+                tempoQuizRepository.sumTotalScoreByQuizId(tempoQuizDto.getQuiz().getId()) : 0.0;
 
-        if(tempoQuizDto.getQuestion().getId() == null) {
+        Double totalScoreOfNewQuestion = tempoQuizDto.getQuestion().getTotalScore() != null ?
+                tempoQuizDto.getQuestion().getTotalScore() : 0.0;
+
+        double totalScoreWithNewQuestion = totalScoreOfQuestionsInQuiz + totalScoreOfNewQuestion;
+
+        if (totalScoreWithNewQuestion > quizDto.getScore()) {
+            throw new InvalidQuizScoreException("Total score of questions in the quiz exceeds the score of the quiz with ID: " + quizDto.getId());
+        }
+
+        tempoQuizDto.setQuiz(modelMapper.map(quizDto, QuizDto.class));
+
+        if (tempoQuizDto.getQuestion().getId() == null) {
             Question newQuestion = new Question();
             newQuestion.setQuestionType(tempoQuizDto.getQuestion().getQuestionType());
             newQuestion.setQuestionText(tempoQuizDto.getQuestion().getQuestionText());
@@ -60,7 +74,7 @@ public class TempoQuizServiceImpl implements TempoQuizService {
             newQuestion.setLevel(level);
             Question question = questionRepository.save(newQuestion);
             tempoQuizDto.setQuestion(modelMapper.map(question, QuestionDto.class));
-        }else {
+        } else {
             tempoQuizDto.setQuestion(tempoQuizDto.getQuestion());
         }
 
@@ -78,7 +92,6 @@ public class TempoQuizServiceImpl implements TempoQuizService {
         return modelMapper.map(tempoQuiz, TempoQuizDtoResponse.class);
     }
 
-
     @Override
     public TempoID delete(Long questionID, Long quizID) {
         TempoID tempoID = new TempoID(quizID, questionID);
@@ -93,6 +106,21 @@ public class TempoQuizServiceImpl implements TempoQuizService {
         TempoID tempoID = new TempoID(quizID, questionID);
         TempoQuiz tempoQuiz = tempoQuizRepository.findById(tempoID)
                 .orElseThrow(() -> new ResourceNotFoundException("The tempo quiz with id " + tempoID + " is not found"));
+
+        QuizDto quizDto = modelMapper.map(quizService.findByID(quizID), QuizDto.class);
+
+        if (tempoQuizDto.getQuestion() != null && tempoQuizDto.getQuestion().getTotalScore() != null) {
+            Double totalScoreOfQuestionsInQuiz = tempoQuizRepository.sumTotalScoreByQuizId(quizID) != null ?
+                    tempoQuizRepository.sumTotalScoreByQuizId(quizID) : 0.0;
+
+            Double totalScoreOfNewQuestion = tempoQuizDto.getQuestion().getTotalScore();
+
+            double totalScoreWithNewQuestion = totalScoreOfQuestionsInQuiz - tempoQuiz.getQuestion().getTotalScore() + totalScoreOfNewQuestion;
+
+            if (totalScoreWithNewQuestion > quizDto.getScore()) {
+                throw new InvalidQuizScoreException("Total score of questions in the quiz exceeds the score of the quiz with ID: " + quizID);
+            }
+        }
 
         Optional.ofNullable(tempoQuizDto.getTime()).ifPresent(tempoQuiz::setTime);
         tempoQuiz.setId(tempoID);
