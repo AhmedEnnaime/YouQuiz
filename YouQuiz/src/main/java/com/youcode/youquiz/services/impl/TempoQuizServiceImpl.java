@@ -1,5 +1,6 @@
 package com.youcode.youquiz.services.impl;
 
+import com.youcode.youquiz.exceptions.InvalidQuizDurationException;
 import com.youcode.youquiz.exceptions.InvalidQuizScoreException;
 import com.youcode.youquiz.exceptions.ResourceNotFoundException;
 import com.youcode.youquiz.models.dto.QuestionDto;
@@ -46,6 +47,17 @@ public class TempoQuizServiceImpl implements TempoQuizService {
     @Override
     public TempoQuizDtoResponse save(TempoDto tempoQuizDto) {
         QuizDto quizDto = modelMapper.map(quizService.findByID(tempoQuizDto.getQuiz().getId()), QuizDto.class);
+
+        if (tempoQuizDto.getTime() != null) {
+            Optional<Integer> totalDurationOfQuestionsInQuiz = tempoQuizRepository.sumTimeByQuizId(tempoQuizDto.getQuiz().getId());
+
+            Integer durationOfNewTempo = tempoQuizDto.getTime();
+            int totalDurationWithNewTempo = totalDurationOfQuestionsInQuiz.orElse(0) + durationOfNewTempo;
+
+            if (totalDurationWithNewTempo > quizDto.getDurationInMinutes() * 60) {
+                throw new InvalidQuizDurationException("Total duration of questions in the quiz exceeds the duration of the quiz with ID: " + quizDto.getId());
+            }
+        }
 
         Double totalScoreOfQuestionsInQuiz = tempoQuizRepository.sumTotalScoreByQuizId(tempoQuizDto.getQuiz().getId()) != null ?
                 tempoQuizRepository.sumTotalScoreByQuizId(tempoQuizDto.getQuiz().getId()) : 0.0;
@@ -108,6 +120,17 @@ public class TempoQuizServiceImpl implements TempoQuizService {
                 .orElseThrow(() -> new ResourceNotFoundException("The tempo quiz with id " + tempoID + " is not found"));
 
         QuizDto quizDto = modelMapper.map(quizService.findByID(quizID), QuizDto.class);
+
+        if (tempoQuizDto.getTime() != null) {
+            Optional<Integer> optionalTotalDuration = tempoQuizRepository.sumTimeByQuizId(quizID);
+            Integer totalDurationOfQuestionsInQuiz = optionalTotalDuration.orElse(0);
+            Integer durationOfNewTempo = tempoQuizDto.getTime();
+            int totalDurationWithNewTempo = totalDurationOfQuestionsInQuiz - tempoQuiz.getTime() + durationOfNewTempo;
+
+            if (totalDurationWithNewTempo > quizDto.getDurationInMinutes() * 60) {
+                throw new InvalidQuizDurationException("Total duration of questions in the quiz exceeds the duration of the quiz with ID: " + quizID);
+            }
+        }
 
         if (tempoQuizDto.getQuestion() != null && tempoQuizDto.getQuestion().getTotalScore() != null) {
             Double totalScoreOfQuestionsInQuiz = tempoQuizRepository.sumTotalScoreByQuizId(quizID) != null ?

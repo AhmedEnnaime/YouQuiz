@@ -74,4 +74,12 @@ public class ValidationException {
         return errors;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidQuizDurationException.class)
+    public Map<String, String> handleInvalidQuizDurationException(InvalidQuizDurationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
+
 }

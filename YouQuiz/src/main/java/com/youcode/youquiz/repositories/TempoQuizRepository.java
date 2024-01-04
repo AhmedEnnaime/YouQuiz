@@ -8,10 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TempoQuizRepository extends JpaRepository<TempoQuiz, TempoID> {
     List<TempoQuiz> findByQuiz_Id(Long quizId);
     @Query("SELECT COALESCE(SUM(tq.question.totalScore), 0) FROM TempoQuiz tq WHERE tq.quiz.id = :quizId")
     Double sumTotalScoreByQuizId(@Param("quizId") Long quizId);
+
+    @Query("SELECT SUM(tq.time) FROM TempoQuiz tq WHERE tq.quiz.id = :quizId")
+    Optional<Integer> sumTimeByQuizId(@Param("quizId") Long quizId);
 }
